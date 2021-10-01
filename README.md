@@ -1,2 +1,3 @@
 # DiariodeMascotas
- Servicio enfocado en el manejo de atenciones de mascotas para instituciones veterinarias, fundaciones, dueños de mascota promedio, junto con manejar seguramente el proceso de adopción a nivel región. (Proyecto Topicos avanzados de ing. software)
+ Servicio enfocado en un manejo seguro y transparente de datos, controles, y fichas de adopción relacionado a mascotas, con el objetivo de facilitar el trabajo para veterinarios y funcionarios pertenecientes a instituciones veterinarias y/o fundaciones, y también al dueño de mascota promedio. 
+(Proyecto Topicos avanzados de ing. software)
