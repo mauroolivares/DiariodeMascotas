@@ -15,7 +15,7 @@ fichaAdopcion(id, fecha, observacion, rutVet, rutUsuario, idMascota)
 */
 
 create table usuario(
-	rut varchar(12) not null,
+	rut varchar(12) not null primary key,
 	correo text not null,
 	password text not null,
 	nombreCompleto text not null,
@@ -23,12 +23,13 @@ create table usuario(
 	ubicacion text not null,
 	telefono int not null,
 	direccion text not null,
-	fechaNacimiento DATE not null,
-	primary key(rut)
+	fechaNacimiento DATE not null
 );
 
 create table administrador(
-	rut varchar(12) primary key not null references usuario(rut)
+	rut varchar(12) not null,
+	primary key(rut),
+	foreign key(rut) references usuario(rut)
 );
 
 create table institucion(
@@ -41,7 +42,8 @@ create table institucion(
 create table veterinario(
 	rut varchar(12) primary key not null references usuario(rut),
 	especialidad text not null,
-	rutInstitucion varchar(12) primary key references institucion(rut)
+	rutInstitucion varchar(12),
+	foreign key(rutInstitucion) references institucion(rut)
 	--[PUEDE SER NULL?]
 );
 
@@ -69,8 +71,8 @@ create table mascota(
 create table controlMedico(
 	id text not null,
 	fecha DATE not null,
-	peso float32 not null,
-	temperatura float32 not null,
+	peso float not null,
+	temperatura float not null,
 	vacuna text not null,
 	estado text not null,
 	observacion text not null,
@@ -79,8 +81,6 @@ create table controlMedico(
 	rutUsuario varchar(12) not null references usuario(rut),
 	idMascota text not null references mascota(id)
 );
-
-fichaAdopcion(id, fecha, observacion, rutVet, rutUsuario, idMascota)
 
 create table fichaAdopcion(
 	id text not null,
