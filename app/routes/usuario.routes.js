@@ -1,0 +1,28 @@
+module.exports = app => {
+    const usuario = require("../controllers/usuario.controller.js");
+
+    var router = require("express").Router();
+
+    // Create a new Tutorial
+    router.post("/", usuario.create);
+
+    // Retrieve all usuario
+    router.get("/", usuario.findAll);
+
+    // Retrieve all published usuario
+    router.get("/published", usuario.findAllPublished);
+
+    // Retrieve a single Tutorial with id
+    router.get("/:id", usuario.findOne);
+
+    // Update a Tutorial with id
+    router.put("/:id", usuario.update);
+
+    // Delete a Tutorial with id
+    router.delete("/:id", usuario.delete);
+
+    // Create a new Tutorial
+    router.delete("/", usuario.deleteAll);
+
+    app.use('/api/usuario', router);
+};
