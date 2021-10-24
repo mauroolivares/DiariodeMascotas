@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
+const flash = require("express-flash");
+const session = require("express-session");
+const passport = require("passport");
 
 const app = express();
 
@@ -18,7 +21,21 @@ app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 app.set('appName', 'Diario de Mascotas');
-
+app.use(
+    session({
+        // Key we want to keep secret which will encrypt all of our information
+        secret: process.env.SESSION_SECRET,
+        // Should we resave our session variables if nothing has changes which we dont
+        resave: false,
+        // Save empty value if there is no vaue which we do not want to do
+        saveUninitialized: false
+    })
+);
+// Funtion inside passport which initializes passport
+app.use(passport.initialize());
+// Store our variables to be persisted across the whole session. Works with app.use(Session) above
+app.use(passport.session());
+app.use(flash());
 
 const db = require("./app/models");
 
