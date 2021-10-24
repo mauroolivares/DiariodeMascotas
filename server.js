@@ -24,7 +24,7 @@ app.set('appName', 'Diario de Mascotas');
 app.use(
     session({
         // Key we want to keep secret which will encrypt all of our information
-        secret: process.env.SESSION_SECRET,
+        secret: 'secret',
         // Should we resave our session variables if nothing has changes which we dont
         resave: false,
         // Save empty value if there is no vaue which we do not want to do
@@ -41,11 +41,7 @@ const db = require("./app/models");
 
 db.sequelize.sync();
 
-app.get("/", (req, res) => {
-    res.render("login");
-});
-
-require("./app/routes/usuario.routes.js")(app);
+app.use(require('./app/routes/usuario.routes.js'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

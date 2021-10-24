@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         correo: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            defaultValue: ""
         },
         password: {
             type: Sequelize.STRING
@@ -23,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         telefono: {
             type: Sequelize.INTEGER,
-            defaultValue: ""
+            defaultValue: 0
         },
         direccion: {
             type: Sequelize.STRING,
@@ -31,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         fechanacimiento: {
             type: Sequelize.DATE,
-            defaultValue: ""
+            defaultValue: 01 - 01 - 1900
         }
     });
     return Usuario;

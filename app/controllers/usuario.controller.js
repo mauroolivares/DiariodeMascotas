@@ -13,11 +13,10 @@ exports.saveUser = (req, res) => {
         return;
     }
 
-    async
     const usuario = {
         rut: req.body.rut,
         correo: req.body.correo,
-        password: await bcrypt.hash(req.body.password, 10),
+        password: req.body.password,
         nombrecompleto: req.body.nombrecompleto
     };
 
@@ -35,7 +34,7 @@ exports.authenticateUserWithemail = (usuario) => {
         try {
             usermodel.findOne({
                 where: {
-                    user_email: user.userName // user email
+                    user_email: user.rut // user email
                 }
             }).then(async(response) => {
                 if (!response) {
@@ -63,6 +62,9 @@ exports.authenticateUserWithemail = (usuario) => {
     })
 }
 
+exports.loggedin = (req, res) => {
+
+}
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
@@ -71,13 +73,14 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-    const rut = req.params.rut;
+    const rut = req.body.rut;
 
     Usuario.findByPk(rut)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
+                console.log(req.body)
                 res.status(404).send({
                     message: `Cannot find Tutorial with id=${rut}.`
                 });
