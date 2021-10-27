@@ -5,7 +5,7 @@ const Usuario = db.usuario;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
-exports.saveUser = (req, res) => {
+exports.saveUser = async(req, res) => {
     if (!req.body.rut || req.body.rut < 8) {
         res.status(400).send({
             message: "No puede estar vacio."
@@ -16,7 +16,7 @@ exports.saveUser = (req, res) => {
     const usuario = {
         rut: req.body.rut,
         correo: req.body.correo,
-        password: req.body.password,
+        password: await bcrypt.hash(req.body.password, 10),
         nombrecompleto: req.body.nombrecompleto
     };
 
