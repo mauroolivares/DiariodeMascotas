@@ -23,18 +23,21 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     }
 });
 
+/*
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.admin = require("./admin.model.js")(sequelize, Sequelize);
+db.administrador = require("./admin.model.js")(sequelize, Sequelize);
 db.usuario = require("./usuario.model.js")(sequelize, Sequelize);
-db.vet = require("./vet.model.js")(sequelize, Sequelize);
-db.owner = require("./owner.model.js")(sequelize, Sequelize);
-db.instit = require("./instit.model.js")(sequelize, Sequelize);
-db.adoptform = require("./adoptform.model.js")(sequelize, Sequelize);
+db.veterinario = require("./vet.model.js")(sequelize, Sequelize);
+db.dueno = require("./owner.model.js")(sequelize, Sequelize);
+db.instituto = require("./instit.model.js")(sequelize, Sequelize);
+db.fichaadopcion = require("./adoptform.model.js")(sequelize, Sequelize);
 db.control = require("./control.model.js")(sequelize, Sequelize);
-db.pet = require("./pet.model.js")(sequelize, Sequelize);
+db.mascota = require("./pet.model.js")(sequelize, Sequelize);
 
 module.exports = db;
+*/
+module.exports = { sequelize };

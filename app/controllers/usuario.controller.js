@@ -1,10 +1,7 @@
-const db = require("../models");
 const bcrypt = require('bcrypt');
+const Usuario = require('../models/usuario.model');
 
-const Usuario = db.usuario;
-const Op = db.Sequelize.Op;
-
-// Create and Save a new Tutorial
+// Crea un Usuario
 exports.saveUser = async(req, res) => {
     if (!req.body.rut || req.body.rut < 8) {
         res.status(400).send({
@@ -29,26 +26,41 @@ exports.saveUser = async(req, res) => {
     });
 };
 
-exports.authenticateUserWithemail = (usuario) => {
+exports.authenticateUserWithemail = (req, res) => {
+    const rut = req.body.rut;
+    Usuario.findByPk(rut)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                console.log(req.body)
+                res.status(404).send({
+                    message: `Cannot find Tutorial with id=${rut}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Tutorial with id=" + rut
+            });
+        });
+
     return new Promise((resolve, reject) => {
         try {
-            usermodel.findOne({
-                where: {
-                    user_email: user.rut // user email
-                }
-            }).then(async(response) => {
-                if (!response) {
-                    resolve(false);
-                } else {
-                    if (!response.dataValues.password ||
-                        !await response.validPassword(user.password,
-                            response.dataValues.password)) {
+            Usuario.findByPk(rut)
+                .then(async(response) => {
+                    if (!response) {
                         resolve(false);
                     } else {
-                        resolve(response.dataValues)
+                        if (!response.dataValues.password ||
+                            !await response.validPassword(user.password,
+                                response.dataValues.password)) {
+                            resolve(false);
+                        } else {
+                            resolve(response.dataValues)
+                        }
                     }
-                }
-            })
+                })
         } catch (error) {
             const response = {
                 status: 500,
@@ -108,15 +120,5 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-
-};
-
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-
-};
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
 
 };

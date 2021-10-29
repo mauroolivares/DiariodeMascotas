@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
+const sequelize = require("./app/models/index").sequelize;
+require("./app/models/relaciones");
 
 const app = express();
 
@@ -37,9 +39,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-const db = require("./app/models");
-
-db.sequelize.sync();
+sequelize.sync({ force: false }).then(function() {
+    console.log("DB Configurada");
+});
 
 app.use(require('./app/routes/usuario.routes.js'));
 
@@ -48,3 +50,5 @@ app.listen(PORT, () => {
     console.log(app.get('appName'));
     console.log(`Servidor en http://localhost:${PORT}`);
 });
+
+module.exports = sequelize;
