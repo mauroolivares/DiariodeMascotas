@@ -1,7 +1,11 @@
 const bcrypt = require('bcrypt');
-const Usuario = require('../models/usuario.model');
+const Usuario = require('../models/user.model');
+const Administrador = require('../models/user_admin.model');
+const Veterinario = require('../models/user_vet.model');
+const Institucion = require('../models/user_instit.model');
+const Dueno = require('../models/user_owner.model')
 
-// Crea un Usuario
+// Registra un Usuario
 exports.saveUser = async(req, res) => {
     if (!req.body.rut || req.body.rut < 8) {
         res.status(400).send({
@@ -12,26 +16,83 @@ exports.saveUser = async(req, res) => {
 
     const usuario = {
         rut: req.body.rut,
-        correo: req.body.correo,
         password: await bcrypt.hash(req.body.password, 10),
         nombrecompleto: req.body.nombrecompleto
     };
 
     Usuario.create(usuario).then(data => {
-        res.send(data);
+        console.log(data);
     }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Ha ocurrido un error intentando crear usuario."
-        });
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
+    console.log(usuario);
+
+
+    switch (req.body.tipo) {
+        case "Administrador":
+            Administrador.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
+
+            break;
+
+
+        case "Institucion":
+            usuario.totalfunc = 180;
+            usuario.totalpuestos = 100;
+            usuario.area = "Fundación";
+            console.log(usuario);
+
+            Institucion.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
+
+            break;
+
+        case "Veterinario":
+            usuario.especialidad = "Uhhh si"
+            Veterinario.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
+            console.log(usuario);
+            break;
+
+        case "Dueño":
+            usuario.estado = "X";
+            Dueno.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
+            console.log(usuario);
+            res.send(usuario);
+
+    };
 };
+
 
 exports.authenticateUserWithemail = (req, res) => {
     const rut = req.body.rut;
     Usuario.findByPk(rut)
         .then(data => {
             if (data) {
-                res.send(data);
+                console.log(data);
+                try {
+                    if (await bcrypt.compare(req.body.password, data.password)) {
+                        console.log("logeado");
+                    } else {
+                        console.log("Naonao");
+                    }
+                } catch {
+                    res.status(500).send();
+                }
+                //res.send(data);
             } else {
                 console.log(req.body)
                 res.status(404).send({
@@ -44,34 +105,6 @@ exports.authenticateUserWithemail = (req, res) => {
                 message: "Error retrieving Tutorial with id=" + rut
             });
         });
-
-    return new Promise((resolve, reject) => {
-        try {
-            Usuario.findByPk(rut)
-                .then(async(response) => {
-                    if (!response) {
-                        resolve(false);
-                    } else {
-                        if (!response.dataValues.password ||
-                            !await response.validPassword(user.password,
-                                response.dataValues.password)) {
-                            resolve(false);
-                        } else {
-                            resolve(response.dataValues)
-                        }
-                    }
-                })
-        } catch (error) {
-            const response = {
-                status: 500,
-                data: {},
-                error: {
-                    message: "user match failed"
-                }
-            };
-            reject(response);
-        }
-    })
 }
 
 exports.loggedin = (req, res) => {

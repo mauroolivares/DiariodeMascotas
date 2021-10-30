@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./index').sequelize;
+const sequelize = require('./sequelize_index').sequelize;
 
 const Usuario = sequelize.define("usuario", {
     rut: {
@@ -8,7 +8,7 @@ const Usuario = sequelize.define("usuario", {
     },
     correo: {
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: " "
     },
     password: {
         type: Sequelize.STRING
@@ -18,11 +18,11 @@ const Usuario = sequelize.define("usuario", {
     },
     descripcion: {
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: " "
     },
     ubicacion: {
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: " "
     },
     telefono: {
         type: Sequelize.INTEGER,

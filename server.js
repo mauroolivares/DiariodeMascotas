@@ -5,8 +5,8 @@ const morgan = require("morgan");
 const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
-const sequelize = require("./app/models/index").sequelize;
-require("./app/models/relaciones");
+const sequelize = require("./app/models/sequelize_index").sequelize;
+require("./app/models/models_relations");
 
 const app = express();
 

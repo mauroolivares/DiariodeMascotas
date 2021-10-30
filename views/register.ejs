@@ -5,9 +5,19 @@
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
         <hr>
+        <label for="rut"><b>Tipo</b></label>
+        <p> </p>
+
+        <select name="tipo" id="tipo" class="form-select" aria-label="Estado activacion">
+            <option >Administrador</option>
+             <option >Institucion</option>
+             <option >Veterinario</option>
+             <option >Dueño</option>
+        </select>
+        <p> </p>
 
         <label for="rut"><b>Rut</b></label>
-        <input type="text" placeholder="Enter Email" name="rut" id="email" required>
+        <input type="text" placeholder="Enter Email" name="rut" id="rut" required>
 
         <label for="nombrecompleto"><b>Nombre Completo</b></label>
         <input type="text" placeholder="Enter Name" name="nombrecompleto" id="nombrecompleto" required>

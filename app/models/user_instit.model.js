@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./index').sequelize;
+const sequelize = require('./sequelize_index').sequelize;
 
 const Institucion = sequelize.define("institucion", {
     rut: {
@@ -11,10 +11,12 @@ const Institucion = sequelize.define("institucion", {
         defaultValue: ""
     },
     totalfunc: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     },
     totalpuestos: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     }
     //foreign key rut
 });

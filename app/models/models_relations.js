@@ -1,13 +1,13 @@
-const Usuario = require('./usuario.model')
+const Usuario = require('./user.model')
 
-const Administrador = require('./admin.model')
-const Institucion = require('./instit.model')
-const Dueno = require('./owner.model')
-const Veterinario = require('./vet.model')
+const Administrador = require('./user_admin.model')
+const Institucion = require('./user_instit.model')
+const Dueno = require('./user_owner.model')
+const Veterinario = require('./user_vet.model')
 
-const fichaAdopcion = require('./adoptform.model')
-const Mascota = require('./pet.model')
-const Control = require('./control.model')
+const fichaAdopcion = require('./form_adoptform.model')
+const Mascota = require('./form_pet.model')
+const Control = require('./form_control.model')
 
 //Tipo de usuario y su rut asociado:
 Administrador.belongsTo(Usuario, { as: "rutAdmin", foreignKey: "rut" });

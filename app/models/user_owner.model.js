@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./index').sequelize;
+const sequelize = require('./sequelize_index').sequelize;
 const Dueno = sequelize.define("dueno", {
     rut: {
         type: Sequelize.STRING(10),
@@ -7,7 +7,7 @@ const Dueno = sequelize.define("dueno", {
     },
     estado: {
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: " "
     }
     //foreign key rut
 });

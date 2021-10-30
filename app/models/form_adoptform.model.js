@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./index').sequelize;
+const sequelize = require('./sequelize_index').sequelize;
 
 const fichaAdopcion = sequelize.define("fichaadopcion", {
     id: {
