@@ -77,18 +77,26 @@ exports.saveUser = async(req, res) => {
 };
 
 
-exports.authenticateUserWithemail = (req, res) => {
+exports.authenticateUserWithemail = async(req, res) => {
     const rut = req.body.rut;
     Usuario.findByPk(rut)
         .then(data => {
             if (data) {
                 console.log(data);
                 try {
-                    if (await bcrypt.compare(req.body.password, data.password)) {
-                        console.log("logeado");
-                    } else {
-                        console.log("Naonao");
-                    }
+                    bcrypt.compare(req.body.password, data.password, (err, same) => {
+                        if (err) {
+                            console.log(err);
+                            res.redirect('/')
+                        }
+                        if (same) {
+                            console.log("logeado");
+                            res.send(data);
+                        } else {
+                            console.log("Contraseña incorrecta");
+                            res.redirect('/');
+                        }
+                    });
                 } catch {
                     res.status(500).send();
                 }
