@@ -1,30 +1,31 @@
-const auth = require("../controllers/usuario.controller.js");
+const user = require("../controllers/usuario.controller.js");
 
 var router = require("express").Router();
 
-// Create a new Tutorial
-//router.post("/", usuario.create);
+router.get("/", user.loginpage);
 
-// Retrieve all usuario
-//router.get("/", usuario.findAll);
+router.get("/admin", user.adminMenu);
 
-router.get("/", auth.loginpage);
+router.get("/admin/register", user.adminAddUserMenu);
 
-router.post("/start", auth.authenticateUserWithemail);
+router.get("/admin/editUser", user.adminEditUserMenu);
 
-router.post("/", auth.saveUser);
+router.post("admin/edited", user.editUser);
 
-router.get("/signin", auth.signpage);
+router.get("/instit", user.institMenu);
 
+router.get("/instit/vets", user.instiVetsMenu);
 
-// Retrieve a single Tutorial with id
-router.get("/:id", auth.findOne);
+router.get("/instit/pets", user.institPetsMenu);
 
-// Update a Tutorial with id
-router.put("/:id", auth.update);
+router.get("/profile", user.duenoMenu);
 
-// Delete a Tutorial with id
-router.delete("/:id", auth.delete);
+router.get("/profile/pets", user.duenoMascotaMenu);
 
+router.post("/loggedin", user.authenticateUserWithemail);
+
+router.post("/", user.saveUser);
+
+router.get("/signin", user.signpage);
 
 module.exports = router;
