@@ -1,31 +1,31 @@
-module.exports = app => {
-    const usuario = require("../controllers/usuario.controller.js");
+const user = require("../controllers/usuario.controller.js");
 
-    var router = require("express").Router();
+var router = require("express").Router();
 
-    // Create a new Tutorial
-    //router.post("/", usuario.create);
+router.get("/", user.loginpage);
 
-    // Retrieve all usuario
-    //router.get("/", usuario.findAll);
+router.get("/admin", user.adminMenu);
 
-    router.get("/", usuario.loginpage);
-    router.get("/signin", usuario.signpage);
+router.get("/admin/register", user.adminAddUserMenu);
 
-    // Retrieve all published usuario
-    router.get("/published", usuario.findAllPublished);
+router.get("/admin/editUser", user.adminEditUserMenu);
 
-    // Retrieve a single Tutorial with id
-    router.get("/:id", usuario.findOne);
+router.post("admin/edited", user.editUser);
 
-    // Update a Tutorial with id
-    router.put("/:id", usuario.update);
+router.get("/instit", user.institMenu);
 
-    // Delete a Tutorial with id
-    router.delete("/:id", usuario.delete);
+router.get("/instit/vets", user.instiVetsMenu);
 
-    // Create a new Tutorial
-    router.delete("/", usuario.deleteAll);
+router.get("/instit/pets", user.institPetsMenu);
 
-    app.use('/api/usuario', router);
-};
+router.get("/profile", user.duenoMenu);
+
+router.get("/profile/pets", user.duenoMascotaMenu);
+
+router.post("/loggedin", user.authenticateUserWithemail);
+
+router.post("/", user.saveUser);
+
+router.get("/signin", user.signpage);
+
+module.exports = router;

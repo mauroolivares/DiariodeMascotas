@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
+const sequelize = require("./app/models/sequelize_index").sequelize;
+require("./app/models/models_relations");
 
 const app = express();
 
@@ -24,7 +26,7 @@ app.set('appName', 'Diario de Mascotas');
 app.use(
     session({
         // Key we want to keep secret which will encrypt all of our information
-        secret: process.env.SESSION_SECRET,
+        secret: 'secret',
         // Should we resave our session variables if nothing has changes which we dont
         resave: false,
         // Save empty value if there is no vaue which we do not want to do
@@ -37,18 +39,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-const db = require("./app/models");
-
-db.sequelize.sync();
-
-app.get("/", (req, res) => {
-    res.render("login");
+sequelize.sync({ force: false }).then(function() {
+    console.log("DB Configurada");
 });
 
-require("./app/routes/usuario.routes.js")(app);
+app.use(require('./app/routes/usuario.routes.js'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(app.get('appName'));
     console.log(`Servidor en http://localhost:${PORT}`);
 });
+
+module.exports = sequelize;
