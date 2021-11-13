@@ -19,54 +19,27 @@ exports.signpage = (req, res) => {
 
 //Funcion para autenticar el inicio de sesión:
 exports.login = async(req, res) => {
-    const rut = req.body.rut;
-    Usuario.findByPk(rut)
-        .then(data => {
-            if (data) {
-                console.log(data);
-                try {
-                    const isMatch = data.isValidPassword
-                    if (isMatch) {
-                        res.send(data);
-                    } else {
-                        res.send("Not logged in");
-                    }
-                    /* bcrypt.compare(req.body.password, data.password, (err, same) => {
-                        if (err) {
-                            console.log(err);
-                            res.redirect('/')
-                        }
-                        if (same) {
-                            //insertar querys de distintos tipos de usuario
-                            //auth.generateToken(data);
-                            console.log("logeado");
-                            res.send(data);
-                        } else {
-                            console.log("Contraseña incorrecta");
-                            res.redirect('/');
-                        }
-                    });
-                    */
-                } catch {
-                    res.status(500).send();
-                }
-                //res.send(data);
-            } else {
-                console.log(req.body)
-                res.status(404).send({
-                    message: `Cannot find Tutorial with id=${rut}.`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Tutorial with id=" + rut
-            });
-        });
+    const tipo = devolverTipo(req.body.rut);
+    console.log(tipo)
+    switch (tipo) {
+        case "Administrador":
+            req.user.tipo = "Administrador";
+            res.redirect("/admin")
+        case "Institucion":
+            req.user.tipo = "Institucion";
+            res.redirect("/admin")
+        case "Veterinario":
+            req.user.tipo = "Veterinario";
+            res.redirect("/admin")
+        case "Dueno":
+            req.user.tipo = "Dueno";
+            res.redirect("/profile")
+    }
 }
 
 //Menu de admin:
 exports.adminMenu = (req, res) => {
+    console.log(req.user)
     res.render('admin');
 }
 
@@ -100,9 +73,6 @@ exports.saveUser = async(req, res) => {
         password: await bcrypt.hash(req.body.password, 10),
         nombrecompleto: req.body.nombrecompleto
     };
-
-    console.log(usuario)
-
     Usuario.create(usuario).then(data => {
         console.log(data);
     }).catch(err => {
@@ -180,7 +150,7 @@ exports.updateVet = async(req, res) => {
 
 //Menu de dueño:
 exports.duenoMenu = async(req, res) => {
-
+    res.render('perfilUsuario')
 }
 
 //Mascotas de dueño:
@@ -238,6 +208,22 @@ exports.editUser = async(req, res) => {
     };
 }
 
-descubrirTipo = (usuario) => {
+devolverTipo = (rut) => {
+    const esAdmin = Administrador.findByPk(rut);
+    const esInsti = Institucion.findByPk(rut);
+    const esVet = Veterinario.findByPk(rut);
+    const esDueno = Dueno.findByPk(rut);
 
+    if (esAdmin) {
+        return "Administrador";
+    }
+    if (esInsti) {
+        return "Institucion";
+    }
+    if (esVet) {
+        return "Veterinario";
+    }
+    if (esDueno) {
+        return "Dueno";
+    }
 };
