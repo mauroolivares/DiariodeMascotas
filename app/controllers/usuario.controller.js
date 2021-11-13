@@ -5,6 +5,8 @@ const Veterinario = require('../models/user_vet.model');
 const Institucion = require('../models/user_instit.model');
 const Dueno = require('../models/user_owner.model')
 
+//const auth = require('../controllers/authentication')
+
 //Sitio para iniciar sesion:
 exports.loginpage = (req, res) => {
     res.render('login');
@@ -16,21 +18,27 @@ exports.signpage = (req, res) => {
 }
 
 //Funcion para autenticar el inicio de sesión:
-exports.authenticateUserWithemail = async(req, res) => {
+exports.login = async(req, res) => {
     const rut = req.body.rut;
     Usuario.findByPk(rut)
         .then(data => {
             if (data) {
                 console.log(data);
                 try {
-
-                    bcrypt.compare(req.body.password, data.password, (err, same) => {
+                    const isMatch = data.isValidPassword
+                    if (isMatch) {
+                        res.send(data);
+                    } else {
+                        res.send("Not logged in");
+                    }
+                    /* bcrypt.compare(req.body.password, data.password, (err, same) => {
                         if (err) {
                             console.log(err);
                             res.redirect('/')
                         }
                         if (same) {
                             //insertar querys de distintos tipos de usuario
+                            //auth.generateToken(data);
                             console.log("logeado");
                             res.send(data);
                         } else {
@@ -38,6 +46,7 @@ exports.authenticateUserWithemail = async(req, res) => {
                             res.redirect('/');
                         }
                     });
+                    */
                 } catch {
                     res.status(500).send();
                 }
@@ -78,7 +87,7 @@ exports.institMenu = (req, res) => {
 
 // Registra un Usuario
 exports.saveUser = async(req, res) => {
-    //If 
+    console.log(req.body)
     if (!req.body.rut || req.body.rut < 8) {
         res.status(400).send({
             message: "No puede estar vacio."
@@ -92,13 +101,15 @@ exports.saveUser = async(req, res) => {
         nombrecompleto: req.body.nombrecompleto
     };
 
+    console.log(usuario)
+
     Usuario.create(usuario).then(data => {
         console.log(data);
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
     console.log(usuario);
-
+    //token = auth.generateToken(usuario);
 
     switch (req.body.tipo) {
         case "Administrador":
@@ -160,7 +171,7 @@ exports.institPetsMenu = async(req, res) => {
 //Añadir/eliminar veterinario a una institución
 exports.updateVet = async(req, res) => {
     const vet = {
-        rutinstitucion = req.body.rutinstitucion
+        //rutinstitucion = req.body.rutinstitucion
     }
 
     Veterinario.update(vet, { where: { rut: req.body.rut } });
@@ -226,3 +237,7 @@ exports.editUser = async(req, res) => {
             break;
     };
 }
+
+descubrirTipo = (usuario) => {
+
+};

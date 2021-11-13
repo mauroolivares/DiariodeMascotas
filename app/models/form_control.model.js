@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./sequelize_index').sequelize;
+const sequelize = require('../config/sequelize.config').sequelize;
 
 const Control = sequelize.define("controlmedico", {
     id: {

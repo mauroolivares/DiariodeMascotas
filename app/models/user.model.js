@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./sequelize_index').sequelize;
+const sequelize = require('../config/sequelize.config').sequelize;
 
 const Usuario = sequelize.define("usuario", {
     rut: {
@@ -37,5 +37,14 @@ const Usuario = sequelize.define("usuario", {
         defaultValue: 01 - 01 - 1900
     }
 });
+
+Usuario.isValidPassword = async(password) => {
+    try {
+        return await bcrypt.compare(password, this.password)
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
 
 module.exports = Usuario;

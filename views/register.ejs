@@ -1,131 +1,136 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="register.css">
-<form action="/" method="post">
-    <div class="container">
-        <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr>
-        <label for="rut"><b>Tipo</b></label>
-        <p> </p>
+<div class="container">
+    <h1>Register</h1>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+    <label for="rut"><b>Tipo</b></label>
+    <p> </p>
 
-        <head>
-            <title>Administrador</title>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <!-- CSS Sytlesheets -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-            <link rel="stylesheet" href="css/styles.css">
-            <!--Bootstrap -->
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-            </script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous">
-            </script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous">
-            </script>
-            <!-- Font Awesome -->
-            <script src="https://kit.fontawesome.com/d82979872c.js" crossorigin="anonymous"></script>
-            <!-- Font Google 1 Squada One -->
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    <head>
+        <title>Administrador</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- CSS Sytlesheets -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/styles.css">
+        <!--Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous">
+        </script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/d82979872c.js" crossorigin="anonymous"></script>
+        <!-- Font Google 1 Squada One -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
 
-            <label for="nombrecompleto"><b>Nombre Completo</b></label>
-            <input type="text" placeholder="Enter Name" name="nombrecompleto" id="nombrecompleto" required>
-
-            <body>
-                <div class="bg-modal2">
-                    <div class="modal-content2">
-                        <div class="row">
-                            <div class="col-12">
-                                <h3>
-                                    <div id="text-action-title-popup">
-                                        Registrar Usuario
-                                    </div>
-                                </h3>
-                            </div>
-                            <div class="col-12">
-                                <form action="/add-new-user" method="post">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Nombre</span>
-                                                <input id=nombre_usuario_input name="name_new_user" type="text" class="form-control" placeholder="Nombre Usuario" aria-label="nombre_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Apellido</span>
-                                                <input id=apellido_usuario_input name="lastname_new_user" type="text" class="form-control" placeholder="Apellido Usuario" aria-label="apellido_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Rut</span>
-                                                <input id=rut_usuario_input name="rut_new_user" type="text" class="form-control" placeholder="Rut Usuario" aria-label="rut_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Fecha de Nacimiento</span>
-                                                <input id=nacimiento_usuario_input name="dateuser_new_user" type="text" class="form-control" placeholder="Fecha de Nacimiento" aria-label="nacimiento_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Dirección</span>
-                                                <input id=direccion_usuario_input name="address_new_user" type="text" class="form-control" placeholder="Dirección" aria-label="direccion_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Teléfono</span>
-                                                <input id=telefono_usuario_input name="phonenumber_new_user" type="text" class="form-control" placeholder="Telefono de contacto" aria-label="telefono_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Correo electrónico</span>
-                                                <input id=mail_usuario_input name="mail_new_user" type="text" class="form-control" placeholder="Correo electronico" aria-label="mail_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Contraseña</span>
-                                                <input id=contraseña_usuario_input name="password_new_user" type="text" class="form-control" placeholder="Contraseña Usuario" aria-label="contraseña_user_add" aria-describedby="addon-wrapping">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">Descripción</span>
-                                                <input id=descripcion_usuario_input name="description_new_user" type="text" class="form-control" placeholder="Descripción" aria-label="descripcion_user_add" aria-describedby="addon-wrapping">
-                                            </div>
+        <body>
+            <div class="bg-modal2">
+                <div class="modal-content2">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>
+                                <div id="text-action-title-popup">
+                                    Registrar Usuario
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="col-12">
+                            <form action="/signin" method="post">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Nombre</span>
+                                            <input id=nombre name="name" type="text" class="form-control" placeholder="Nombre Usuario" aria-label="nombre_user_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" id="add-user-button-popup" class="btn btn-primary">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Apellido</span>
+                                            <input id=apellido name="lastname" type="text" class="form-control" placeholder="Apellido Usuario" aria-label="apellido_user_add" aria-describedby="addon-wrapping">
+                                            <input id=nombrecompleto name="nombrecompleto" type="text" class="form-control" placeholder="Apellido Usuario" aria-label="apellido_user_add" aria-describedby="addon-wrapping" hidden>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Rut</span>
+                                            <input id=rut name="rut" type="text" class="form-control" placeholder="Rut Usuario" aria-label="rut_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Fecha de Nacimiento</span>
+                                            <input id=nfechanacimiento name="fechanacimiento" type="text" class="form-control" placeholder="Fecha de Nacimiento" aria-label="nacimiento_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Dirección</span>
+                                            <input id=direccion name="direccion" type="text" class="form-control" placeholder="Dirección" aria-label="direccion_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Teléfono</span>
+                                            <input id=telefono name="telefono" type="text" class="form-control" placeholder="Telefono de contacto" aria-label="telefono_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Correo electrónico</span>
+                                            <input id=correo name="correo" type="text" class="form-control" placeholder="Correo electronico" aria-label="mail_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Contraseña</span>
+                                            <input id=password name="password" type="password" class="form-control" placeholder="Contraseña Usuario" aria-label="contraseña_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Contraseña otra vez</span>
+                                            <input type="password" placeholder="Repeat Password" name="passwordr" id="psw-repeat" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Descripción</span>
+                                            <input id=descripcion name="descripcion" type="text" class="form-control" placeholder="Descripción" aria-label="descripcion_user_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" id="add-user-button-popup" class="btn btn-primary">
                                 <div id="contentButton-addUser-popup">
                                     <i class="fas fa-plus"></i>
                                     Registrarse
                                 </div>
                             </button>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="close2">+</div>
                     </div>
+                    <div class="close2">+</div>
                 </div>
+            </div>
 
-            </body>
+        </body>
 
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="passwordr" id="psw-repeat" required>
-            <hr>
 
-            <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-            <button type="submit" class="registerbtn">Register</button>
-    </div>
+        <hr>
 
-    <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
-    </div>
-</form>
+        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <button type="submit" class="registerbtn">Register</button>
+</div>
+<script>
+    nombre = document.getElementById('nombre')
+    apellido = document.getElementById('apellido')
+    document.getElementById('nombrecompleto').innerHTML = nombre + " " + apellido
+</script>
+<div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+</div>

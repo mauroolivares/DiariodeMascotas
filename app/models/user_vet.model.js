@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./sequelize_index').sequelize;
+const sequelize = require('../config/sequelize.config').sequelize;
 
 const Veterinario = sequelize.define("veterinario", {
     rut: {
