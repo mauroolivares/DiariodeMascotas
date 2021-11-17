@@ -79,7 +79,7 @@
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Nombre</span>
-                                            <input id="nombre_mascota_input_popup" name="nombre_nueva_mascota" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="add_nombre" name="nombre" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -154,7 +154,7 @@
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Nombre Mascota</span>
-                                            <input id="edit_nombre_mascota_input_popup" name="nombre_edit_mascota" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="edit_nombre" name="nombre" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -224,7 +224,7 @@
             document.querySelector(".close2").addEventListener("click",
             function() {
                 document.querySelector('.bg-modal2').style.display = "none";
-                document.getElementById('nombre_mascota_input_popup').value = "";
+                document.getElementById('nombre').value = "";
                 document.getElementById('especie_mascota_input_popup').value = "";
                 document.getElementById('raza_mascota_input_popup').value = "";
                 document.getElementById('color_mascota_input_popup').value = "";
