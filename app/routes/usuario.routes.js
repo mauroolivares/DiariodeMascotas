@@ -14,6 +14,7 @@ router.get("/instit/pets", user.institPetsMenu);
 
 router.get("/profile", user.duenoMenu);
 router.get("/profile/pets", user.duenoMascotaMenu);
+router.get("/profile/pets/pf", user.duenoMascotaPerfil);
 
 router.post("/loggedin", passport.authenticate('local', {
     failureRedirect: "/"

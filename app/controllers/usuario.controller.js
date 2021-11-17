@@ -155,7 +155,11 @@ exports.duenoMenu = async(req, res) => {
 
 //Mascotas de dueño:
 exports.duenoMascotaMenu = async(req, res) => {
+    res.render('mascotasUsuario')
+}
 
+exports.duenoMascotaPerfil = async(req, res) => {
+    res.render('perfilMascota')
 }
 
 //Función de editar usuario:
