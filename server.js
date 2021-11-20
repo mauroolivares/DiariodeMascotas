@@ -37,6 +37,7 @@ app.use(
 app.use(passport.initialize());
 // Store our variables to be persisted across the whole session. Works with app.use(Session) above
 app.use(passport.session());
+
 require('./app/config/passport.config');
 
 app.use(flash());
@@ -45,7 +46,12 @@ sequelize.sync({ force: false }).then(function() {
     console.log("DB Configurada");
 });
 
-app.use(require('./app/routes/usuario.routes.js'));
+app.use(require('./app/routes/admin.routes'));
+app.use(require('./app/routes/dueno.routes'));
+app.use(require('./app/routes/instit.routes'));
+app.use(require('./app/routes/usuario.routes'));
+app.use(require('./app/routes/vet.routes'));
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

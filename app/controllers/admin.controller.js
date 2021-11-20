@@ -5,64 +5,39 @@ const Veterinario = require('../models/user_vet.model');
 const Institucion = require('../models/user_instit.model');
 const Dueno = require('../models/user_dueno.model')
 
-//const auth = require('../controllers/authentication')
-
-//Sitio para iniciar sesion:
-exports.loginpage = (req, res) => {
-    req.logout();
-    res.render('login');
+//Verificador para determinar si inició sesion, y si pertenece al tipo correspondiente
+exports.isAuthenticated = (req, res, next) => {
+    if (req.user == undefined) {
+        //no ha iniciado sesion
+        console.log("inicia sesion primero")
+        res.redirect("/")
+    } else {
+        if (req.user.tipo != "Administrador") {
+            //pagina tipo "404"
+            console.log("no eres administrador")
+            res.redirect("/")
+        } else {
+            next()
+        }
+    }
 }
 
-//Sitio para registrar usuario fuera de sesión:
-exports.signpage = (req, res) => {
+//Menu de admin:
+exports.Menu = (req, res) => {
+    res.render('admin');
+}
+
+//Menu de añadir usuario:
+exports.AddUserMenu = (req, res) => {
     res.render('register');
 }
 
-//Función para cerrar sesion:
-exports.logout = (req, res) => {
-    req.logout();
-    res.redirect("/");
+//Menu de editar usuario:
+exports.EditUserMenu = (req, res) => {
+    res.render('admin');
 }
 
-//Funcion para redirigir inicio de sesión:
-exports.login = (req, res) => {
-    switch (req.user.tipo) {
-        case "Administrador":
-            res.redirect("/admin")
-            break;
-
-        case "Institucion":
-            res.redirect("/admin")
-            break;
-
-        case "Veterinario":
-            res.redirect("/admin")
-            break;
-
-        case "Dueno":
-            res.redirect("/profile")
-            break;
-    }
-    res.end()
-}
-
-// Registra un Usuario:
-exports.saveUser = async(req, res) => {
-    console.log(req.body)
-    if (!req.body.rut || req.body.rut < 8) {
-        res.status(400).send({
-            message: "No puede estar vacio."
-        });
-        return;
-    }
-
-    /*
-    const usuario = {
-        rut: req.body.rut,
-        password: await bcrypt.hash(req.body.password, 10),
-        nombrecompleto: req.body.nombrecompleto
-    };
-    */
+exports.EditUser = (req, res) => {
     const usuario = {
         rut,
         correo,
@@ -74,22 +49,7 @@ exports.saveUser = async(req, res) => {
         direccion,
         fechanacimiento
     } = req.body;
-
-    //placeholder: hay que conversar sobre las fechas!
-    var fecha = new Date();
-    usuario.fechanacimiento = fecha
-    usuario.telefono = parseInt(usuario.telefono)
-    usuario.password = await bcrypt.hash(req.body.password, 10)
-
-    Usuario.create(usuario).then(data => {
-        console.log(data);
-    }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-    });
-    console.log(usuario);
-    //token = auth.generateToken(usuario);
-
-    const tipo = "Institucion";
+    Usuario.update(usuario, { where: { rut: req.body.rut } });
 
     switch (tipo) {
         case "Administrador":
@@ -126,7 +86,7 @@ exports.saveUser = async(req, res) => {
             console.log(usuario);
             break;
 
-        case "Dueno":
+        case "Dueño":
             usuario.estado = "X";
             Dueno.create(usuario).then(data => {
                 console.log(data);
@@ -134,56 +94,77 @@ exports.saveUser = async(req, res) => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
             console.log(usuario);
-            break;
+            res.send(usuario);
     };
 }
 
-//Función de editar usuario:
-exports.editUser = async(req, res) => {
-    /*
+// Registra un Usuario como admin:
+exports.saveUser = async(req, res) => {
+
+    console.log(req.body)
     if (!req.body.rut || req.body.rut < 8) {
         res.status(400).send({
             message: "No puede estar vacio."
         });
         return;
     }
-    */
 
     const usuario = {
+        rut: req.body.rut,
         password: await bcrypt.hash(req.body.password, 10),
         nombrecompleto: req.body.nombrecompleto
-    }
-
-    Usuario.update(usuario, { where: { rut: req.body.rut } });
+    };
+    Usuario.create(usuario).then(data => {
+        console.log(data);
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+    console.log(usuario);
+    //token = auth.generateToken(usuario);
 
     switch (req.body.tipo) {
         case "Administrador":
+            Administrador.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
 
-            Administrador.update(usuario, { where: { rut: req.body.rut } });
             break;
 
 
         case "Institucion":
-            //req.body.variablesinstitucion
             usuario.totalfunc = 180;
             usuario.totalpuestos = 100;
             usuario.area = "Fundación";
             console.log(usuario);
 
-            Institucion.update(usuario, { where: { rut: req.body.rut } });
+            Institucion.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
             break;
 
         case "Veterinario":
-            //req.body.variablesvet
             usuario.especialidad = "Uhhh si"
             usuario.rutinstitucion = null
-            Veterinario.update(usuario, { where: { rut: req.body.rut } });
+            Veterinario.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
+            console.log(usuario);
             break;
 
         case "Dueño":
-            //req.body.variablesdueño
             usuario.estado = "X";
-            Dueno.update(usuario, { where: { rut: req.body.rut } });
-            break;
+            Dueno.create(usuario).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
+            console.log(usuario);
+            res.send(usuario);
     };
-};
+}

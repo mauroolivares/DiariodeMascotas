@@ -2,7 +2,7 @@ const Usuario = require('./user.model')
 
 const Administrador = require('./user_admin.model')
 const Institucion = require('./user_instit.model')
-const Dueno = require('./user_owner.model')
+const Dueno = require('./user_dueno.model')
 const Veterinario = require('./user_vet.model')
 
 const fichaAdopcion = require('./form_adoptform.model')
