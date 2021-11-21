@@ -41,18 +41,19 @@
                                 </button>
                             </div>
                         </div>
-                        <!--Lo que puede ver el usuario de sus mascotas-->
+                        <!--A el usuario le aparecerà una tabla con sus mascotas y algunos datos. Tendra opcion de ver, editar y controles -->
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table id="tabla-mascotas" class="table table-lifht table-bordered table-hover table-striped">
-                                    <thead class="bg-dark text-white">
+                                    <thead class="bg-dark text-white">                                   
                                         <th scope="row">ID</th>
                                         <th scope="row">Nombre</th>
                                         <th scope="row">Especie</th>
                                         <th scope="row">Raza</th>
-                                        <th scope="row">Color</th>
-                                        <th scope="row">Controles</th>
+                                        <th scope="row">Color</th>                                   
+                                        <th scope="row">Controles</th>                                        
                                         <th scope="row">Editar</th>
+                                        <th scope="row">Ver</th>
                                     </thead>
                                     <tbody id="tBody-mascotas"></tbody>                
                                 </table>
@@ -61,6 +62,90 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section id="ver-mascotas">
+            <div class= "big-modal">
+                <div class="modal-content2">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>
+                                <div id="text-action-title-popup">Perfil Mascota</div>
+                            </h3>
+                        </div>
+                        <div class="col-12">
+                            <form action="/ver-mascota-usuario" method="post">
+                                <div class="row">           
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Nombre Mascota</span>
+                                            <input id="view_nombre" name="nombre" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Especie Mascota</span>
+                                            <input id="view_especie" name="especie" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Sexo Mascota</span>
+                                            <select id="view_sexo" name="sexo" class="form-select" aria-label="Sexo Mascota" readonly>
+                                                <option value= true>Hembra</option>
+                                                <option value= true>Macho</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Raza Mascota</span>
+                                            <input id="view_raza" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Color Mascota</span>
+                                            <input id="view_color" name="color" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Fecha de Nacimiento</span>
+                                            <input id="view_fechanacimiento" name="fechanacimiento" type="text" class="form-control" placeholder="Fecha de Naciemiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Chip ID</span>
+                                            <input id="view_chip" name="chip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Estado</span>
+                                            <select id="view_estado" name="estado" class="form-select" aria-label="Estado Mascota" readonly>
+                                                <option value= true >Activo</option>
+                                                <option value= false >Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" id="view-mascota-button" class="btn btn-primary">
+                                        <div id="contentButton-viewMascota">
+                                            <a href="/editar-mascota-usuario">
+                                                <i class="far fa-edit"></i>Editar
+                                            </a>                                                                                             
+                                        </div>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="close">+</div>
+                </div>
+            </div>
+
         </section>
         <section id="agregar-mascotas">
             <div class="bg-modal2">
@@ -85,37 +170,46 @@
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Especie</span>
-                                            <input id="especie_mascota_input_popup" name="especie_nueva_mascota" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="add_especie" name="especie" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Sexo</span>
+                                            <select id="add_sexo" name="sexo" class="form-select" aria-label="Sexo Mascota">
+                                                <option value= true>Hembra</option>
+                                                <option value= true>Macho</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Raza</span>
-                                            <input id="raza_mascota_input_popup" name="raza_nueva_mascota" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="add_raza" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Color</span>
-                                            <input id="color_mascota_input_popup" name="color_nueva_mascota" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="add_color" name="color" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Chip ID</span>
-                                            <input id="chip_mascota_input_popup" name="chip_nueva_mascota" type="text" class="form-control" placeholder="Chip ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="add_chip" name="chip" type="text" class="form-control" placeholder="Chip ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Fecha de Nacimiento</span>
-                                            <input id="fnacimiento_mascota_input_popup" name="fnacimiento_nueva_mascota" type="date" class="form-control" placeholder="Fecha de Nacimiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="add_fechanacimiento" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha de Nacimiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Estado</span>
-                                            <select id="estado_mascota_input_popup" name="estado_new_mascota" class="form-select" aria-label="Estado Mascota">
+                                            <select id="add_estado" name="estado" class="form-select" aria-label="Estado Mascota">
                                                 <option value= true>Activo</option>
                                                 <!--<option value= false>Inactivo</option>-->
                                             </select>
@@ -160,37 +254,46 @@
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Especie Mascota</span>
-                                            <input id="edit_especie_mascota_input_popup" name="especie_edit_mascota" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                            <input id="edit_especie" name="especie" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Sexo Mascota</span>
+                                            <select id="edit_sexo" name="sexo" class="form-select" aria-label="Sexo Mascota">
+                                                <option value= true>Hembra</option>
+                                                <option value= true>Macho</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Raza Mascota</span>
-                                            <input id="edit_raza_mascota_input_popup" name="raza_edit_mascota" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="edit_raza" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Color Mascota</span>
-                                            <input id="edit_color_mascota_input_popup" name="color_edit_mascota" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="edit_color" name="color" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Fecha de Nacimiento</span>
-                                            <input id="edit_fnacimiento_mascota_input_popup" name="fnacimiento_edit_mascota" type="text" class="form-control" placeholder="Fecha de Naciemiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping">
+                                            <input id="edit_fechanacimiento" name="fechanacimiento" type="text" class="form-control" placeholder="Fecha de Naciemiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Chip ID</span>
-                                            <input id="edit_chip_mascota_input_popup" name="chip_edit_mascota" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                            <input id="edit_chip" name="chip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Estado</span>
-                                            <select id="edit_estado_mascota_input_popup" name="estado_edit_mascota" class="form-select" aria-label="Estado Mascota">
+                                            <select id="edit_estado" name="estado" class="form-select" aria-label="Estado Mascota">
                                                 <option value= true >Activo</option>
                                                 <option value= false >Inactivo</option>
                                             </select>
@@ -199,7 +302,7 @@
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" id="edit-mascota-button" class="btn btn-primary">
-                                        <div id="contentButton-addMascota">
+                                        <div id="contentButton-editMascota">
                                             <i class="far fa-save"></i> 
                                                 Guardar Cambios
                                         </div>
@@ -225,12 +328,13 @@
             function() {
                 document.querySelector('.bg-modal2').style.display = "none";
                 document.getElementById('nombre').value = "";
-                document.getElementById('especie_mascota_input_popup').value = "";
-                document.getElementById('raza_mascota_input_popup').value = "";
-                document.getElementById('color_mascota_input_popup').value = "";
-                document.getElementById('chip_mascota_input_popup').value = "";
-                document.getElementById('fnacimiento_mascota_input_popup').value = "";
-                document.getElementById('estado_mascota_input_popup').selectedIndex = 0
+                document.getElementById('especie').value = "";
+                document.getElementById('sexo').selectedIndex = 0
+                document.getElementById('raza').value = "";
+                document.getElementById('color').value = "";
+                document.getElementById('chip').value = "";
+                document.getElementById('fechanacimiento').value = "";
+                document.getElementById('estado').selectedIndex = 0
             });
         </script>
     </body>
