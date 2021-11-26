@@ -8,13 +8,14 @@ const Usuario = sequelize.define("usuario", {
     },
     correo: {
         type: Sequelize.STRING,
-        defaultValue: " "
+        defaultValue: ""
     },
     password: {
         type: Sequelize.STRING
     },
     nombrecompleto: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: " "
     },
     descripcion: {
         type: Sequelize.STRING,

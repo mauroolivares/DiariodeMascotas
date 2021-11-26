@@ -78,7 +78,7 @@
                                             <th scope="row">Rut</th>
                                             <th scope="row">Nombre</th>
                                             <th scope="row">Correo electrónico</th>
-                                            <th scope="row">Fecha de naciemiento</th>
+                                            <th scope="row">Fecha de nacimiento</th>
                                             <th scope="row">Tipo de usuario</th>
                                             <th scope="row">Ver</th>
                                             <th scope="row">Editar</th>
@@ -98,10 +98,12 @@
             <div class="modal-content2">
                 <div class="row">
                     <div class="col-12">
-                        <h3><div id="text-action-title-popup">Nuevo Usuario</div></h3>
+                        <h3>
+                            <div id="text-action-title-popup">Nuevo Usuario</div>
+                        </h3>
                     </div>
                     <div class="col-12">
-                        <form action="/" method="post">
+                        <form action="/admin/saveUser" method="post">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
@@ -140,32 +142,33 @@
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="addon-wrapping">Teléfono</span>
-                                        <input id="add_telefono_admin" name="telefono" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                        <input id="add_telefono_admin" name="telefono" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="addon-wrapping">Dirección</span>
-                                        <input id="add_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                        <input id="add_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
-                                <div class="col-12"> <!--que diferencia tiene ubicacion con direccion-->
+                                <div class="col-12">
+                                    <!--que diferencia tiene ubicacion con direccion-->
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="addon-wrapping">Ubicación</span>
-                                        <input id="add_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                        <input id="add_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="addon-wrapping">Descripción</span>
-                                        <input id="add_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                        <input id="add_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <button type="submit" id="add-usuario-admin-button" class="btn btn-primary">
                                     <i class="fas fa-save"></i>Agregar Usuario
-                                </button>                            
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -179,7 +182,9 @@
             <div class="modal-content2">
                 <div class="row">
                     <div class="col-12">
-                        <h3><div id="text-action-title-popup">Editar Usuario</div></h3>
+                        <h3>
+                            <div id="text-action-title-popup">Editar Usuario</div>
+                        </h3>
                     </div>
                     <div class="col-12">
                         <div class="col-12">
@@ -206,31 +211,32 @@
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Fecha de Naciemiento</span>
-                                            <input id="edit_fechanacimiento_admin" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                            <input id="edit_fechanacimiento_admin" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Teléfono</span>
-                                            <input id="edit_telefono_admin" name="telefono" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                            <input id="edit_telefono_admin" name="telefono" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Dirección</span>
-                                            <input id="edit_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                            <input id="edit_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
-                                    <div class="col-12"> <!--que diferencia tiene ubicacion con direccion-->
+                                    <div class="col-12">
+                                        <!--que diferencia tiene ubicacion con direccion-->
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Ubicación</span>
-                                            <input id="edit_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                            <input id="edit_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">Descripción</span>
-                                            <input id="edit_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping" >
+                                            <input id="edit_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Fecha Nacimiento Usuario" aria-describedby="addon-wrapping">
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -259,22 +265,69 @@
     </section>
 
     <script>
+        const usuarios = <%-JSON.stringify(usuarios)%>;
+
+        function FillPageWithUsers(usuarios) {
+            let tBodyUsuarios = document.getElementById("tabla-usuarios"); //Obten la tabla
+
+            for (let i = 0; i < usuarios.length; i++) {
+                const rutUserI = usuarios[i].rut;
+                const emailUserI = usuarios[i].email;
+                const nombreUserI = usuarios[i].nombre;
+                const fechaNacI = usuarios[i].fechanacimiento;
+                const workAreaUserI = " ";
+
+                //Inserta una nueva fila en la tabla 
+                let newUserIRowRef = tBodyUsuarios.insertRow(-1);
+
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a
+                let newRutColRef = newUserIRowRef.insertCell(-1);
+
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a
+                let newNombreColRef = newUserIRowRef.insertCell(-1);
+
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a
+                let newCorreoColRef = newUserIRowRef.insertCell(-1);
+
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a
+                let newWorkAreaColRef = newUserIRowRef.insertCell(-1);
+
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a
+                let newActivoColRef = newUserIRowRef.insertCell(-1);
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a boton editar
+                let newUserDataColRef = newUserIRowRef.insertCell(-1);
+                //Crea celdas o columna para la I-esima columna, esto hace referencia a boton editar
+                let newEditarColRef = newUserIRowRef.insertCell(-1);
+
+                //Asigna los valores a cada columna
+                newRutColRef.textContent = rutUserI;
+                newNombreColRef.textContent = nombreUserI;
+                newCorreoColRef.textContent = emailUserI;
+                newWorkAreaColRef.textContent = workAreaUserI;
+                newUserDataColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="loadEditPopupElement(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver</button>';
+                newEditarColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="loadEditPopupElement(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
+            }
+
+        }
+        FillPageWithUsers(usuarios);
+
+
         document.querySelector(".close").addEventListener("click",
-        function(){
-            document.querySelector('.bg-modal').style.display = "none";
-        });
+            function() {
+                document.querySelector('.bg-modal').style.display = "none";
+            });
 
         document.querySelector(".close2").addEventListener("click",
-        function(){
-            document.querySelector('.bg-modal2').style.display = "none";
-            document.getElementById("add_rut_admin").value = ""
-            document.getElementById("add_nombre_admin").value = ""
-            document.getElementById("add_correo_admin").value = ""
-            document.getElementById("add_telefono_admin").value = ""
-            document.getElementById("add_direccion_admin").value = ""
-            document.getElementById("add_ubicacion_admin").value = ""
-            document.getElementById("add_descripcion_admin").value = ""
-        });
+            function() {
+                document.querySelector('.bg-modal2').style.display = "none";
+                document.getElementById("add_rut_admin").value = ""
+                document.getElementById("add_nombre_admin").value = ""
+                document.getElementById("add_correo_admin").value = ""
+                document.getElementById("add_telefono_admin").value = ""
+                document.getElementById("add_direccion_admin").value = ""
+                document.getElementById("add_ubicacion_admin").value = ""
+                document.getElementById("add_descripcion_admin").value = ""
+            });
     </script>
 
 </body>

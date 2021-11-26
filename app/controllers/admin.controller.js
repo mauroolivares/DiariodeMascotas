@@ -3,7 +3,7 @@ const Usuario = require('../models/user.model');
 const Administrador = require('../models/user_admin.model');
 const Veterinario = require('../models/user_vet.model');
 const Institucion = require('../models/user_instit.model');
-const Dueno = require('../models/user_dueno.model')
+const Dueno = require('../models/user_dueno.model');
 
 //Verificador para determinar si inició sesion, y si pertenece al tipo correspondiente
 exports.isAuthenticated = (req, res, next) => {
@@ -24,7 +24,12 @@ exports.isAuthenticated = (req, res, next) => {
 
 //Menu de admin:
 exports.Menu = (req, res) => {
-    res.render('admin');
+    Usuario.findAll().then(data => {
+        res.render('admin', { usuarios: data })
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    })
+
 }
 
 //Menu de añadir usuario:
@@ -100,8 +105,6 @@ exports.EditUser = (req, res) => {
 
 // Registra un Usuario como admin:
 exports.saveUser = async(req, res) => {
-
-    console.log(req.body)
     if (!req.body.rut || req.body.rut < 8) {
         res.status(400).send({
             message: "No puede estar vacio."

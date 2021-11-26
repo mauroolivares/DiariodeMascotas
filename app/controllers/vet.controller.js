@@ -14,3 +14,7 @@ exports.isAuthenticated = (req, res, next) => {
         }
     }
 }
+
+exports.Menu = (req, res) => {
+    res.render('perfilVeterinario');
+}

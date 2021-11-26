@@ -1,3 +1,4 @@
+const Mascota = require('../models/form_pet.model');
 //Autenticacion
 exports.isAuthenticated = (req, res, next) => {
     if (req.user == undefined) {
@@ -16,18 +17,29 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 //Menu de dueño:
-exports.duenoMenu = async(req, res) => {
+exports.Menu = async(req, res) => {
     //send datos de req.user
-    res.render('perfilUsuario')
+    res.render('perfilUsuario', { dueno: req.user })
 }
 
 //Mascotas de dueño:
-exports.duenoMascotaMenu = async(req, res) => {
-    //findallmascotas del usuario
-    res.render('mascotasUsuario')
+exports.MascotaMenu = async(req, res) => {
+    if (req.user == undefined) {
+        Mascota.findAll({ where: { rutusuario: '666' } }).then(data => {
+            res.render('mascotasUsuario', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    } else {
+        Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
+            res.render('mascotasUsuario', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    }
 }
 
-exports.duenoMascotaPerfil = async(req, res) => {
+exports.MascotaPerfil = async(req, res) => {
     //send query con los datos de la mascota
     res.render('perfilMascota')
 }

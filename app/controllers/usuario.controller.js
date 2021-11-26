@@ -36,7 +36,7 @@ exports.login = (req, res) => {
             break;
 
         case "Veterinario":
-            res.redirect("/admin")
+            res.redirect("/vet")
             break;
 
         case "Dueno":
@@ -56,13 +56,6 @@ exports.saveUser = async(req, res) => {
         return;
     }
 
-    /*
-    const usuario = {
-        rut: req.body.rut,
-        password: await bcrypt.hash(req.body.password, 10),
-        nombrecompleto: req.body.nombrecompleto
-    };
-    */
     const usuario = {
         rut,
         correo,
@@ -89,7 +82,7 @@ exports.saveUser = async(req, res) => {
     console.log(usuario);
     //token = auth.generateToken(usuario);
 
-    const tipo = "Institucion";
+    const tipo = "Dueno";
 
     switch (tipo) {
         case "Administrador":
@@ -98,7 +91,7 @@ exports.saveUser = async(req, res) => {
             }).catch(err => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
-
+            res.redirect("/")
             break;
 
 
@@ -113,6 +106,7 @@ exports.saveUser = async(req, res) => {
             }).catch(err => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
+            res.redirect("/")
             break;
 
         case "Veterinario":
@@ -124,6 +118,7 @@ exports.saveUser = async(req, res) => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
             console.log(usuario);
+            res.redirect("/")
             break;
 
         case "Dueno":
@@ -134,6 +129,7 @@ exports.saveUser = async(req, res) => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
             console.log(usuario);
+            res.redirect("/")
             break;
     };
 }
