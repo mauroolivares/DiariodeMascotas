@@ -105,13 +105,6 @@ exports.EditUser = (req, res) => {
 
 // Registra un Usuario como admin:
 exports.saveUser = async(req, res) => {
-    if (!req.body.rut || req.body.rut < 8) {
-        res.status(400).send({
-            message: "No puede estar vacio."
-        });
-        return;
-    }
-
     const usuario = {
         rut: req.body.rut,
         password: await bcrypt.hash(req.body.password, 10),

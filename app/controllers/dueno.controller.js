@@ -3,6 +3,8 @@ const Usuario = require('../models/user.model');
 const Dueno = require('../models/user_dueno.model');
 const Control = require('../models/form_control.model');
 const Adopcion = require('../models/form_adoptform.model');
+const funciones = require('../controllers/functions.controller');
+
 //Autenticacion
 exports.isAuthenticated = (req, res, next) => {
     if (req.user == undefined) {
@@ -49,6 +51,7 @@ exports.editarDueno = async(req, res) => {
 exports.MascotaMenu = async(req, res) => {
     if (req.user == undefined) {
         Mascota.findAll({ where: { rutusuario: '666' } }).then(data => {
+            console.log(data);
             res.render('mascotasUsuario', { mascotas: data })
         }).catch(err => {
             console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
@@ -63,6 +66,7 @@ exports.MascotaMenu = async(req, res) => {
 }
 
 exports.addMascota = async(req, res) => {
+    console.log(req.body)
     const mascota = {
         id,
         nombre,
@@ -76,13 +80,22 @@ exports.addMascota = async(req, res) => {
         estado,
         descripcion
     } = req.body;
-    mascota.rutusuario = req.user.rut;
-    Mascota.create(mascota).then(data => {
-        console.log(data);
-    }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-    });
-    res.redirect('/profile/pets');
+    var mascotaID = funciones.generarID();
+    if (await funciones.mascotaNoExiste(mascotaID)) {
+        /*mascota.id = mascotaID;
+        mascota.rutusuario = req.user.rut;
+        Mascota.create(mascota).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        });
+        res.redirect('/profile/pets');
+        */
+        console.log("mascota creada?")
+    } else {
+        res.redirect('/profile/pets');
+    }
+
 }
 
 exports.editMascota = async(req, res) => {
@@ -119,6 +132,14 @@ exports.addControl = async(req, res) => {
         observacion,
         idmascota
     }
+    var controlID = funciones.generarID();
+    while (!funciones.controlNoExiste(controlID)) {
+        controlID = funciones.generarID();
+    }
+
+    let fechaString = funciones.transformarFecha(control.fecha);
+    control.fecha = fechaString;
+    control.id = controlID;
     control.rutusuario = req.user.rut;
     control.rutvet = null;
     Control.create(control).then(data => {
@@ -140,6 +161,8 @@ exports.editControl = async(req, res) => {
         observacion,
         idmascota
     }
+    let fechaString = funciones.transformarFecha(control.fecha);
+    control.fecha = fechaString;
     Control.update(control, { where: { id: control.id } }).then(data => {
         console.log(data);
     }).catch(err => {
@@ -164,6 +187,15 @@ exports.ponerEnAdopcion = async(req, res) => {
         rutusuario,
         idmascota
     } = req.body;
+    var fichaID = funciones.generarID();
+
+    while (!funciones.adopcionNoExiste(fichaID)) {
+        fichaID = funciones.generarID();
+    }
+
+    fichaAdopcion.fecha = new Date();
+
+    fichaAdopcion.id = fichaID;
     fichaAdopcion.estado = "Dar en Adopción";
     fichaAdopcion.rutusuario = req.user.rut;
     fichaAdopcion.rutvet = null;
@@ -194,7 +226,15 @@ exports.adoptarMascota = async(req, res) => {
         rutusuario,
         idmascota
     } = req.body;
-    //tendra el rut de la institucion
+    var fichaID = funciones.generarID();
+
+    while (!funciones.adopcionNoExiste(fichaID)) {
+        fichaID = funciones.generarID();
+    }
+    fichaAdopcion.id = fichaID;
+
+    fichaAdopcion.fecha = new Date();
+
     fichaAdopcion.estado = "Adoptar";
     let obs = req.user.rut + ": " + fichaAdopcion.observacion;
     fichaAdopcion.observacion = obs;

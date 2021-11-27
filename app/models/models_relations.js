@@ -28,6 +28,5 @@ Control.belongsTo(Mascota, { as: "mascota", foreignKey: "idmascota" });
 
 //
 Mascota.belongsTo(Usuario, { as: "rutUser", foreignKey: "rutusuario" }); //Dueño o Institucion
-Usuario.hasMany(Mascota);
 
 //module.exports = { Usuario, Administrador, Institucion, Dueno, Veterinario, fichaAdopcion, Mascota, Control }

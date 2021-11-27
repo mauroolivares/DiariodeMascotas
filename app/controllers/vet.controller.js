@@ -1,7 +1,7 @@
 const Mascota = require('../models/form_pet.model')
 const Adopcion = require('../models/form_adoptform.model')
 const Institucion = require('../models/user_instit.model')
-const Usuario = require('../models/user.model')
+const funciones = require('../controllers/functions.controller')
 const { Op } = require("sequelize");
 
 //Verificador para determinar si inició sesion, y si pertenece al tipo correspondiente
@@ -60,6 +60,8 @@ exports.ponerEnAdopcion = async(req, res) => {
     fichaAdopcion.estado = "Dar en Adopción";
     fichaAdopcion.rutusuario = req.user.rutinstitucion;
     fichaAdopcion.rutvet = req.user.rut;
+    fichaAdopcion.fecha = new Date();
+
     Adopcion.create(fichaAdopcion).then(data => {
         console.log(data);
     }).catch(err => {
@@ -91,7 +93,7 @@ exports.responderAdopcion = async(req, res) => {
     let ide = fichaAdopcion.id + "FIN"
     fichaAdopcion.id = ide;
     fichaAdopcion.rutusuario = exDueno;
-
+    fichaAdopcion.fecha = new Date();
     Adopcion.create(fichaAdopcion).then(data => {
         console.log(data);
     }).catch(err => {

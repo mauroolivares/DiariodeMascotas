@@ -4,6 +4,7 @@ const Administrador = require('../models/user_admin.model');
 const Veterinario = require('../models/user_vet.model');
 const Institucion = require('../models/user_instit.model');
 const Dueno = require('../models/user_dueno.model')
+const funciones = require('../controllers/functions.controller');
 
 //const auth = require('../controllers/authentication')
 
@@ -48,14 +49,6 @@ exports.login = (req, res) => {
 
 // Registra un Usuario:
 exports.saveUser = async(req, res) => {
-    console.log(req.body)
-    if (!req.body.rut || req.body.rut < 8) {
-        res.status(400).send({
-            message: "No puede estar vacio."
-        });
-        return;
-    }
-
     const usuario = {
         rut,
         correo,
@@ -69,8 +62,9 @@ exports.saveUser = async(req, res) => {
     } = req.body;
 
     //placeholder: hay que conversar sobre las fechas!
-    var fecha = new Date();
-    usuario.fechanacimiento = fecha
+    let fechaString = funciones.transformarFecha(usuario.fechanacimiento);
+
+    usuario.fechanacimiento = fechaString
     usuario.telefono = parseInt(usuario.telefono)
     usuario.password = await bcrypt.hash(req.body.password, 10)
 
