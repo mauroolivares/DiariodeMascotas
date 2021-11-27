@@ -9,7 +9,8 @@ body {
 
 body {
     
-    background-color: teal;
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);;
     /* Full height */
     height: 100%;
     bottom: 0px;
