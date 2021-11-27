@@ -10,6 +10,10 @@ const fichaAdopcion = sequelize.define("fichaadopcion", {
         type: Sequelize.STRING,
         defaultValue: ""
     },
+    estado: {
+        type: Sequelize.STRING,
+        defaultValue: ""
+    },
     fechaInicio: {
         type: Sequelize.DATE,
         defaultValue: 01 - 01 - 1900
