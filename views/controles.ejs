@@ -222,7 +222,7 @@
     <script>
         const controles = <%-JSON.stringify(controles)%>;
 
-        function FillPageWithUsers(controles) {
+        function FillPageWithControls(controles) {
             let tBodyControles = document.getElementById("tabla-controles"); //Obten la tabla
             for (let i = 0; i < controles.length; i++) {
                 const fechaControl = controles[i].fecha;
@@ -254,6 +254,7 @@
                 newEditarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="editControlPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
             }
         }
+        FillPageWithControls(controles);
         //Activar panel registrar control
         document.getElementById("agregar-control-button").addEventListener('click',
             function(){
