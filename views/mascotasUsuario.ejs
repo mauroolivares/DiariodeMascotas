@@ -20,9 +20,10 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/d82979872c.js" crossorigin="anonymous"></script>
-    <!-- Font Google 1 Squada One -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    <!-- Font Google Lora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -56,7 +57,7 @@
             </div>
         </nav>
     </section>
-    <br>
+    <br></br>
     <section id="content">
         <div class="container-fluid">
             <div class="row white-box-transparent">
@@ -65,6 +66,7 @@
                     <div class="row name-viewer-home">
                         <div id="nombreUsuario" class="col-6"></div>
                         <!-- aca abro un script y agrego el nombre del usuario-->
+                        <h3>Mis Mascotas</h3>
                     </div>
                     <!-- boton agregar mascotas-->
                     <div class="col-12 text-right">
@@ -83,7 +85,7 @@
                                     <th scope="row">Nombre</th>
                                     <th scope="row">Especie</th>
                                     <th scope="row">Raza</th>
-                                    <th scope="row">Color</th>
+                                    <th scope="row">Sexo</th>
                                     <th scope="row">Controles</th>
                                     <th scope="row">Editar</th>
                                     <th scope="row">Ver</th>
@@ -176,9 +178,7 @@
         </div>
     </div>
 
-    </div>
     <!--AGREGAR MASCOTAS-->
-
     <div class="bg-modal2">
         <div class="modal-content2">
             <div class="row">
@@ -207,43 +207,64 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Sexo</span>
-                                    <select id="add_sexo" name="sexo" class="form-select" aria-label="Sexo Mascota">
+                                    <select id="add_sexo" name="sexo" class="form-select" placeholder="Seleccione una opción" aria-label="Sexo Mascota">
                                             <option value= true>Hembra</option>
                                             <option value= true>Macho</option>
                                         </select>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Raza</span>
-                                    <input id="add_raza" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Raza Mascota</span>
+                                    <input id="add_razacolor" name="razacolor" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
+                                </div>
+                            </div>                            
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Nacimiento</span>
+                                    <input id="add_fechanacimiento" name="fechanacimiento" type="text" class="form-control" placeholder="Fecha de Naciemiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Color</span>
-                                    <input id="add_color" name="color" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción Mascota</span>
+                                    <input id="add_descripcion" name="descripcion" type="text" class="form-control" placeholder="Agrege una descripción" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Chip ID</span>
-                                    <input id="add_chip" name="chip" type="text" class="form-control" placeholder="Chip ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping">
+                                    <select id="add_tienechip" name="tienechip" class="form-select" placeholder="Seleccione una opción" aria-label="Estado Mascota">
+                                        <option value= true >Si</option>
+                                        <option value= false >No</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Nacimiento</span>
-                                    <input id="add_fechanacimiento" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha de Nacimiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Esterilizada(o)</span>
+                                    <select id="add_esterilizado" name="esterilizado" class="form-select" placeholder="Seleccione una opción" aria-label="Estado Mascota">
+                                        <option value= true >Si</option>
+                                        <option value= false >No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Desparacitada(o)</span>
+                                    <select id="add_desparacitado" name="desparacitado" class="form-select" placeholder="Seleccione una opción" aria-label="Estado Mascota">
+                                        <option value= true >Si</option>
+                                        <option value= false >No</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
                                     <select id="add_estado" name="estado" class="form-select" aria-label="Estado Mascota">
-                                                <option value= true>Activo</option>
-                                                <!--<option value= false>Inactivo</option>-->
-                                            </select>
+                                        <option value= true >Activo</option>
+                                        <option value= false >Inactivo</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -260,7 +281,6 @@
             </div>
         </div>
         <div class="close2">+</div>
-    </div>
     </div>
 
     <!--EDITAR MASCOTAS-->
@@ -301,15 +321,9 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Raza Mascota</span>
-                                    <input id="edit_raza" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
+                                    <input id="edit_razacolor" name="razacolor" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping">
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Color Mascota</span>
-                                    <input id="edit_color" name="color" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
-                                </div>
-                            </div>
+                            </div>                            
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Nacimiento</span>
@@ -318,8 +332,35 @@
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción Mascota</span>
+                                    <input id="edit_descripcion" name="descripcion" type="text" class="form-control" placeholder="Agrege una descripción" aria-label="color_mascota_add" aria-describedby="addon-wrapping">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Chip ID</span>
-                                    <input id="edit_chip" name="chip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                    <select id="edit_tienechip" name="tienechip" class="form-select" placeholder="Seleccione una opción" aria-label="Estado Mascota">
+                                        <option value= true >Si</option>
+                                        <option value= false >No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Esterilizada(o)</span>
+                                    <select id="edit_esterilizado" name="esterilizado" class="form-select" placeholder="Seleccione una opción" aria-label="Estado Mascota">
+                                        <option value= true >Si</option>
+                                        <option value= false >No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Desparacitada(o)</span>
+                                    <select id="edit_desparacitado" name="desparacitado" class="form-select" placeholder="Seleccione una opción" aria-label="Estado Mascota">
+                                        <option value= true >Si</option>
+                                        <option value= false >No</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -330,7 +371,7 @@
                                         <option value= false >Inactivo</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>                                                        
                         </div>
                         <div class="col-12">
                             <button type="submit" id="edit-mascota-button" class="btn btn-primary">
@@ -363,7 +404,7 @@
                 let newNombrePetColRef = newUserIRowRef.insertCell(-1);
                 let newEspeciePetColRef = newUserIRowRef.insertCell(-1);
                 let newRazaPetColRef = newUserIRowRef.insertCell(-1);
-                let newColorPetColRef = newUserIRowRef.insertCell(-1);
+                let newSexoPetColRef = newUserIRowRef.insertCell(-1);
 
                 let newControlsColRef = newUserIRowRef.insertCell(-1);
                 let newEditarColRef = newUserIRowRef.insertCell(-1);
@@ -371,19 +412,36 @@
                 newIdPetColRef.textContent = mascotas[i].id;
                 newNombrePetColRef = mascotas[i].nombre;
                 newEspeciePetColRef = mascotas[i].especie;
-                newRazaPetColRef = mascotas[i].raza;
-                newColorPetColRef = mascotas[i].color;
+                newRazaPetColRef = mascotas[i].razacolor;
+                newSexoPetColRef = mascotas[i].sexo;
 
                 newRutColRef.textContent = rutUserI;
                 newNombreColRef.textContent = nombreUserI;
                 newCorreoColRef.textContent = emailUserI;
                 newWorkAreaColRef.textContent = workAreaUserI;
-                newControlsColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="loadEditPopupElement(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver</button>';
-                newEditarColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="loadEditPopupElement(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
+                newControlsColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editPetsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver</button>';
+                newEditarColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editPetsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
             }
 
         }
         FillPageWithPets(mascotas);
+
+        function editPetsPopup(pet1){
+            var pet2 = pet1.split("-")
+            document.getElementById('edit_nombre').value = mascotas[(parseInt(pet2[2]))].nombre;
+            document.getElementById('edit_especie').value = mascotas[(parseInt(pet2[2]))].especie;
+            document.getElementById('edit_sexo').value = mascotas[(parseInt(pet2[2]))].sexo;
+            document.getElementById('edit_razacolor').value = mascotas[(parseInt(pet2[2]))].razacolor;
+            document.getElementById('edit_fechanacimiento').value = mascotas[(parseInt(pet2[2]))].fechanacimiento;
+            document.getElementById('edit_descripcion').value = mascotas[(parseInt(pet2[2]))].descripcion;
+            document.getElementById('edit_tienechip').value = mascotas[(parseInt(pet2[2]))].tienechip;
+            document.getElementById('edit_esterilizado').value = mascotas[(parseInt(pet2[2]))].esterilizado;
+            document.getElementById('edit_desparacitado').value = mascotas[(parseInt(pet2[2]))].desparacitado;
+            document.getElementById('edit_estado').value = mascotas[(parseInt(pet2[2]))].estado;
+            
+            //Activando panel de editar
+            document.querySelector(".bg-modal").style.display = "flex";
+        }
 
         //Cuando se haga click al boton agregar en nueva mascota
         document.getElementById("agregar-mascota-button").addEventListener("click",
@@ -398,11 +456,18 @@
                 document.getElementById('nombre').value = "";
                 document.getElementById('especie').value = "";
                 document.getElementById('sexo').selectedIndex = 0
-                document.getElementById('raza').value = "";
-                document.getElementById('color').value = "";
-                document.getElementById('chip').value = "";
+                document.getElementById('razacolor').value = "";
                 document.getElementById('fechanacimiento').value = "";
+                document.getElementById('descripcion').value = "";
+                document.getElementById('tienechip').value = 0;
+                document.getElementById('esterilizado').value = 0;
+                document.getElementById('desparacitado').value = 0;
                 document.getElementById('estado').selectedIndex = 0
+            });
+
+        document.querySelector(".close").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal').style.display = "none";
             });
     </script>
 </body>

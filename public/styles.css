@@ -61,8 +61,8 @@ body {
 /* Menu Admin */
 .name-viewer-home {
     padding: 3%;
-    font-size: 10px;
-    font-family: 'Squada One', cursive;
+    font-size: 15px;
+    font-family: 'Lora', serif;
 }
 
 .pauta-botones-disponibles .button-a{
@@ -85,7 +85,7 @@ body {
 }
 
 .top-user-info h3 {
-    font-family: 'Squada One', cursive;
+    font-family: 'Lora', serif;
     color: white;
 }
 
@@ -96,7 +96,7 @@ body {
 /* Agregar pautas - admin  */
 
 .top-pauta-info-add {
-    font-family: 'Squada One', cursive;
+    font-family: 'Lora', serif;
     color: white;
 }
 
@@ -184,8 +184,8 @@ body {
 }
 
 .modal-content2 .col-12{
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .close2 {

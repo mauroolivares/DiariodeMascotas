@@ -17,9 +17,11 @@
     </script>
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/d82979872c.js" crossorigin="anonymous"></script>
-    <!-- Font Google 1 Squada One -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    
+    <!-- Font Google Lora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet"> 
 </head>
 
 <body>
@@ -40,8 +42,9 @@
                         Opciones
                       </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
+                                <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
+                                <li><a class="dropdown-item" href="/">Controles</a></li>
                                 <li><a class="dropdown-item" href="/#">Adopción</a></li>
                             </ul>
                         </li>
@@ -106,8 +109,8 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Ubicación</span>
-                                        <input id="view_ubicacion" name="ubicacion" type="text" class="form-control" placeholder="Ubicación Usuario" aria-describedby="addon-wrapping" readonly>
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Región</span>
+                                        <input id="view_ubicacion" name="ubicacion" type="text" class="form-control" placeholder="Región de procedencia" aria-describedby="addon-wrapping" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -117,7 +120,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            
+                            <div class="col-12" style="padding-top: 5px;">
                                 <button type="button" id="edit-usuario-button" class=" btn btn-primary">
                                         <i class="far fa-edit"></i> Editar
                                     </button>
@@ -128,6 +132,82 @@
             </div>
         </div>
     </section>
+
+    <!--Editar datos usuario-->
+    <div class="bg-modal">
+        <div class="modal-content2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        <div id="text-action-title-popup">Editar Usuario</div>
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <div class="col-12">
+                        <form action="/profile/editUser" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Rut</span>
+                                        <input id="edit_rut_user" name="rut" type="text" class="form-control" placeholder="Rut Usuario" aria-describedby="addon-wrapping" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre</span>
+                                        <input id="edit_nombre_user" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre Completo" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Correo Electrónico</span>
+                                        <input id="edit_correo_user" name="correo" type="email" class="form-control" placeholder="Correo Electrónico" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Naciemiento</span>
+                                        <input id="edit_fechanacimiento_user" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Teléfono</span>
+                                        <input id="edit_telefono_user" name="telefono" type="text" class="form-control" placeholder="Teléfono" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Dirección</span>
+                                        <input id="edit_direccion_user" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!--que diferencia tiene ubicacion con direccion-->
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Región</span>
+                                        <input id="edit_ubicacion_user" name="ubicacion" type="text" class="form-control" placeholder="Región de procedencia" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
+                                        <input id="edit_descripcion_user" name="descripcion" type="text" class="form-control" placeholder="Agrege una descripción" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" id="edit-usuario-popup-button" class=" btn btn-primary">
+                                    <i class="far fa-save"></i> Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="close">+</div>
+        </div>
+    </div>
     <script>
         const duenoInfo = <%-JSON.stringify(dueno)%>;
 
@@ -142,6 +222,16 @@
             document.getElementById("view_descripcion").value = duenoInfo.descripcion
         }
         getUserInfo(duenoInfo);
+
+        //Cuando se haga click al boton editar
+        document.getElementById("edit-usuario-button").addEventListener("click",
+            function() {
+                document.querySelector(".bg-modal").style.display = "flex";
+            }); //activar panel
+        document.querySelector(".close").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal').style.display = "none";
+            });
     </script>
 </body>
 
