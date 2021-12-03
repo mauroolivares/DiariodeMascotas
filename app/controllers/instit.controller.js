@@ -18,7 +18,8 @@ exports.isAuthenticated = (req, res, next) => {
 
 //Menu de institucion:
 exports.institMenu = (req, res) => {
-    res.render('instit');
+    console.log(req.user)
+    res.render('perfilInstitucion', { instit: req.user });
 }
 
 //Menu de Veterinarios de una Institucion:
