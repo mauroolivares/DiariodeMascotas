@@ -65,6 +65,23 @@ exports.MascotaMenu = async(req, res) => {
     }
 }
 
+exports.ControlesMenu = async(req, res) => {
+    if (req.user == undefined) {
+        Control.findAll({ where: { rutusuario: '666' } }).then(data => {
+            console.log(data);
+            res.render('controles', { controles: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    } else {
+        Control.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
+            res.render('controles', { controles: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    }
+}
+
 exports.addMascota = async(req, res) => {
     console.log(req.body)
     const mascota = {
@@ -78,24 +95,20 @@ exports.addMascota = async(req, res) => {
         tienechip,
         desparasitado,
         estado,
-        descripcion
+        descripcion,
+        rutusuario
     } = req.body;
     var mascotaID = funciones.generarID();
-    if (await funciones.mascotaNoExiste(mascotaID)) {
-        /*mascota.id = mascotaID;
-        mascota.rutusuario = req.user.rut;
-        Mascota.create(mascota).then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        });
-        res.redirect('/profile/pets');
-        */
-        console.log("mascota creada?")
-    } else {
-        res.redirect('/profile/pets');
-    }
+    mascota.id = mascotaID;
+    mascota.rutusuario = req.user.rut;
 
+    Mascota.create(mascota).then(data => {
+        console.log(data);
+        console.log("Nueva mascota just dropped");
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+    res.redirect('/profile/pets');
 }
 
 exports.editMascota = async(req, res) => {

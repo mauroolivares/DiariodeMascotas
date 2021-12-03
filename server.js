@@ -17,7 +17,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(express.static('public'));
 
@@ -51,7 +51,6 @@ app.use(require('./app/routes/dueno.routes'));
 app.use(require('./app/routes/instit.routes'));
 app.use(require('./app/routes/usuario.routes'));
 app.use(require('./app/routes/vet.routes'));
-
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

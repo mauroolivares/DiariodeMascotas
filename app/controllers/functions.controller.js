@@ -7,7 +7,7 @@ const Control = require('../models/form_control.model');
 const Adopcion = require('../models/form_adoptform.model');
 
 exports.generarID = () => {
-    return (Math.random() * (65536 - 1) + (1)).toString();
+    return (Math.round(Math.random() * (65536 - 1) + (1))).toString();
 }
 
 exports.usuarioNoExiste = async(rut) => {
@@ -61,7 +61,6 @@ exports.adopcionNoExiste = async(fichaid) => {
 };
 
 exports.transformarFecha = (fechastring) => {
-    var parts = fechastring.split('-');
-    var mydate = new Date(parts[0], parts[1] - 1, parts[2]);
-    return mydate.toDateString();
+    var fecha = new Date(fechastring)
+    return fecha.toLocaleDateString("sp-Us");
 }

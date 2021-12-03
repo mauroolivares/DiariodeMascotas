@@ -18,7 +18,7 @@ exports.isAuthenticated = (req, res, next) => {
 
 //Menu de institucion:
 exports.institMenu = (req, res) => {
-    res.render('admin');
+    res.render('instit');
 }
 
 //Menu de Veterinarios de una Institucion:

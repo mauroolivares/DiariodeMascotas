@@ -33,7 +33,7 @@ exports.login = (req, res) => {
             break;
 
         case "Institucion":
-            res.redirect("/admin")
+            res.redirect("/instit")
             break;
 
         case "Veterinario":

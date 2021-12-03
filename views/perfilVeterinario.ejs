@@ -41,10 +41,10 @@
                                   Opciones
                                 </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
-                                    <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
-                                    <li><a class="dropdown-item" href="/">Controles</a></li>
-                                    <li><a class="dropdown-item" href="/#">Adopción</a></li>
+                                <li><a class="dropdown-item" href="/vet">Mis Datos</a></li>
+                                <li><a class="dropdown-item" href="/vet/pets">Mascotas de Institución</a></li>
+                                <li><a class="dropdown-item" href="/vet/ctrlforms">Controles</a></li>
+                                <li><a class="dropdown-item" href="/vet/adoptforms">Adopción</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -124,7 +124,7 @@
                                         <input id="view_especialidad" name="especialidad" type="text" class="form-control" placeholder="Especialidad Veterinario" aria-describedby="addon-wrapping" readonly>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="col-12" style="padding-top: 5px;">
                                 <button type="button" id="edit-vet-button" class=" btn btn-primary">
                                         <i class="far fa-edit"></i> Editar
@@ -231,7 +231,7 @@
             document.getElementById("view_descripcion").value = vetInfo.descripcion
             document.getElementById("view_especialidad").value = vetInfo.especialidad
         }
-        getUserInfo(vetInfo);
+        getVetInfo(vetInfo);
 
         //Cuando se haga click al boton editar
         document.getElementById("edit-vet-button").addEventListener("click",

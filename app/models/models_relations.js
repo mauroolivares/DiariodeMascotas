@@ -10,23 +10,25 @@ const Mascota = require('./form_pet.model')
 const Control = require('./form_control.model')
 
 //Tipo de usuario y su rut asociado:
-Administrador.belongsTo(Usuario, { as: "rutAdmin", foreignKey: "rut" });
-Institucion.belongsTo(Usuario, { as: "rutInstit", foreignKey: "rut" });
-Dueno.belongsTo(Usuario, { as: "rutDueno", foreignKey: "rut" });
-Veterinario.belongsTo(Usuario, { as: "rutVet", foreignKey: "rut" });
-Veterinario.belongsTo(Institucion, { as: "rutInst", foreignKey: { name: "rutinstitucion", allowNull: true } });
+Administrador.belongsTo(Usuario, { foreignKey: "rut" });
+Institucion.belongsTo(Usuario, { foreignKey: "rut" });
+Dueno.belongsTo(Usuario, { foreignKey: "rut" });
+Veterinario.belongsTo(Usuario, { foreignKey: "rut" });
+Veterinario.belongsTo(Institucion, { foreignKey: { name: "rutinstitucion", allowNull: true } });
 
 //Tipo de usuario en un formulario de adopción:
-fichaAdopcion.belongsTo(Veterinario, { as: "rutVet", foreignKey: "rutvet" });
-fichaAdopcion.belongsTo(Usuario, { as: "rutUser", foreignKey: "rutusuario" }); //Dueño o Institucion
-fichaAdopcion.belongsTo(Mascota, { as: "mascota", foreignKey: "idmascota" });
+fichaAdopcion.belongsTo(Veterinario, { foreignKey: "rutvet", allowNull: true });
+fichaAdopcion.belongsTo(Usuario, { foreignKey: "rutusuario" }); //Dueño o Institucion
+fichaAdopcion.belongsTo(Mascota, { foreignKey: "idmascota" });
 
 //Tipo de usuario en un control médico:
-Control.belongsTo(Veterinario, { as: "rutVet", foreignKey: "rutvet" });
-Control.belongsTo(Usuario, { as: "rutUser", foreignKey: "rutusuario" }); //Dueño o Institucion
-Control.belongsTo(Mascota, { as: "mascota", foreignKey: "idmascota" });
+Control.belongsTo(Veterinario, { foreignKey: "rutvet", allowNull: true });
+Control.belongsTo(Usuario, { foreignKey: "rutusuario" }); //Dueño o Institucion
+Control.belongsTo(Mascota, { foreignKey: "idmascota" });
 
 //
-Mascota.belongsTo(Usuario, { as: "rutUser", foreignKey: "rutusuario" }); //Dueño o Institucion
+Dueno.hasMany(Mascota, { foreignKey: "id" });
+Institucion.hasMany(Mascota, { foreignKey: "id" });
+Mascota.belongsTo(Usuario, { foreignKey: "rutusuario" }) //Dueño o Institucion
 
 //module.exports = { Usuario, Administrador, Institucion, Dueno, Veterinario, fichaAdopcion, Mascota, Control }

@@ -14,5 +14,9 @@ router.post("/loggedin", passport.authenticate('local', {
 
 router.post("/signin", user.saveUser);
 
+router.get('*', (req, res) => {
+    res.render('invalidroute')
+})
+
 
 module.exports = router;

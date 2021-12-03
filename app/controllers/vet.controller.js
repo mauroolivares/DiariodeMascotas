@@ -22,7 +22,24 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 exports.Menu = (req, res) => {
-    res.render('perfilVeterinario');
+    res.render('perfilVeterinario', { vet: req.user });
+}
+
+exports.MenuMascotas = (req, res) => {
+    if (req.user == undefined) {
+        Mascota.findAll({ where: { rutusuario: '555' } }).then(data => {
+            console.log(data);
+            res.render('mascotasUsuario', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    } else {
+        Mascota.findAll({ where: { rutusuario: req.user.rutinstitucion } }).then(data => {
+            res.render('mascotasUsuario', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    }
 }
 
 exports.addMascota = async(req, res) => {
