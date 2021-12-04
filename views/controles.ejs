@@ -44,7 +44,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
                                 <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
-                                <li><a class="dropdown-item" href="/">Controles</a></li>
+                                <li><a class="dropdown-item" href="'/profile/controls">Controles</a></li>
                                 <li><a class="dropdown-item" href="/#">Adopción</a></li>
                             </ul>
                         </li>
@@ -112,6 +112,18 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping">Seleccionar Mascota</span>
+                                    <select onclick="fillCodePet();" name="idmascota" id="idmascota"></select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre mascota</span>
+                                    <input id="nombremascota" name="nombremascota" type="text" class="form-control" placeholder="Nombre mascota" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha</span>
                                     <input id="add_fecha" name="fecha" type="text" class="form-control" placeholder="Fecha del control" aria-describedby="addon-wrapping">
                                 </div>
@@ -144,7 +156,7 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Observación</span>
-                                    <textarea id="add_observacion" name="observacion" type="text" class="form-control" placeholder="Agrege observaciones finales" aria-describedby="addon-wrapping">
+                                    <input id="add_observacion" name="observacion" type="text" class="form-control" placeholder="Agrege observaciones finales" aria-describedby="addon-wrapping">
                                 </div>
                             </div>                            
                         </div>
@@ -158,18 +170,19 @@
             </div>
             <div class="close2">+</div>
         </div>
-        <!--VENTANA OCULTA DE EDITAR CONTROL-->
-        <div class="bg-modal2">
-            <div class="modal-content2">
-                <div class="row">
-                    <div class="col-12">
-                        <h3>
-                            <div id="text-action-title-popup">
-                                Editar Control
-                            </div>
-                        </h3>
-                    </div>
-                    <div class="col-12">
+    </div>
+    <!--VENTANA OCULTA DE EDITAR CONTROL-->
+    <div class="bg-modal">
+        <div class="modal-content2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        <div id="text-action-title-popup">
+                            Editar Control
+                        </div>
+                    </h3>
+                </div>
+                <div class="col-12">
                     <form action="/editControl" method="post">
                         <div class="row">
                             <div class="col-12">
@@ -195,8 +208,7 @@
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Vacuna(s)</span>
                                     <input id="edit_vacuna" name="vacuna" type="date" class="form-control" placeholder="" aria-describedby="addon-wrapping">
                                 </div>
-                            </div>
-                            
+                            </div>                        
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
@@ -220,9 +232,10 @@
             </div>
             <div class="close">+</div>
         </div>
-    </body>
+    </div>    
     <script>
         const controles = <%-JSON.stringify(controles)%>;
+        const mascotas = <%-JSON.stringify(mascotas)%>;
 
         function FillPageWithControls(controles) {
             let tBodyControles = document.getElementById("tBody-controles"); //Obten la tabla
@@ -237,7 +250,8 @@
                 //Inserta una nueva fila en la tabla 
                 let newControlRow = tBodyControles.insertRow(-1);
                 //Crea celdas o columna para la I-esima columna, esto hace referencia a
-                let newFechaColRef = newControlRow.insertCell(-1);                
+                let newFechaColRef = newControlRow.insertCell(-1);  
+                //let newMascotaColRef = newControlRow.insertCell(-1);              
                 let newPesoColRef = newControlRow.insertCell(-1);                
                 let newTemperaturaColRef = newControlRow.insertCell(-1);                
                 let newVacunaColRef = newControlRow.insertCell(-1);
@@ -292,6 +306,21 @@
             function() {
                 document.querySelector('.bg-modal').style.display = "none";
             });
-
-    </script>
+        
+        function fillCodePet(){
+            let pId = document.getElementById("idmascota").value
+            let pName = ""
+            for(let i = 0; i <mascotas.length; i++){
+                if(pId == mascotas[i].id){
+                    pName = mascotas[i].nombre
+                }
+            }
+            if(pName == ""){
+                document.getElementById('').value = ""
+            }else{
+                document.getElementById('').value = pName
+            }
+        }
+    </script>         
+    </body>      
 </html>
