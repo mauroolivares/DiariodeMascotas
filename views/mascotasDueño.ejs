@@ -47,7 +47,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Cerrar Sesión</a>
+                            <a class="nav-link" active href="/">Cerrar Sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -123,22 +123,13 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Sexo Mascota</span>
-                                    <select id="view_sexo" name="sexo" class="form-select" aria-label="Sexo Mascota" readonly>
-                                        <option value= true>Hembra</option>
-                                        <option value= true>Macho</option>
-                                    </select>
+                                    <input id="view_sexo" name="sexo" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Raza Mascota</span>
-                                    <input id="view_raza" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Color Mascota</span>
-                                    <input id="view_color" name="color" type="text" class="form-control" placeholder="Color Mascota" aria-label="color_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                    <input id="view_razacolor" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -149,17 +140,32 @@
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Chip ID</span>
-                                    <input id="view_chip" name="chip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Está Chipeado?</span>
+                                    <input id="view_tienechip" name="tienechip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Desparasitado?</span>
+                                    <input id="view_desparasitado" name="desparasitado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Esterilizado?</span>
+                                    <input id="view_esterilizado" name="esterilizado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
+                                    <input id="view_descripcion" name="descripcion" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
-                                    <select id="view_estado" name="estado" class="form-select" aria-label="Estado Mascota" readonly>
-                                        <option value= true >Activo</option>
-                                        <option value= false >Inactivo</option>
-                                    </select>
+                                    <input id="view_estado" name="estado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                         </div>
@@ -276,12 +282,12 @@
                 </div>
                 </form>
             </div>
+            <div class="close2">+</div>
         </div>
-        <div class="close2">+</div>
     </div>
 
     <!--EDITAR MASCOTAS-->
-    <div class="bg-modal">
+    <div class="bg-modal3">
         <div class="modal-content2">
             <div class="row">
                 <div class="col-12">
@@ -294,6 +300,12 @@
                 <div class="col-12">
                     <form action="/editar-mascota-usuario" method="post">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Código ID</span>
+                                    <input id="edit_id" name="id" type="text" class="form-control" placeholder="ID Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre Mascota</span>
@@ -381,7 +393,7 @@
                     </form>
                 </div>
             </div>
-            <div class="close">+</div>
+            <div class="close3">+</div>
         </div>
     </div>
     <form action='/ver-controles' id="hiddenform" method="POST">
@@ -418,7 +430,7 @@
 
                 newControlsColRef.innerHTML = '<button type="button" id=button-edit' + i + ' onclick="verControles(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>Ver</button>'
                 newEditarColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editPetsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
-                newVerMasColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editPetsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver más </button>';
+                newVerMasColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="viewPetPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver más </button>';
             }
 
         }
@@ -431,9 +443,10 @@
             document.getElementById('hiddenform').submit();
         }
 
-
         function editPetsPopup(pet1) {
-            var pet2 = pet1.split("-")
+            document.querySelector(".bg-modal3").style.display = "flex";
+            var pet2 = pet1.split("-");
+            document.getElementById('edit_id').value = mascotas[(parseInt(pet2[2]))].id;
             document.getElementById('edit_nombre').value = mascotas[(parseInt(pet2[2]))].nombre;
             document.getElementById('edit_especie').value = mascotas[(parseInt(pet2[2]))].especie;
             document.getElementById('edit_sexo').value = mascotas[(parseInt(pet2[2]))].sexo;
@@ -444,9 +457,23 @@
             document.getElementById('edit_esterilizado').value = mascotas[(parseInt(pet2[2]))].esterilizado;
             document.getElementById('edit_desparasitado').value = mascotas[(parseInt(pet2[2]))].desparasitado;
             document.getElementById('edit_estado').value = mascotas[(parseInt(pet2[2]))].estado;
-
             //Activando panel de editar
+        }
+
+        function viewPetPopup(pet1) {
             document.querySelector(".bg-modal").style.display = "flex";
+            var pet2 = pet1.split("-");
+            console.log(mascotas[(parseInt(pet2[2]))]);
+            document.getElementById('view_nombre').value = mascotas[(parseInt(pet2[2]))].nombre;
+            document.getElementById('view_especie').value = mascotas[(parseInt(pet2[2]))].especie;
+            document.getElementById('view_sexo').value = mascotas[(parseInt(pet2[2]))].sexo;
+            document.getElementById('view_razacolor').value = mascotas[(parseInt(pet2[2]))].razacolor;
+            document.getElementById('view_fechanacimiento').value = mascotas[(parseInt(pet2[2]))].fechanacimiento;
+            document.getElementById('view_descripcion').value = mascotas[(parseInt(pet2[2]))].descripcion;
+            document.getElementById('view_tienechip').value = mascotas[(parseInt(pet2[2]))].tienechip;
+            document.getElementById('view_esterilizado').value = mascotas[(parseInt(pet2[2]))].esterilizado;
+            document.getElementById('view_desparasitado').value = mascotas[(parseInt(pet2[2]))].desparasitado;
+            document.getElementById('view_estado').value = mascotas[(parseInt(pet2[2]))].estado;
         }
 
         //Cuando se haga click al boton agregar en nueva mascota
@@ -471,9 +498,14 @@
                 document.getElementById('estado').selectedIndex = 0
             });
 
+
         document.querySelector(".close").addEventListener("click",
             function() {
                 document.querySelector('.bg-modal').style.display = "none";
+            });
+        document.querySelector(".close3").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal3').style.display = "none";
             });
     </script>
 </body>

@@ -37,11 +37,11 @@
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Iniciar Sesión</h5>
                         <form action="/loggedin" method="post">
                             <div class="form-floating mb-3">
-                                <input name="rut" type="text" class="form-control" id="rut-user" placeholder="Rut">
+                                <input name="rut" type="text" class="form-control" id="rut-user" placeholder="Rut" maxlength="9" required>
                                 <label for="floatingInput"></label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="password" type="password" class="form-control" id="pass-user" placeholder="Contraseña">
+                                <input name="password" type="password" class="form-control" id="pass-user" placeholder="Contraseña" minlength="3" required>
                                 <label for="floatingPassword"></label>
                             </div>
 
@@ -52,10 +52,11 @@
                                     </label>
                             </div>
                             <div class="d-grid">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onclick=submit()>Sign in</button>
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Ingresar</button>
                             </div>
                             <hr class="my-4">
                         </form>
+                        <a class="nav-link active text-center" aria-current="page" href="/signin">¿No tienes una cuenta? Registrate</a>
                     </div>
                 </div>
             </div>

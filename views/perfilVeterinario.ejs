@@ -27,7 +27,7 @@
     <section id="title">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/#">Usuario:</a>
+                <a class="navbar-brand" href="/#">Diario de Mascotas:</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -41,14 +41,14 @@
                                   Opciones
                                 </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/vet">Mis Datos</a></li>
-                                <li><a class="dropdown-item" href="/vet/pets">Mascotas de Institución</a></li>
+                                <li><a class="dropdown-item" href="/vet/join">Postular a Institucion</a></li>
+                                <li><a class="dropdown-item" id="tieneInstitucion" disabled href="/vet/pets">Mascotas de Institución</a></li>
                                 <li><a class="dropdown-item" href="/vet/ctrlforms">Controles</a></li>
                                 <li><a class="dropdown-item" href="/vet/adoptforms">Adopción</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#">Cerrar Sesion</a>
+                            <a class="nav-link" active href="/#">Cerrar Sesion</a>
                         </li>
                     </ul>
                 </div>
@@ -116,6 +116,12 @@
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
                                         <input id="view_descripcion" name="descripcion" type="text" class="form-control" placeholder="Agrege una descripción" aria-describedby="addon-wrapping" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Institución Asociada</span>
+                                        <input id="view_institucion" name="rutinstitucion" type="text" class="form-control" placeholder="Rut Institucion" aria-describedby="addon-wrapping" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -200,10 +206,25 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Especialidad</span>
                                         <input id="edit_especialidad_vet" name="especialidad" type="text" class="form-control" placeholder="Especialidad" aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Código Institución</span>
+                                        <select name="rutinstitucion" id="edit_institucion_popup" class="form-select" aria-label="Institucion" onclick="nombreInst()"> </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre Institución</span>
+                                        <input name="nombreinst" id="edit_nombre_institucion_popup" class="form-control" aria-label="Institucion" readonly> </select>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                             <div class="col-12">
                                 <button type="submit" id="edit-vet-popup-button" class=" btn btn-primary">
@@ -218,7 +239,7 @@
         </div>
     </div>
     <script>
-        const vetInfo = <%-JSON.stringify(vet)%>;
+        const vetInfo = <%-JSON.stringify(veterinario)%>;
 
         function getVetInfo(vetInfo) {
             document.getElementById("view_rut").value = vetInfo.rut
@@ -230,12 +251,52 @@
             document.getElementById("view_ubicacion").value = vetInfo.ubicacion
             document.getElementById("view_descripcion").value = vetInfo.descripcion
             document.getElementById("view_especialidad").value = vetInfo.especialidad
+            if (vetInfo.rutinstitucion == null) {
+                document.getElementById("view_institucion").value = "No se encuentra asociado a una institución"
+            } else {
+                document.getElementById("view_institucion").value = vetInfo.rutinstitucion
+                document.getElementById("tieneInstitucion").disabled = false;
+            }
         }
         getVetInfo(vetInfo);
 
-        //Cuando se haga click al boton editar
+        const listaint = <%- JSON.stringify(instituciones) %>;
+        var indexInstitucion = 0;
+
+        function fillInstTable(listaint) {
+            const selectInst = document.getElementById('edit_institucion_popup')
+
+            for (let i = 0; i < listaint.length; i++) {
+                if (listaint[i].rut == vetInfo.rutinstitucion) {
+                    indexInstitucion = i;
+                }
+                let opcionrut = document.createElement("option")
+                opcionrut.text = listaint[i].rut
+                selectInst.add(opcionrut)
+            }
+        }
+        fillInstTable(listaint);
+
+        function nombreInst() {
+            var Instactual = document.getElementById('edit_institucion_popup').selectedIndex;
+            document.getElementById('edit_nombre_institucion_popup').value = listaint[Instactual].nombrecompleto;
+            console.log(Instactual)
+        }
+
         document.getElementById("edit-vet-button").addEventListener("click",
             function() {
+                document.getElementById('edit_rut_vet').value = vetInfo.rut;
+                document.getElementById('edit_nombre_vet').value = vetInfo.nombrecompleto;
+                document.getElementById('edit_correo_vet').value = vetInfo.correo;
+                document.getElementById('edit_fechanacimiento_vet').value = vetInfo.fechanacimiento;
+                document.getElementById('edit_telefono_vet').value = vetInfo.telefono;
+                document.getElementById('edit_direccion_vet').value = vetInfo.direccion;
+                document.getElementById('edit_ubicacion_vet').value = vetInfo.ubicacion;
+                document.getElementById('edit_descripcion_vet').value = vetInfo.descripcion;
+                document.getElementById('edit_especialidad_vet').value = vetInfo.especialidad;
+                document.getElementById('edit_institucion_popup').options.selectedindex = 0;
+                document.getElementById('edit_nombre_institucion_popup').value = listaint[0].nombrecompleto;
+                //Activando panel de editar
                 document.querySelector(".bg-modal").style.display = "flex";
             }); //activar panel
         document.querySelector(".close").addEventListener("click",

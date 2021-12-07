@@ -1,4 +1,6 @@
+const Institucion = require('../models/user_instit.model');
 const Veterinario = require('../models/user_vet.model');
+const Usuario = require('../models/user.model');
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.user == undefined) {
@@ -22,11 +24,54 @@ exports.institMenu = (req, res) => {
     res.render('perfilInstitucion', { instit: req.user });
 }
 
-//Menu de Veterinarios de una Institucion:
-exports.instiVetsMenu = async(req, res) => {
-    res.render('admin');
+exports.editarDatosInstit = async(req, res) => {
+    const usuario = {
+        rut,
+        correo,
+        password,
+        nombrecompleto,
+        descripcion,
+        ubicacion,
+        telefono,
+        direccion,
+        fechanacimiento,
+        area,
+        totalfunc,
+        totalpuestos
+    } = req.body;
+    Usuario.update(usuario, { where: { rut: req.user.rut } }).then(data1 => {
+        Institucion.update(usuario, { where: { rut: req.user.rut } }).then(data2 => {
+            console.log("Institución y Usuario Actualizado.")
+            res.redirect("/logout");
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        });
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
 }
 
+//Menu de Veterinarios de una Institucion:
+/*
+exports.instiVetsMenu = async(req, res) => {
+    if (req.user == undefined) {
+        Veterinario.findAll({ where: { rutinstitucion: '555' } }).then(data => {
+            console.log(data);
+            res.render('mascotasDueño', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        });
+    } else {
+        Veterinario.findAll({ where: { rutinstitucion: req.user.rut } }).then(data => {
+            console.log(data);
+            res.render('mascotasDueño', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+        res.render('admin');
+    }
+}
+*/
 //Menu de Mascotas de una Institucion:
 exports.institPetsMenu = async(req, res) => {
     res.render('admin');

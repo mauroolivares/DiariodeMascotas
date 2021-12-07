@@ -8,18 +8,18 @@ body {
 }
 
 body {
-    
     background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    ;
     /* Full height */
     height: 100%;
     bottom: 0px;
-
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 /* Login */
 
@@ -58,17 +58,20 @@ body {
     padding-bottom: 15px;
 }
 
+
 /* Menu Admin */
+
 .name-viewer-home {
     padding: 3%;
     font-size: 15px;
     font-family: 'Lora', serif;
 }
 
-.pauta-botones-disponibles .button-a{
+.pauta-botones-disponibles .button-a {
     width: 160px;
     margin-bottom: 15px;
 }
+
 
 /* Menu pauta Admin */
 
@@ -92,6 +95,7 @@ body {
 .pagination-user-admin-nav {
     margin-top: 15px;
 }
+
 
 /* Agregar pautas - admin  */
 
@@ -117,6 +121,7 @@ body {
 .items-info {
     visibility: hidden;
 }
+
 
 /* Agregar empresas - admin */
 
@@ -146,7 +151,7 @@ body {
     margin-right: 20px;
 }
 
-.modal-content .col-12{
+.modal-content .col-12 {
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -183,7 +188,7 @@ body {
     margin-right: 20px;
 }
 
-.modal-content2 .col-12{
+.modal-content2 .col-12 {
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -220,7 +225,7 @@ body {
     margin-right: 20px;
 }
 
-.modal-content3 .col-12{
+.modal-content3 .col-12 {
     padding-top: 15px;
     padding-bottom: 15px;
 }

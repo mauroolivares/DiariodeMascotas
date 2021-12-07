@@ -45,11 +45,11 @@
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
                                 <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
                                 <li><a class="dropdown-item" href="/profile/controls">Controles</a></li>
-                                <li><a class="dropdown-item" href="/#">Adopción</a></li>
+                                <li><a class="dropdown-item" href="/profile/adopt">Adopción</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Cerrar Sesión</a>
+                            <a class="nav-link" active href="/">Cerrar Sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -117,6 +117,12 @@
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
                                         <input id="view_descripcion" name="descripcion" type="text" class="form-control" placeholder="Descripción Usuario" aria-describedby="addon-wrapping" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
+                                        <input id="view_estado" name="estado" type="text" class="form-control" placeholder="Estado" aria-describedby="addon-wrapping" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +198,13 @@
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
-                                        <input id="edit_descripcion_user" name="descripcion" type="text" class="form-control" placeholder="Agrege una descripción" aria-describedby="addon-wrapping">
+                                        <input id="edit_descripcion_user" name="descripcion" type="text" class="form-control" placeholder="Descripción" aria-describedby="addon-wrapping">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
+                                        <input id="edit_estado_user" name="estado" type="text" class="form-control" placeholder="Estado" aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
                             </div>
@@ -220,12 +232,23 @@
             document.getElementById("view_direccion").value = duenoInfo.direccion
             document.getElementById("view_ubicacion").value = duenoInfo.ubicacion
             document.getElementById("view_descripcion").value = duenoInfo.descripcion
+            document.getElementById("view_estado").value = duenoInfo.estado
         }
         getUserInfo(duenoInfo);
 
         //Cuando se haga click al boton editar
         document.getElementById("edit-usuario-button").addEventListener("click",
             function() {
+                document.getElementById('edit_rut_user').value = duenoInfo.rut;
+                document.getElementById('edit_nombre_user').value = duenoInfo.nombrecompleto;
+                document.getElementById('edit_correo_user').value = duenoInfo.correo;
+                document.getElementById('edit_fechanacimiento_user').value = duenoInfo.fechanacimiento;
+                document.getElementById('edit_telefono_user').value = duenoInfo.telefono;
+                document.getElementById('edit_direccion_user').value = duenoInfo.direccion;
+                document.getElementById('edit_ubicacion_user').value = duenoInfo.ubicacion;
+                document.getElementById('edit_descripcion_user').value = duenoInfo.descripcion;
+                document.getElementById('edit_estado_user').value = duenoInfo.estado;
+                //Activando panel de editar
                 document.querySelector(".bg-modal").style.display = "flex";
             }); //activar panel
         document.querySelector(".close").addEventListener("click",

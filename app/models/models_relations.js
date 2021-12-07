@@ -14,6 +14,10 @@ Administrador.belongsTo(Usuario, { foreignKey: "rut" });
 Institucion.belongsTo(Usuario, { foreignKey: "rut" });
 Dueno.belongsTo(Usuario, { foreignKey: "rut" });
 Veterinario.belongsTo(Usuario, { foreignKey: "rut" });
+Usuario.hasMany(Institucion, { foreignKey: "rut" });
+Usuario.hasMany(Administrador, { foreignKey: "rut" });
+Usuario.hasMany(Veterinario, { foreignKey: "rut" });
+Usuario.hasMany(Dueno, { foreignKey: "rut" });
 Veterinario.belongsTo(Institucion, { foreignKey: { name: "rutinstitucion", allowNull: true } });
 
 //Tipo de usuario en un formulario de adopción:

@@ -11,7 +11,7 @@ const funciones = require('../controllers/functions.controller');
 //Sitio para iniciar sesion:
 exports.loginpage = (req, res) => {
     req.logout();
-    res.render('login');
+    res.render('paginaPrincipal');
 }
 
 //Sitio para registrar usuario fuera de sesión:
@@ -26,7 +26,7 @@ exports.logout = (req, res) => {
 }
 
 //Funcion para redirigir inicio de sesión:
-exports.login = (req, res) => {
+exports.login = async(req, res) => {
     switch (req.user.tipo) {
         case "Administrador":
             res.redirect("/admin")
@@ -47,8 +47,7 @@ exports.login = (req, res) => {
     res.end()
 }
 
-// Registra un Usuario:
-exports.saveUser = async(req, res) => {
+exports.EditUser = (req, res, next) => {
     const usuario = {
         rut,
         correo,
@@ -60,14 +59,31 @@ exports.saveUser = async(req, res) => {
         direccion,
         fechanacimiento
     } = req.body;
+    Usuario.update(usuario, { where: { rut: req.body.rut } }).then(data => {
+        res.redirect("/admin")
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+}
 
-    //placeholder: hay que conversar sobre las fechas!
-    let fechaString = funciones.transformarFecha(usuario.fechanacimiento);
-
-    usuario.fechanacimiento = fechaString
-    usuario.telefono = parseInt(usuario.telefono)
+// Registra un Usuario como admin:
+exports.saveUser = async(req, res) => {
+    const usuario = {
+        rut,
+        correo,
+        password,
+        nombrecompleto,
+        descripcion,
+        ubicacion,
+        telefono,
+        direccion,
+        fechanacimiento,
+        totalfunc,
+        totalpuestos,
+        area,
+        estado
+    } = req.body;
     usuario.password = await bcrypt.hash(req.body.password, 10)
-
     Usuario.create(usuario).then(data => {
         console.log(data);
     }).catch(err => {
@@ -76,104 +92,46 @@ exports.saveUser = async(req, res) => {
     console.log(usuario);
     //token = auth.generateToken(usuario);
 
-    const tipo = "Dueno";
-
-    switch (tipo) {
+    switch (req.body.tipo) {
         case "Administrador":
             Administrador.create(usuario).then(data => {
                 console.log(data);
+                res.send(usuario);
             }).catch(err => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
-            res.redirect("/")
+
             break;
 
 
         case "Institucion":
-            usuario.totalfunc = 180;
-            usuario.totalpuestos = 100;
-            usuario.area = "Fundación";
-            console.log(usuario);
 
             Institucion.create(usuario).then(data => {
                 console.log(data);
+                res.send(usuario);
             }).catch(err => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
-            res.redirect("/")
             break;
 
         case "Veterinario":
-            usuario.especialidad = "Uhhh si"
             usuario.rutinstitucion = null
             Veterinario.create(usuario).then(data => {
                 console.log(data);
+                res.send(usuario);
             }).catch(err => {
                 console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
             });
             console.log(usuario);
-            res.redirect("/")
-            break;
-
-        case "Dueno":
-            usuario.estado = "X";
-            Dueno.create(usuario).then(data => {
-                console.log(data);
-            }).catch(err => {
-                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-            });
-            console.log(usuario);
-            res.redirect("/")
-            break;
-    };
-}
-
-//Función de editar usuario:
-exports.editUser = async(req, res) => {
-    /*
-    if (!req.body.rut || req.body.rut < 8) {
-        res.status(400).send({
-            message: "No puede estar vacio."
-        });
-        return;
-    }
-    */
-
-    const usuario = {
-        password: await bcrypt.hash(req.body.password, 10),
-        nombrecompleto: req.body.nombrecompleto
-    }
-
-    Usuario.update(usuario, { where: { rut: req.body.rut } });
-
-    switch (req.body.tipo) {
-        case "Administrador":
-
-            Administrador.update(usuario, { where: { rut: req.body.rut } });
-            break;
-
-
-        case "Institucion":
-            //req.body.variablesinstitucion
-            usuario.totalfunc = 180;
-            usuario.totalpuestos = 100;
-            usuario.area = "Fundación";
-            console.log(usuario);
-
-            Institucion.update(usuario, { where: { rut: req.body.rut } });
-            break;
-
-        case "Veterinario":
-            //req.body.variablesvet
-            usuario.especialidad = "Uhhh si"
-            usuario.rutinstitucion = null
-            Veterinario.update(usuario, { where: { rut: req.body.rut } });
             break;
 
         case "Dueño":
-            //req.body.variablesdueño
-            usuario.estado = "X";
-            Dueno.update(usuario, { where: { rut: req.body.rut } });
+            Dueno.create(usuario).then(data => {
+                console.log(data);
+                res.send(usuario);
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            });
             break;
     };
-};
+}

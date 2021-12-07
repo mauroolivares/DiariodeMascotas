@@ -15,15 +15,14 @@ const Usuario = sequelize.define("usuario", {
     },
     nombrecompleto: {
         type: Sequelize.STRING,
-        defaultValue: " "
     },
     descripcion: {
         type: Sequelize.STRING,
-        defaultValue: " "
+        defaultValue: "Vacio"
     },
     ubicacion: {
         type: Sequelize.STRING,
-        defaultValue: " "
+        defaultValue: "Vacio"
     },
     telefono: {
         type: Sequelize.INTEGER,
@@ -31,11 +30,10 @@ const Usuario = sequelize.define("usuario", {
     },
     direccion: {
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: "Vacio"
     },
     fechanacimiento: {
-        type: Sequelize.DATE,
-        defaultValue: 01 - 01 - 1900
+        type: Sequelize.DATE
     }
 });
 

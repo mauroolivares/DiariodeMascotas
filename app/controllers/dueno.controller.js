@@ -23,13 +23,59 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 //Menu de dueño:
-exports.Menu = async(req, res) => {
-    //send datos de req.user
-    res.render('perfilUsuario', { dueno: req.user })
+exports.Menu = (req, res) => {
+    console.log(req.user)
+        //send datos de req.user
+    res.render('perfilDueño', { dueno: req.user })
 }
 
-exports.editarDueno = async(req, res) => {
-    //send datos de req.user
+//Mascotas de dueño:
+exports.MascotaMenu = async(req, res) => {
+    if (req.user == undefined) {
+        Mascota.findAll({ where: { rutusuario: '666' } }).then(data => {
+            console.log(data);
+            res.render('mascotasDueño', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    } else {
+        Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
+            res.render('mascotasDueño', { mascotas: data })
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    }
+}
+
+exports.ControlesMenu = async(req, res) => {
+    if (req.user == undefined) {
+        Control.findAll({ where: { rutusuario: '666' } }).then(data1 => {
+            console.log(data1);
+            Mascota.findAll({ where: { rutusuario: '666' } }).then(data2 => {
+                res.render('controlesDueño', { controles: data1, mascotas: data2 })
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            })
+
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    } else {
+        Control.findAll({ where: { rutusuario: req.user.rut } }).then(data1 => {
+            console.log(data1);
+            Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data2 => {
+                res.render('controlesDueño', { controles: data1, mascotas: data2 })
+            }).catch(err => {
+                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+            })
+
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        })
+    }
+}
+
+exports.editarDatosDueno = async(req, res) => {
     const usuario = {
         rut,
         correo,
@@ -42,44 +88,16 @@ exports.editarDueno = async(req, res) => {
         fechanacimiento,
         estado
     } = req.body;
-    Usuario.update(usuario, { where: { rut: req.body.rut } });
-    Dueno.update(usuario, { where: { rut: req.body.rut } });
-    res.redirect('/profile')
-}
-
-//Mascotas de dueño:
-exports.MascotaMenu = async(req, res) => {
-    if (req.user == undefined) {
-        Mascota.findAll({ where: { rutusuario: '666' } }).then(data => {
-            console.log(data);
-            res.render('mascotasUsuario', { mascotas: data })
+    Usuario.update(usuario, { where: { rut: req.user.rut } }).then(data1 => {
+        Dueno.update(usuario, { where: { rut: req.user.rut } }).then(data2 => {
+            console.log("Dueño y Usuario Actualizado.")
+            res.redirect("/logout");
         }).catch(err => {
             console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    } else {
-        Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
-            res.render('mascotasUsuario', { mascotas: data })
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    }
-}
-
-exports.ControlesMenu = async(req, res) => {
-    if (req.user == undefined) {
-        Control.findAll({ where: { rutusuario: '666' } }).then(data => {
-            console.log(data);
-            res.render('controles', { controles: data })
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    } else {
-        Control.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
-            res.render('controles', { controles: data })
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    }
+        });
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
 }
 
 exports.addMascota = async(req, res) => {
@@ -184,13 +202,6 @@ exports.editControl = async(req, res) => {
     res.redirect('/profile/pets');
 }
 
-
-
-exports.MascotaPerfil = async(req, res) => {
-    //send query con los datos de la mascota
-    res.render('perfilMascota')
-}
-
 exports.ponerEnAdopcion = async(req, res) => {
     const fichaAdopcion = {
         id,
@@ -221,13 +232,11 @@ exports.ponerEnAdopcion = async(req, res) => {
 }
 
 exports.verMascotasEnAdopcion = async(req, res) => {
-    /*
     Adopcion.findAll({ where: { estado: 'Dar en Adopcion' } }).then(data => {
-        res.render('duenoEnAdopcion', { adopciones: data })
+        res.render('vistaAdoptar', { adopciones: data })
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     })
-    */
 }
 
 exports.adoptarMascota = async(req, res) => {

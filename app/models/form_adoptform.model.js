@@ -6,6 +6,10 @@ const fichaAdopcion = sequelize.define("fichaadopcion", {
         type: Sequelize.STRING,
         primaryKey: true
     },
+    fecha: {
+        type: Sequelize.DATE,
+        defaultValue: 01 - 01 - 1900
+    },
     observacion: {
         type: Sequelize.STRING,
         defaultValue: ""
@@ -13,10 +17,6 @@ const fichaAdopcion = sequelize.define("fichaadopcion", {
     estado: {
         type: Sequelize.STRING,
         defaultValue: ""
-    },
-    fechaInicio: {
-        type: Sequelize.DATE,
-        defaultValue: 01 - 01 - 1900
     }
     //foreign key veterinario
     //foreign key dueño/institucion

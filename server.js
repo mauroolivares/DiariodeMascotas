@@ -49,8 +49,8 @@ sequelize.sync({ force: false }).then(function() {
 app.use(require('./app/routes/admin.routes'));
 app.use(require('./app/routes/dueno.routes'));
 app.use(require('./app/routes/instit.routes'));
-app.use(require('./app/routes/usuario.routes'));
 app.use(require('./app/routes/vet.routes'));
+app.use(require('./app/routes/usuario.routes'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

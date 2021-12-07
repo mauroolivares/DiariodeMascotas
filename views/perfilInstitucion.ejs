@@ -27,7 +27,7 @@
     <section id="title">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/#">Usuario:</a>
+                <a class="navbar-brand" href="/#">Diario de Mascotas</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -48,7 +48,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#">Cerrar Sesion</a>
+                            <a class="nav-link" active href="/#">Cerrar Sesion</a>
                         </li>
                     </ul>
                 </div>
@@ -257,9 +257,20 @@
         }
         getInstitInfo(institInfo);
 
-        //Cuando se haga click al boton editar
         document.getElementById("edit-instit-button").addEventListener("click",
             function() {
+                document.getElementById('edit_rut_instit').value = institInfo.rut;
+                document.getElementById('edit_nombre_instit').value = institInfo.nombrecompleto;
+                document.getElementById('edit_correo_instit').value = institInfo.correo;
+                document.getElementById('edit_fechanacimiento_instit').value = institInfo.fechanacimiento;
+                document.getElementById('edit_telefono_instit').value = institInfo.telefono;
+                document.getElementById('edit_direccion_instit').value = institInfo.direccion;
+                document.getElementById('edit_ubicacion_instit').value = institInfo.ubicacion;
+                document.getElementById('edit_descripcion_instit').value = institInfo.descripcion;
+                document.getElementById('edit_area_instit').value = institInfo.area;
+                document.getElementById('edit_totalfunc_instit').value = institInfo.totalfunc;
+                document.getElementById('edit_totalpuestos_instit').value = institInfo.totalpuestos;
+                //Activando panel de editar
                 document.querySelector(".bg-modal").style.display = "flex";
             }); //activar panel
         document.querySelector(".close").addEventListener("click",

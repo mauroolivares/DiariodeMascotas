@@ -27,7 +27,7 @@
     <section id="title">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Administración Diario de Mascotas</a>
+                <a class="navbar-brand" href="#">Diario de Mascotas</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -41,11 +41,11 @@
                                 Opciones
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/#">Usuarios</a></li>
+                                <li><a class="dropdown-item" href="/admin">Lista de Usuarios</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Cerrar Sesión</a>
+                            <a class="nav-link active" href="/">Cerrar Sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="name-viewer-home col-lg-6 col-md-4 col-sm-6">
                     <div class="col-12">
-                        <h3>Usuarios</h3>
+                        <h3>Control de Usuarios</h3>
                     </div>
                 </div>
                 <!--Boton agregar usuario-->
@@ -125,7 +125,13 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Rut</span>
-                                    <input id="add_rut_admin" name="rut" type="text" class="form-control" placeholder="Rut Usuario" aria-describedby="addon-wrapping">
+                                    <input required id="add_rut_admin" name="rut" type="text" class="form-control" placeholder="Rut Usuario" aria-describedby="addon-wrapping">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Contraseña</span>
+                                    <input required id="add_password_admin" name="password" type="password" class="form-control" placeholder="Contraseña Usuario" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -173,6 +179,52 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">Tipo Usuario</span>
+                                <select name="tipo" id="tipo_usuario_input_popup" onclick='revisarTipoNewUser();' class="form-select" aria-label="Estado activacion">
+                                    <option >Administrador</option>
+                                    <option >Institucion</option>
+                                    <option >Veterinario</option>
+                                    <option >Dueño</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Esto solo aparece si es un mantenedor y se tiene que seleccionar la empresa segun el nombre ? o codigo ?
+                            Podemos organizar los datos como se ve abajo y mandar una string -->
+                        <!-- Rol mantenedor -->
+                        <div class="col-12">
+                            <div class="new_user_area_text input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">Area</span>
+                                <input id=area_instit_input_popup name="area" type="text" class="form-control" placeholder="Area" aria-label="Rol" aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        <!-- Empresa mantenedor -->
+                        <div class="col-12">
+                            <div class="new_user_totalfunc_text input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">Total Funcionarios</span>
+                                <input id=func_instit_input_popup name="totalfunc" type="text" class="form-control" placeholder="Funcionarios" aria-label="Rol" aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="new_user_totalpuestos_text input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">Total Vacantes</span>
+                                <input id=puestos_instit_input_popup name="totalpuestos" type="text" class="form-control" placeholder="Vacantes" aria-label="Rol" aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="new_user_especialidad_text input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">Especialidad</span>
+                                <input id=especialidad_vet_input_popup name="especialidad" type="text" class="form-control" placeholder="Especialidad" aria-label="Rol" aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="new_user_estado_text input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">Estado</span>
+                                <input id=estado_dueno_input_popup name="estado" type="text" class="form-control" placeholder="Estado" aria-label="Rol" aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+
                         <div class="col-12">
                             <button type="submit" id="add-usuario-admin-button" class="btn btn-primary">
                             <i class="fas fa-save"></i> Agregar Usuario
@@ -261,16 +313,17 @@
     </div>
     <script>
         const usuarios = <%-JSON.stringify(usuarios)%>;
+        const admin = <%-JSON.stringify(admin)%>;
 
         function FillPageWithUsers(usuarios) {
             let tBodyUsuarios = document.getElementById("tbody-tabla-usuarios"); //Obten la tabla
 
             for (let i = 0; i < usuarios.length; i++) {
                 const rutUserI = usuarios[i].rut;
-                const emailUserI = usuarios[i].email;
-                const nombreUserI = usuarios[i].nombre;
-                const fechaNacI = usuarios[i].fechanacimiento;
-                const workAreaUserI = " ";
+                const emailUserI = usuarios[i].correo;
+                const nombreUserI = usuarios[i].nombrecompleto;
+                const fechaNacI = (usuarios[i].fechanacimiento).toString();
+                console.log(fechaNacI)
 
                 //Inserta una nueva fila en la tabla 
                 let newUserIRowRef = tBodyUsuarios.insertRow(-1);
@@ -285,7 +338,7 @@
                 let newCorreoColRef = newUserIRowRef.insertCell(-1);
 
                 //Crea celdas o columna para la I-esima columna, esto hace referencia a
-                let newWorkAreaColRef = newUserIRowRef.insertCell(-1);
+                let newFechaNacColRef = newUserIRowRef.insertCell(-1);
 
                 //Crea celdas o columna para la I-esima columna, esto hace referencia a boton editar
                 let newUserDataColRef = newUserIRowRef.insertCell(-1);
@@ -295,16 +348,56 @@
                 newRutColRef.textContent = rutUserI;
                 newNombreColRef.textContent = nombreUserI;
                 newCorreoColRef.textContent = emailUserI;
-                newWorkAreaColRef.textContent = workAreaUserI;
+                newFechaNacColRef.textContent = fechaNacI;
                 newUserDataColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editUserPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver</button>';
                 newEditarColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editUserPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
             }
         }
         FillPageWithUsers(usuarios);
+
+        function revisarTipoNewUser() {
+            switch (document.getElementById('tipo_usuario_input_popup').value) {
+                case "Administrador":
+                    document.querySelector('.new_user_area_text').style.display = "none";
+                    document.querySelector('.new_user_totalfunc_text').style.display = "none";
+                    document.querySelector('.new_user_totalpuestos_text').style.display = "none"
+                    document.querySelector('.new_user_especialidad_text').style.display = "none";
+                    document.querySelector('.new_user_estado_text').style.display = "none";
+                    break;
+                case "Institucion":
+                    document.querySelector('.new_user_area_text').style.display = "flex";
+                    document.querySelector('.new_user_totalfunc_text').style.display = "flex";
+                    document.querySelector('.new_user_totalpuestos_text').style.display = "flex"
+                    document.querySelector('.new_user_especialidad_text').style.display = "none";
+                    document.querySelector('.new_user_estado_text').style.display = "none";
+                    break;
+                case "Veterinario":
+                    document.querySelector('.new_user_especialidad_text').style.display = "flex";
+                    document.querySelector('.new_user_area_text').style.display = "none";
+                    document.querySelector('.new_user_totalfunc_text').style.display = "none";
+                    document.querySelector('.new_user_totalpuestos_text').style.display = "none";
+                    document.querySelector('.new_user_estado_text').style.display = "none";
+                    break;
+                case "Dueño":
+                    document.querySelector('.new_user_estado_text').style.display = "flex";
+                    document.querySelector('.new_user_area_text').style.display = "none";
+                    document.querySelector('.new_user_totalfunc_text').style.display = "none";
+                    document.querySelector('.new_user_totalpuestos_text').style.display = "none";
+                    document.querySelector('.new_user_especialidad_text').style.display = "none";
+                    break;
+            }
+        }
+
+
         //Boton agregar usuarios
         document.getElementById("add_user_button").addEventListener('click',
             function() {
                 document.querySelector('.bg-modal2').style.display = "flex";
+                document.querySelector('.new_user_area_text').style.display = "none";
+                document.querySelector('.new_user_totalfunc_text').style.display = "none";
+                document.querySelector('.new_user_totalpuestos_text').style.display = "none";
+                document.querySelector('.new_user_especialidad_text').style.display = "none";
+                document.querySelector('.new_user_estado_text').style.display = "none";
             });
         //Cuando se cierra el agregar usuario
         document.querySelector(".close2").addEventListener("click",
@@ -317,11 +410,18 @@
                 document.getElementById("add_direccion_admin").value = ""
                 document.getElementById("add_ubicacion_admin").value = ""
                 document.getElementById("add_descripcion_admin").value = ""
+                document.querySelector('.new_user_area_text').style.display = "none";
+                document.querySelector('.new_user_totalfunc_text').style.display = "none";
+                document.querySelector('.new_user_totalpuestos_text').style.display = "none"
+                document.querySelector('.new_user_especialidad_text').style.display = "none";
+                document.querySelector('.new_user_estado_text').style.display = "none";
+                document.getElementById("tipo_usuario_input_popup").selectedIndex = 1 //Setea el menu de agregar como admin
             });
+
         function editUserPopup(user1) {
             var user2 = user1.split("-")
             document.getElementById('edit_rut_admin').value = usuarios[(parseInt(user2[2]))].rut;
-            document.getElementById('edit_nombre_admin').value = usuarios[(parseInt(user2[2]))].nombre;
+            document.getElementById('edit_nombre_admin').value = usuarios[(parseInt(user2[2]))].nombrecompleto;
             document.getElementById('edit_correo_admin').value = usuarios[(parseInt(user2[2]))].correo;
             document.getElementById('edit_fechanacimiento_admin').value = usuarios[(parseInt(user2[2]))].fechanacimiento;
             document.getElementById('edit_telefono_admin').value = usuarios[(parseInt(user2[2]))].telefono;

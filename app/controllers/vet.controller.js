@@ -3,6 +3,8 @@ const Adopcion = require('../models/form_adoptform.model')
 const Institucion = require('../models/user_instit.model')
 const funciones = require('../controllers/functions.controller')
 const { Op } = require("sequelize");
+const Veterinario = require('../models/user_vet.model');
+const Usuario = require('../models/user.model');
 
 //Verificador para determinar si inició sesion, y si pertenece al tipo correspondiente
 exports.isAuthenticated = (req, res, next) => {
@@ -22,7 +24,48 @@ exports.isAuthenticated = (req, res, next) => {
 }
 
 exports.Menu = (req, res) => {
-    res.render('perfilVeterinario', { vet: req.user });
+    Usuario.findAll({
+        include: [{
+            model: Institucion,
+            where: {
+                totalfunc: {
+                    [Op.gte]: 0
+                }
+            }
+        }]
+    }).then(data => {
+        res.render('perfilVeterinario', { veterinario: req.user, instituciones: data })
+        console.log(req.user)
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+
+}
+
+exports.editarDatosVet = async(req, res) => {
+    const usuario = {
+        rut,
+        correo,
+        password,
+        nombrecompleto,
+        descripcion,
+        ubicacion,
+        telefono,
+        direccion,
+        fechanacimiento,
+        especialidad,
+        rutinstitucion
+    } = req.body;
+    Usuario.update(usuario, { where: { rut: req.user.rut } }).then(data1 => {
+        Veterinario.update(usuario, { where: { rut: req.user.rut } }).then(data2 => {
+            console.log("Veterinario y Usuario Actualizado.")
+            res.redirect("/logout");
+        }).catch(err => {
+            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        });
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
 }
 
 exports.MenuMascotas = (req, res) => {

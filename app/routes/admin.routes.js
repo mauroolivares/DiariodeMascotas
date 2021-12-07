@@ -1,12 +1,11 @@
 const admin = require('../controllers/admin.controller')
+const user = require('../controllers/usuario.controller')
 var router = require("express").Router();
 
 //añadir "admin.isAuthenticated" para pruebas sin necesidad de iniciar sesion
 
 router.get("/admin", admin.Menu);
-router.get("/admin/register", admin.AddUserMenu);
-router.post("/admin/saveUser", admin.saveUser);
-router.get("/admin/editUser", admin.EditUserMenu)
-router.post("admin/edited", admin.EditUser);
+router.post("/admin/saveUser", user.saveUser);
+router.post("/admin/editUser", user.EditUser, admin.Menu);
 
 module.exports = router;
