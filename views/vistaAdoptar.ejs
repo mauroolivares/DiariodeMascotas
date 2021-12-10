@@ -43,8 +43,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
                                 <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
-                                <li><a class="dropdown-item" href="/#">Controles</a></li>
-                                <li><a class="dropdown-item" href="/#">Adopción</a></li>
+                                <li><a class="dropdown-item" href="/profile/controls">Controles</a></li>
+                                <li><a class="dropdown-item" href="//profile/adopt">Adopción</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -104,34 +104,49 @@
                     <form action="/profile/adopt" method="post">
                         <div class="row">
                             <div class="col-12">
-                                <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre completo</span>
-                                    <input id="request_nombre" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping">
+                                <div class="form-group row">
+                                    <label for="request_nombre" class="col-sm-4 col-form-label">Nombre completo</label>
+                                    <div class="col-sm-6">
+                                        <input id="request_nombre" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping">
+                                    </div>                                    
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Correo electrónico</span>
-                                    <input id="request_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping">
+                                <div class="form-group row">
+                                    <label for= "request_correo_admin" class="col-sm-4 col-form-label">Correo electrónico</label>
+                                    <div class="col-sm-6">
+                                        <input id="request_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping">
+                                    </div>                                    
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Teléfono</span>
-                                    <input id="request_telefono" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping">
+                                <div class="form-group row">
+                                    <label for="request_telefono" class="col-sm-4 col-form-label">Teléfono</label>
+                                    <div class="col-sm-6">
+                                        <input id="request_telefono" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping">
+                                    </div>                                  
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group flex-nowrap">
-                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Dirección</span>
-                                    <input id="request_direccion" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping">
+                                <div class="form-group row">
+                                    <label for="request_direccion" class="col-sm-4 col-form-label">Dirección</label>
+                                    <div class="col-sm-6">
+                                        <input id="request_direccion" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" id="add-solicitud-button" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Solicitar Adopción
-                            </button>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" id="add-solicitud-button" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Solicitar Adopción
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-primary" href="/#" role="button">Cancelar</a>
+                                </div>                                
+                            </div>                           
                         </div>
                     </form>
                 </div>
