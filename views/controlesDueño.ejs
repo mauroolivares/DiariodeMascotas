@@ -113,19 +113,19 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text" id="addon-wrapping">Seleccionar Mascota</span>
-                                    <select onclick="fillCodePet();" name="idmascota" id="idmascota"></select>
+                                    <select id="add_idmascota" name="idmascota" class="form-select" onclick="nombrePet();"></select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre mascota</span>
-                                    <input id="nombremascota" name="nombremascota" type="text" class="form-control" placeholder="Nombre mascota" aria-describedby="addon-wrapping" readonly>
+                                    <input id="add_nombremascota" name="nombremascota" type="text" class="form-control" placeholder="Nombre mascota" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha</span>
-                                    <input id="add_fecha" name="fecha" type="text" class="form-control" placeholder="Fecha del control" aria-describedby="addon-wrapping">
+                                    <input id="add_fecha" name="fecha" type="date" class="form-control" placeholder="Fecha del control" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -143,7 +143,7 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Vacuna(s)</span>
-                                    <input id="add_vacuna" name="vacuna" type="date" class="form-control" placeholder="" aria-describedby="addon-wrapping">
+                                    <input id="add_vacuna" name="vacuna" type="text" class="form-control" placeholder="" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
 
@@ -188,7 +188,7 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha</span>
-                                    <input id="edit_fecha" name="fecha" type="text" class="form-control" placeholder="Fecha del control" aria-describedby="addon-wrapping">
+                                    <input id="edit_fecha" name="fecha" type='date' class="form-control" placeholder="Fecha del control" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -218,9 +218,9 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Observación</span>
-                                    <textarea id="edit_observacion" name="observacion" type="text" class="form-control" placeholder="Agrege observaciones finales" aria-describedby="addon-wrapping">
+                                    <input id="edit_observacion" name="observacion" type="text" class="form-control" placeholder="" aria-describedby="addon-wrapping">
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <div class="col-12">
                             <button type="submit" id="add-usuario-admin-button" class="btn btn-primary">
@@ -232,95 +232,106 @@
             </div>
             <div class="close">+</div>
         </div>
-    </div>    
+    </div>
     <script>
         const controles = <%-JSON.stringify(controles)%>;
+
         const mascotas = <%-JSON.stringify(mascotas)%>;
+
+        console.log(controles)
+        console.log(mascotas)
 
         function FillPageWithControls(controles) {
             let tBodyControles = document.getElementById("tBody-controles"); //Obten la tabla
             for (let i = 0; i < controles.length; i++) {
+                const idcontrol = controles[i].id
                 const fechaControl = controles[i].fecha;
                 const pesoControl = controles[i].peso;
                 const temperaturaControl = controles[i].temperatura;
                 const vacunaControl = controles[i].vacuna;
                 const estadoControl = controles[i].estado;
                 const observacionControl = controles[i].observacion;
-                
+
                 //Inserta una nueva fila en la tabla 
                 let newControlRow = tBodyControles.insertRow(-1);
+                let newidColRef = newControlRow.insertCell(-1);
                 //Crea celdas o columna para la I-esima columna, esto hace referencia a
-                let newFechaColRef = newControlRow.insertCell(-1);  
+                let newFechaColRef = newControlRow.insertCell(-1);
                 //let newMascotaColRef = newControlRow.insertCell(-1);              
-                let newPesoColRef = newControlRow.insertCell(-1);                
-                let newTemperaturaColRef = newControlRow.insertCell(-1);                
+                let newPesoColRef = newControlRow.insertCell(-1);
+                let newTemperaturaColRef = newControlRow.insertCell(-1);
                 let newVacunaColRef = newControlRow.insertCell(-1);
                 let newEstadoColRef = newControlRow.insertCell(-1);
-                let newObservacionColRef = newControlRow.insertCell(-1);            
+                let newObservacionColRef = newControlRow.insertCell(-1);
                 //Crea celdas o columna para la I-esima columna, esto hace referencia a boton editar
                 let newEditarColRef = newControlRow.insertCell(-1);
 
                 //Asigna los valores a cada columna
+                newidColRef.textContent = idcontrol;
                 newFechaColRef.textContent = fechaControl;
                 newPesoColRef.textContent = pesoControl;
                 newTemperaturaColRef.textContent = temperaturaControl;
                 newVacunaColRef.textContent = vacunaControl;
                 newEstadoColRef.textContent = estadoControl;
-                newObservacionColRef.textContent = observacionControl;            
+                newObservacionColRef.textContent = observacionControl;
                 newEditarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="editControlPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
             }
         }
         FillPageWithControls(controles);
+
+        function fillCodePet(mascotas) {
+            let selectidPet = document.getElementById('add_idmascota')
+
+            for (let i = 0; i < mascotas.length; i++) {
+
+                let optionpet = document.createElement('option')
+                optionpet.text = mascotas[i].id;
+                selectidPet.add(optionpet)
+            }
+        }
+        fillCodePet(mascotas);
+
+        function nombrePet() {
+            var petactual = document.getElementById('add_idmascota').selectedIndex;
+            document.getElementById('add_nombremascota').value = mascotas[petactual].nombre;
+            console.log(petactual)
+        }
         //Activar panel registrar control
-        document.getElementById("agregar-control-button").addEventListener('click',
-            function(){
-                document.querySelector('.bg-modal2').style.display= "flex";
+        document.getElementById('agregar-control-button').addEventListener('click',
+            function() {
+                document.querySelector('.bg-modal2').style.display = "flex";
+                document.getElementById('add_nombremascota').value = mascotas[0].nombre;
             });
         //Desactivar panel registrar control
-        document.querySelector(".close2").addEventListener("click",
+        document.querySelector('.close2').addEventListener('click',
             function() {
-                document.querySelector('.bg-modal2').style.display = "none";
+                document.querySelector('.bg-modal2').style.display = 'none';
                 document.getElementById("add_fecha").value = ""
                 document.getElementById("add_peso").value = ""
                 document.getElementById("add_temperatura").value = ""
                 document.getElementById("add_vacuna").value = ""
                 document.getElementById("add_estados").value = ""
                 document.getElementById("add_observacion").value = ""
-                
+
             });
         //Activar panel editar control    
-        function editControlPopup(user1){
+        function editControlPopup(user1) {
             var user2 = user1.split("-")
-            document.getElementById('edit_fecha').value = usuarios[(parseInt(user2[2]))].fecha;
-            document.getElementById('edit_peso').value = usuarios[(parseInt(user2[2]))].peso;
-            document.getElementById('edit_temperatura').value = usuarios[(parseInt(user2[2]))].temperatura;
-            document.getElementById('edit_vacuna').value = usuarios[(parseInt(user2[2]))].vacuna;
-            document.getElementById('edit_estados').value = usuarios[(parseInt(user2[2]))].estado;
-            document.getElementById('edit_observacion').value = usuarios[(parseInt(user2[2]))].observacion;
-            
+            document.getElementById('edit_fecha').value = controles[(parseInt(user2[2]))].fecha;
+            document.getElementById('edit_peso').value = controles[(parseInt(user2[2]))].peso;
+            document.getElementById('edit_temperatura').value = controles[(parseInt(user2[2]))].temperatura;
+            document.getElementById('edit_vacuna').value = controles[(parseInt(user2[2]))].vacuna;
+            document.getElementById('edit_estados').value = controles[(parseInt(user2[2]))].estado;
+            document.getElementById('edit_observacion').value = controles[(parseInt(user2[2]))].observacion;
+
             document.querySelector(".bg-modal").style.display = "flex";
         }
-
         //Desactivar panel editar control
         document.querySelector(".close").addEventListener("click",
             function() {
                 document.querySelector('.bg-modal').style.display = "none";
             });
-        
-        function fillCodePet(){
-            let pId = document.getElementById("idmascota").value
-            let pName = ""
-            for(let i = 0; i <mascotas.length; i++){
-                if(pId == mascotas[i].id){
-                    pName = mascotas[i].nombre
-                }
-            }
-            if(pName == ""){
-                document.getElementById('').value = ""
-            }else{
-                document.getElementById('').value = pName
-            }
-        }
-    </script>         
-    </body>      
+    </script>
+</body>
+
 </html>

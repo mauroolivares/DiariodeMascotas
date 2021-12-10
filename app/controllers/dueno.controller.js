@@ -154,7 +154,6 @@ exports.editMascota = async(req, res) => {
 
 exports.addControl = async(req, res) => {
     const control = {
-        id,
         fecha,
         peso,
         temperatura,
@@ -162,15 +161,8 @@ exports.addControl = async(req, res) => {
         estado,
         observacion,
         idmascota
-    }
-    var controlID = funciones.generarID();
-    while (!funciones.controlNoExiste(controlID)) {
-        controlID = funciones.generarID();
-    }
-
-    let fechaString = funciones.transformarFecha(control.fecha);
-    control.fecha = fechaString;
-    control.id = controlID;
+    } = req.body
+    control.id = funciones.generarID();
     control.rutusuario = req.user.rut;
     control.rutvet = null;
     Control.create(control).then(data => {
@@ -178,7 +170,8 @@ exports.addControl = async(req, res) => {
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
-    res.redirect('/profile/pets');
+
+    res.redirect('/profile/controls');
 }
 
 exports.editControl = async(req, res) => {
@@ -192,14 +185,12 @@ exports.editControl = async(req, res) => {
         observacion,
         idmascota
     }
-    let fechaString = funciones.transformarFecha(control.fecha);
-    control.fecha = fechaString;
     Control.update(control, { where: { id: control.id } }).then(data => {
         console.log(data);
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
-    res.redirect('/profile/pets');
+    res.redirect('/profile/controls');
 }
 
 exports.ponerEnAdopcion = async(req, res) => {

@@ -11,5 +11,6 @@ router.get('/profile/adopt', dueno.verMascotasEnAdopcion);
 //router.get("/profile/pets/controls", dueno.MascotaControles);
 router.post("/profile/editUser", dueno.editarDatosDueno);
 router.post("/add-new-mascota", dueno.addMascota);
+router.post("/addControl", dueno.addControl);
 router.post("/editar-mascota-usuario", dueno.editMascota);
 module.exports = router;

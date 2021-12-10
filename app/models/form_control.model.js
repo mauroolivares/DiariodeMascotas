@@ -7,14 +7,13 @@ const Control = sequelize.define("controlmedico", {
         primaryKey: true
     },
     fecha: {
-        type: Sequelize.DATE,
-        defaultValue: 01 - 01 - 1900
+        type: Sequelize.DATE
     },
     peso: {
         type: Sequelize.FLOAT
     },
     temperatura: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.FLOAT
     },
     vacuna: {
         type: Sequelize.STRING,
