@@ -406,7 +406,6 @@
 
         function FillPageWithPets(mascotas) {
             let tBodypets = document.getElementById("tBody-mascotas"); //Obten la tabla
-
             for (let i = 0; i < mascotas.length; i++) {
                 //Inserta una nueva fila en la tabla 
                 let newPetRowRef = tBodypets.insertRow(-1);
@@ -432,7 +431,6 @@
                 newEditarColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="editPetsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
                 newVerMasColRef.innerHTML = '<button type="button"  id=button-edit-' + i + ' onClick="viewPetPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Ver más </button>';
             }
-
         }
         FillPageWithPets(mascotas);
 
@@ -498,7 +496,7 @@
                 document.getElementById('estado').selectedIndex = 0
             });
 
-
+        //Se cierra la ventana de editar
         document.querySelector(".close").addEventListener("click",
             function() {
                 document.querySelector('.bg-modal').style.display = "none";
