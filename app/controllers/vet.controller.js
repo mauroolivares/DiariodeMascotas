@@ -86,6 +86,35 @@ exports.MenuMascotas = (req, res) => {
 }
 
 exports.addMascota = async(req, res) => {
+    console.log(req.body)
+    const mascota = {
+        id,
+        nombre,
+        fechanacimiento,
+        especie,
+        razacolor,
+        sexo,
+        esterilizado,
+        tienechip,
+        desparasitado,
+        estado,
+        descripcion,
+        rutusuario
+    } = req.body;
+    var mascotaID = funciones.generarID();
+    mascota.id = mascotaID;
+    mascota.rutusuario = req.user.institucion;
+
+    Mascota.create(mascota).then(data => {
+        console.log(data);
+        console.log("Nueva mascota just dropped");
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+    res.redirect('/profile/pets');
+}
+
+exports.editMascota = async(req, res) => {
     const mascota = {
         id,
         nombre,
@@ -99,14 +128,15 @@ exports.addMascota = async(req, res) => {
         estado,
         descripcion
     } = req.body;
-    mascota.rutusuario = req.user.rutinstitucion;
-    Mascota.create(mascota).then(data => {
+
+    Mascota.update(mascota, { where: { id: mascota.id } }).then(data => {
         console.log(data);
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
     res.redirect('/profile/pets');
 }
+
 
 exports.ponerEnAdopcion = async(req, res) => {
     const fichaAdopcion = {
@@ -204,17 +234,4 @@ exports.responderSolicitud = async(req, res) => {
         });
     }
     res.redirect("/vet");
-}
-
-exports.postularInstitucion = (req, res) => {
-    Institucion.findAll({
-            where: {
-                totalfunc: {
-                    [Op.lt]: totalpuestos
-                }
-            }
-        })
-        .then(data => {
-            //res.render('ListaInstituciones', {instituciones: data})
-        });
 }

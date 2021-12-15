@@ -102,3 +102,7 @@ exports.DropVetInst = async(req, res) => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
 }
+
+exports.AdopcionMenu = async(req, res) => {
+    res.render('adopcionInstitucion')
+}
