@@ -40,10 +40,8 @@
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Opciones
                       </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
-                                <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
-                                <li><a class="dropdown-item" href="/#">Adopción</a></li>
+                            <ul id="dropdowntype" class="dropdown-menu" aria-labelledby="navbarDropdown">
+
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -54,7 +52,7 @@
             </div>
         </nav>
     </section>
-    
+
     <section id="content">
         <div class="container-fluid">
             <div class="row white-box-transparent">
@@ -193,7 +191,7 @@
                     </h3>
                 </div>
                 <div class="col-12">
-                    <form action="/add-new-mascota" method="post">
+                    <form action="/add-new-mascota-dueno" id="post-addmascota" method="post">
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
@@ -298,7 +296,7 @@
                     </h3>
                 </div>
                 <div class="col-12">
-                    <form action="/editar-mascota-usuario" method="post">
+                    <form action="/edit-mascota-dueno" id="post-editmascota" method="post">
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
@@ -396,11 +394,52 @@
             <div class="close3">+</div>
         </div>
     </div>
-    <form action='/ver-controles' id="hiddenform" method="POST">
+    <form action="controls" id="hiddenform">
         <input type=hidden id='ver-controles' name='idmascota'>
     </form>
 
     <script>
+        const usuario = <%-JSON.stringify(usuario)%>;
+        console.log(usuario);
+
+
+        function optionsByType(usuario) {
+            var postadd = document.getElementById("post-addmascota")
+            var postedit = document.getElementById("post-editmascota")
+
+            var dd = document.getElementById('dropdowntype');
+            if (usuario.tipo == "Dueno") {
+                var lia = document.createElement("li")
+                var lib = document.createElement("li")
+                var lic = document.createElement("li")
+                var lid = document.createElement("li")
+                lia.innerHTML = '<a class="dropdown-item" href="/profile">Mis Datos</a>'
+                lib.innerHTML = '<a class="dropdown-item" href="/profile/pets">Mis Mascotas</a>'
+                lic.innerHTML = '<a class="dropdown-item" href="/profile/controls">Manejar Controles</a>'
+                lid.innerHTML = '<a class="dropdown-item" href="/profile/adopcion">Adoptar Mascota</a>'
+                dd.appendChild(lia)
+                dd.appendChild(lib)
+                dd.appendChild(lic)
+                dd.appendChild(lid)
+            } else {
+                postadd.setAttribute("action", "/add-new-mascota-vet");
+                postedit.setAttribute("action", "/edit-mascota-vet");
+                var lia = document.createElement("li")
+                var lib = document.createElement("li")
+                var lic = document.createElement("li")
+                var lid = document.createElement("li")
+                lia.innerHTML = '<a class="dropdown-item" href="/vet">Mis Datos</a>'
+                lib.innerHTML = '<a class="dropdown-item" href="/vet/pets">Mascotas de Institución</a>'
+                lic.innerHTML = '<a class="dropdown-item" href="/vet/controls">Manejar Controles</a>'
+                lid.innerHTML = '<a class="dropdown-item" href="/vet/adopcion">Dar en Adopcion</a>'
+                dd.appendChild(lia)
+                dd.appendChild(lib)
+                dd.appendChild(lic)
+                dd.appendChild(lid)
+            }
+        }
+        optionsByType(usuario)
+
         const mascotas = <%-JSON.stringify(mascotas)%>;
         console.log(mascotas)
 

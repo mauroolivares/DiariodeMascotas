@@ -31,48 +31,32 @@ exports.Menu = (req, res) => {
 
 //Mascotas de dueño:
 exports.MascotaMenu = async(req, res) => {
-    if (req.user == undefined) {
-        Mascota.findAll({ where: { rutusuario: '666' } }).then(data => {
-            console.log(data);
-            res.render('mascotasDueño', { mascotas: data })
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    } else {
-        Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
-            res.render('mascotasDueño', { mascotas: data })
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    }
+    Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data => {
+        res.render('mascotas', { mascotas: data, usuario: req.user })
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    })
+
 }
 
 exports.ControlesMenu = async(req, res) => {
-    if (req.user == undefined) {
-        Control.findAll({ where: { rutusuario: '666' } }).then(data1 => {
-            console.log(data1);
-            Mascota.findAll({ where: { rutusuario: '666' } }).then(data2 => {
-                res.render('controlesDueño', { controles: data1, mascotas: data2 })
-            }).catch(err => {
-                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-            })
-
+    Control.findAll({
+        include: [{
+            model: Mascota
+        }],
+        where: { rutusuario: req.user.rut },
+        order: [
+            ['fecha', 'ASC']
+        ]
+    }).then(data1 => {
+        Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data2 => {
+            res.render('controles', { controles: data1, mascotas: data2, usuario: req.user })
         }).catch(err => {
             console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
         })
-    } else {
-        Control.findAll({ where: { rutusuario: req.user.rut } }).then(data1 => {
-            console.log(data1);
-            Mascota.findAll({ where: { rutusuario: req.user.rut } }).then(data2 => {
-                res.render('controlesDueño', { controles: data1, mascotas: data2 })
-            }).catch(err => {
-                console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-            })
-
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    }
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    })
 }
 
 exports.editarDatosDueno = async(req, res) => {
@@ -184,7 +168,7 @@ exports.editControl = async(req, res) => {
         estado,
         observacion,
         idmascota
-    }
+    } = req.body
     Control.update(control, { where: { id: control.id } }).then(data => {
         console.log(data);
     }).catch(err => {

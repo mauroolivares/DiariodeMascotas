@@ -41,11 +41,7 @@
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Opciones
                           </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
-                                <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
-                                <li><a class="dropdown-item" href="/profile/controls">Controles</a></li>
-                                <li><a class="dropdown-item" href="/profile/adopt">Adopción</a></li>
+                            <ul id="dropdowntype" class="dropdown-menu" aria-labelledby="navbarDropdown">
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -80,6 +76,7 @@
                             <table id="tabla-controles" class="table table-lifht table-bordered table-hover table-striped">
                                 <thead class="bg-dark text-white">
                                     <th scope="row">ID</th>
+                                    <th scope="row">Mascota</th>
                                     <th scope="row">Fecha</th>
                                     <th scope="row">Peso</th>
                                     <th scope="row">Temperatura</th>
@@ -108,7 +105,7 @@
                     </h3>
                 </div>
                 <div class="col-12">
-                    <form action="/addControl" method="post">
+                    <form action="/addControl-dueno" id="post-addcontrol" method="post">
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
@@ -183,8 +180,14 @@
                     </h3>
                 </div>
                 <div class="col-12">
-                    <form action="/editControl" method="post">
+                    <form action="/editControl-dueno" id="post-editcontrol" method="post">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">ID</span>
+                                    <input id="edit_id" name="id" type="text" class="form-control" placeholder="ID Control" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha</span>
@@ -206,7 +209,7 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Vacuna(s)</span>
-                                    <input id="edit_vacuna" name="vacuna" type="date" class="form-control" placeholder="" aria-describedby="addon-wrapping">
+                                    <input id="edit_vacuna" name="vacuna" type="text" class="form-control" placeholder="" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -233,7 +236,125 @@
             <div class="close">+</div>
         </div>
     </div>
+    <!--VER MASCOTAS-->
+    <div class="bg-modal3">
+        <div class="modal-content2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        <div id="text-action-title-popup">Perfil Mascota</div>
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <form action="/ver-mascota-usuario" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre Mascota</span>
+                                    <input id="view_nombre" name="nombre" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Especie Mascota</span>
+                                    <input id="view_especie" name="especie" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Sexo Mascota</span>
+                                    <input id="view_sexo" name="sexo" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Raza Mascota</span>
+                                    <input id="view_razacolor" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Nacimiento</span>
+                                    <input id="view_fechanacimiento" name="fechanacimiento" type="text" class="form-control" placeholder="Fecha de Naciemiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Está Chipeado?</span>
+                                    <input id="view_tienechip" name="tienechip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Desparasitado?</span>
+                                    <input id="view_desparasitado" name="desparasitado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Esterilizado?</span>
+                                    <input id="view_esterilizado" name="esterilizado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
+                                    <input id="view_descripcion" name="descripcion" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
+                                    <input id="view_estado" name="estado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="close3">+</div>
+        </div>
+    </div>
     <script>
+        const usuario = <%-JSON.stringify(usuario)%>;
+
+        function optionsByType(usuario) {
+            var postadd = document.getElementById("post-addcontrol")
+            var postedit = document.getElementById("post-editcontrol")
+
+            var dd = document.getElementById('dropdowntype');
+            if (usuario.tipo == "Dueno") {
+                var lia = document.createElement("li")
+                var lib = document.createElement("li")
+                var lic = document.createElement("li")
+                var lid = document.createElement("li")
+                lia.innerHTML = '<a class="dropdown-item" href="/profile">Mis Datos</a>'
+                lib.innerHTML = '<a class="dropdown-item" href="/profile/pets">Mis Mascotas</a>'
+                lic.innerHTML = '<a class="dropdown-item" href="/profile/controls">Manejar Controles</a>'
+                lid.innerHTML = '<a class="dropdown-item" href="/profile/adopcion">Adoptar Mascota</a>'
+                dd.appendChild(lia)
+                dd.appendChild(lib)
+                dd.appendChild(lic)
+                dd.appendChild(lid)
+            } else {
+
+                postadd.setAttribute("action", "/addControl-vet")
+                postedit.setAttribute("action", "/editControl-vet")
+                var lia = document.createElement("li")
+                var lib = document.createElement("li")
+                var lic = document.createElement("li")
+                var lid = document.createElement("li")
+                lia.innerHTML = '<a class="dropdown-item" href="/vet">Mis Datos</a>'
+                lib.innerHTML = '<a class="dropdown-item" href="/vet/pets">Mascotas de Institución</a>'
+                lic.innerHTML = '<a class="dropdown-item" href="/vet/controls">Manejar Controles</a>'
+                lid.innerHTML = '<a class="dropdown-item" href="/vet/adopcion">Dar en Adopcion</a>'
+                dd.appendChild(lia)
+                dd.appendChild(lib)
+                dd.appendChild(lic)
+                dd.appendChild(lid)
+            }
+        }
+        optionsByType(usuario)
         const controles = <%-JSON.stringify(controles)%>;
 
         const mascotas = <%-JSON.stringify(mascotas)%>;
@@ -244,7 +365,8 @@
         function FillPageWithControls(controles) {
             let tBodyControles = document.getElementById("tBody-controles"); //Obten la tabla
             for (let i = 0; i < controles.length; i++) {
-                const idcontrol = controles[i].id
+                const idcontrol = controles[i].id;
+                const nombremascota = controles[i].mascotum.nombre;
                 const fechaControl = controles[i].fecha;
                 const pesoControl = controles[i].peso;
                 const temperaturaControl = controles[i].temperatura;
@@ -252,22 +374,20 @@
                 const estadoControl = controles[i].estado;
                 const observacionControl = controles[i].observacion;
 
-                //Inserta una nueva fila en la tabla 
                 let newControlRow = tBodyControles.insertRow(-1);
                 let newidColRef = newControlRow.insertCell(-1);
-                //Crea celdas o columna para la I-esima columna, esto hace referencia a
+                let newNombreMascota = newControlRow.insertCell(-1);
                 let newFechaColRef = newControlRow.insertCell(-1);
-                //let newMascotaColRef = newControlRow.insertCell(-1);              
                 let newPesoColRef = newControlRow.insertCell(-1);
                 let newTemperaturaColRef = newControlRow.insertCell(-1);
                 let newVacunaColRef = newControlRow.insertCell(-1);
                 let newEstadoColRef = newControlRow.insertCell(-1);
                 let newObservacionColRef = newControlRow.insertCell(-1);
-                //Crea celdas o columna para la I-esima columna, esto hace referencia a boton editar
                 let newEditarColRef = newControlRow.insertCell(-1);
 
                 //Asigna los valores a cada columna
                 newidColRef.textContent = idcontrol;
+                newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombremascota + '</button>';
                 newFechaColRef.textContent = fechaControl;
                 newPesoColRef.textContent = pesoControl;
                 newTemperaturaColRef.textContent = temperaturaControl;
@@ -317,6 +437,7 @@
         //Activar panel editar control    
         function editControlPopup(user1) {
             var user2 = user1.split("-")
+            document.getElementById('edit_id').value = controles[(parseInt(user2[2]))].id;
             document.getElementById('edit_fecha').value = controles[(parseInt(user2[2]))].fecha;
             document.getElementById('edit_peso').value = controles[(parseInt(user2[2]))].peso;
             document.getElementById('edit_temperatura').value = controles[(parseInt(user2[2]))].temperatura;
@@ -326,10 +447,30 @@
 
             document.querySelector(".bg-modal").style.display = "flex";
         }
+
+        function verMascota(pet1) {
+            document.querySelector(".bg-modal3").style.display = "flex";
+            var pet2 = pet1.split("-");
+            console.log(controles[(parseInt(pet2[2]))].mascotum);
+            document.getElementById('view_nombre').value = controles[(parseInt(pet2[2]))].mascotum.nombre;
+            document.getElementById('view_especie').value = controles[(parseInt(pet2[2]))].mascotum.especie;
+            document.getElementById('view_sexo').value = controles[(parseInt(pet2[2]))].mascotum.sexo;
+            document.getElementById('view_razacolor').value = controles[(parseInt(pet2[2]))].mascotum.razacolor;
+            document.getElementById('view_fechanacimiento').value = controles[(parseInt(pet2[2]))].mascotum.fechanacimiento;
+            document.getElementById('view_descripcion').value = controles[(parseInt(pet2[2]))].mascotum.descripcion;
+            document.getElementById('view_tienechip').value = controles[(parseInt(pet2[2]))].mascotum.tienechip;
+            document.getElementById('view_esterilizado').value = controles[(parseInt(pet2[2]))].mascotum.esterilizado;
+            document.getElementById('view_desparasitado').value = controles[(parseInt(pet2[2]))].mascotum.desparasitado;
+            document.getElementById('view_estado').value = controles[(parseInt(pet2[2]))].mascotum.estado;
+        }
         //Desactivar panel editar control
         document.querySelector(".close").addEventListener("click",
             function() {
                 document.querySelector('.bg-modal').style.display = "none";
+            });
+        document.querySelector(".close3").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal3').style.display = "none";
             });
     </script>
 </body>

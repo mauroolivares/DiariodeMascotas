@@ -41,10 +41,10 @@
                                   Opciones
                                 </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/vet/join">Postular a Institucion</a></li>
-                                <li><a class="dropdown-item" id="tieneInstitucion" disabled href="/vet/pets">Mascotas de Institución</a></li>
-                                <li><a class="dropdown-item" href="/vet/ctrlforms">Controles</a></li>
-                                <li><a class="dropdown-item" href="/vet/adoptforms">Adopción</a></li>
+                                <li><a class="dropdown-item" href="/vet/">Mis Datos</a></li>
+                                <li><a class="dropdown-item" href="/vet/pets">Mascotas de Institución</a></li>
+                                <li><a class="dropdown-item" href="/vet/controls">Manejar Controles</a></li>
+                                <li><a class="dropdown-item" href="/vet/adopcion">Dar en Adopción</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -255,7 +255,6 @@
                 document.getElementById("view_institucion").value = "No se encuentra asociado a una institución"
             } else {
                 document.getElementById("view_institucion").value = vetInfo.rutinstitucion
-                document.getElementById("tieneInstitucion").disabled = false;
             }
         }
         getVetInfo(vetInfo);

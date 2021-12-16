@@ -5,6 +5,7 @@ const funciones = require('../controllers/functions.controller')
 const { Op } = require("sequelize");
 const Veterinario = require('../models/user_vet.model');
 const Usuario = require('../models/user.model');
+const Control = require('../models/form_control.model');
 
 //Verificador para determinar si inició sesion, y si pertenece al tipo correspondiente
 exports.isAuthenticated = (req, res, next) => {
@@ -68,21 +69,36 @@ exports.editarDatosVet = async(req, res) => {
     });
 }
 
-exports.MenuMascotas = (req, res) => {
-    if (req.user == undefined) {
-        Mascota.findAll({ where: { rutusuario: '555' } }).then(data => {
-            console.log(data);
-            res.render('mascotasUsuario', { mascotas: data })
+exports.MascotasMenu = (req, res) => {
+    Mascota.findAll({ where: { rutusuario: req.user.rutinstitucion } }).then(data => {
+        res.render('mascotas', { mascotas: data, usuario: req.user })
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    })
+
+}
+
+exports.ControlesMenu = async(req, res) => {
+    Control.findAll({
+        include: [{
+            model: Mascota
+        }],
+        where: { rutusuario: req.user.rutinstitucion },
+        order: [
+            ['fecha', 'ASC']
+        ]
+    }).then(data1 => {
+        console.log(data1);
+        Mascota.findAll({ where: { rutusuario: req.user.rutinstitucion } }).then(data2 => {
+            res.render('controles', { controles: data1, mascotas: data2, usuario: req.user })
         }).catch(err => {
             console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
         })
-    } else {
-        Mascota.findAll({ where: { rutusuario: req.user.rutinstitucion } }).then(data => {
-            res.render('mascotasUsuario', { mascotas: data })
-        }).catch(err => {
-            console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
-        })
-    }
+
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    })
+
 }
 
 exports.addMascota = async(req, res) => {
@@ -103,7 +119,7 @@ exports.addMascota = async(req, res) => {
     } = req.body;
     var mascotaID = funciones.generarID();
     mascota.id = mascotaID;
-    mascota.rutusuario = req.user.institucion;
+    mascota.rutusuario = req.user.rutinstitucion;
 
     Mascota.create(mascota).then(data => {
         console.log(data);
@@ -111,7 +127,8 @@ exports.addMascota = async(req, res) => {
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
-    res.redirect('/profile/pets');
+    res.redirect('/vet/pets');
+
 }
 
 exports.editMascota = async(req, res) => {
@@ -134,9 +151,49 @@ exports.editMascota = async(req, res) => {
     }).catch(err => {
         console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
-    res.redirect('/profile/pets');
+    res.redirect('/vet/pets');
 }
 
+exports.addControl = async(req, res) => {
+    const control = {
+        fecha,
+        peso,
+        temperatura,
+        vacuna,
+        estado,
+        observacion,
+        idmascota
+    } = req.body
+    control.id = funciones.generarID();
+    control.rutusuario = req.user.rutinstitucion;
+    control.rutvet = req.user.rut;
+    Control.create(control).then(data => {
+        console.log(data);
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+
+    res.redirect('/vet/controls');
+}
+
+exports.editControl = async(req, res) => {
+    const control = {
+        id,
+        fecha,
+        peso,
+        temperatura,
+        vacuna,
+        estado,
+        observacion,
+        idmascota
+    } = req.body;
+    Control.update(control, { where: { id: control.id } }).then(data => {
+        console.log(data);
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+    res.redirect('/vet/controls');
+}
 
 exports.ponerEnAdopcion = async(req, res) => {
     const fichaAdopcion = {
@@ -147,7 +204,7 @@ exports.ponerEnAdopcion = async(req, res) => {
         rutusuario,
         idmascota
     } = req.body;
-    fichaAdopcion.estado = "Dar en Adopción";
+    fichaAdopcion.estado = "En Adopción";
     fichaAdopcion.rutusuario = req.user.rutinstitucion;
     fichaAdopcion.rutvet = req.user.rut;
     fichaAdopcion.fecha = new Date();
