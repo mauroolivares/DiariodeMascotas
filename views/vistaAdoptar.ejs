@@ -44,7 +44,7 @@
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
                                 <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
                                 <li><a class="dropdown-item" href="/profile/controls">Controles</a></li>
-                                <li><a class="dropdown-item" href="//profile/adopt">Adopción</a></li>
+                                <li><a class="dropdown-item" href="//profile/adopcion">Adopción</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -88,7 +88,6 @@
             </div>
         </div>
     </section>
-
     <!--formulario -->
     <div class="bg-modal2">
         <div class="modal-content2">
@@ -113,9 +112,9 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label for= "request_correo_admin" class="col-sm-4 col-form-label">Correo electrónico</label>
+                                    <label for= "request_correo" class="col-sm-4 col-form-label">Correo electrónico</label>
                                     <div class="col-sm-6">
-                                        <input id="request_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping">
+                                        <input id="request_correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping">
                                     </div>                                    
                                 </div>
                             </div>
@@ -153,16 +152,77 @@
             </div>
             <div class="close2">+</div>
         </div>
-        <script>
-            document.querySelector(".close2").addEventListener("click",
-                function() {
-                    document.querySelector('.bg-modal2').style.display = "none";
-                    document.getElementById("request_nombre").value = ""
-                    document.getElementById("request_correo").value = ""
-                    document.getElementById("request_telefono").value = ""
-                    document.getElementById("request_direccion").value = ""
-                });
-        </script>
+    </div>
+    <script>
+        const mascotas = <%-JSON.stringify(mascotas)%>;
+        const adopciones = <%-JSON.stringify(adopciones)%>;
+        const institInfo = <%-JSON.stringify(instit)%>;
+        const usuarios = <%-JSON.stringify(usuarios)%>;
+
+        function FillPageWithAdopts(adopciones){
+            let tBodyAdopciones = document.getElementById("tbody-tabla-adopciones"); //Obten la tabla
+            for (let i = 0; i < adopciones.length; i++) {                
+                const nombreMascota = adopciones[i].mascotas.nombre;
+                const especieMascota = adopciones[i].mascotas.especie;
+                const sexoMascota = adopciones[i].mascotas.sexo;
+                const fechaNacMascota = adopciones[i].mascotas.fechanacimiento;
+                const institMascota = adopciones[i].usuarios.nombrecompleto;
+
+                let newAdoptRow = tBodyAdopciones.insertRow(-1);                
+                let newNombreMascota = newAdoptRow.insertCell(-1);
+                let newEspecieColRef = newAdoptRow.insertCell(-1);
+                let newSexoColRef = newAdoptRow.insertCell(-1);
+                let newNacimientoColRef = newAdoptRow.insertCell(-1);
+                let newInstitColRef = newAdoptRow.insertCell(-1);
+                let newSolicitarColRef = newAdoptRow.insertCell(-1);
+
+                //Asigna los valores a cada columna
+                newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombreMascota + '</button>';
+                newEspecieColRef.textContent = especieMascota;
+                newSexoColRef.textContent = sexoMascota;
+                newNacimientoColRef.textContent = fechaNacMascota;
+                newInstitColRef.textContent = institMascota;               
+                newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="requestAdoptsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Solicitar</button>';
+            }
+        }
+        
+        FillPageWithAdopts(adopciones);
+          
+        function requestAdoptsPopup(user1) {//Activar panel formulario de adopcion 
+            var user2 = user1.split("-")
+            document.getElementById('request_nombre').value = usuarios[(parseInt(user2[2]))].nombrecompleto;
+            document.getElementById('request_correo').value = usuarios[(parseInt(user2[2]))].correo;
+            document.getElementById('request_telefono').value = usuarios[(parseInt(user2[2]))].telefono;
+            document.getElementById('request_direccion').value = usuarios[(parseInt(user2[2]))].direccion;
+
+            document.querySelector(".bg-modal").style.display = "flex";
+        }
+        
+        function verMascota(pet1) {//Activar panel de los datos de la mascota
+            document.querySelector(".bg-modal3").style.display = "flex";
+            var pet2 = pet1.split("-");
+            console.log(adopciones[(parseInt(pet2[2]))].mascotas);
+            document.getElementById('view_nombre').value = adopciones[(parseInt(pet2[2]))].mascotas.nombre;
+            document.getElementById('view_especie').value = adopciones[(parseInt(pet2[2]))].mascotas.especie;
+            document.getElementById('view_sexo').value = adopciones[(parseInt(pet2[2]))].mascotas.sexo;
+            document.getElementById('view_razacolor').value = adopciones[(parseInt(pet2[2]))].mascotas.razacolor;
+            document.getElementById('view_fechanacimiento').value = adopciones[(parseInt(pet2[2]))].mascotas.fechanacimiento;
+            document.getElementById('view_descripcion').value = adopciones[(parseInt(pet2[2]))].mascotas.descripcion;
+            document.getElementById('view_tienechip').value = adopciones[(parseInt(pet2[2]))].mascotas.tienechip;
+            document.getElementById('view_esterilizado').value = adopciones[(parseInt(pet2[2]))].mascotas.esterilizado;
+            document.getElementById('view_desparasitado').value = adopciones[(parseInt(pet2[2]))].mascotas.desparasitado;
+            document.getElementById('view_estado').value = adopciones[(parseInt(pet2[2]))].mascotas.estado;
+        }
+        
+        document.querySelector(".close2").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal2').style.display = "none";
+                document.getElementById("request_nombre").value = ""
+                document.getElementById("request_correo").value = ""
+                document.getElementById("request_telefono").value = ""
+                document.getElementById("request_direccion").value = ""
+            });
+    </script>
 </body>
 
 </html>
