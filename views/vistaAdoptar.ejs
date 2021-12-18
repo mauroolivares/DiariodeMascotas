@@ -43,8 +43,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
                                 <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
-                                <li><a class="dropdown-item" href="/profile/controls">Controles</a></li>
-                                <li><a class="dropdown-item" href="//profile/adopcion">Adopción</a></li>
+                                <li><a class="dropdown-item" href="/profile/controls">Manejar Controles</a></li>
+                                <li><a class="dropdown-item" href="//profile/adopcion">Adoptar Mascota</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -75,8 +75,8 @@
                                             <th scope="row">Especie</th>
                                             <th scope="row">Sexo</th>
                                             <th scope="row">Fecha de nacimiento</th>
-                                            <th scope="row">Institución</th>
-                                            <th scope="row">Solicitar adopción</th>
+                                            <th scope="row">Pertenece a</th>
+                                            <th scope="row">Estado / Adoptar</th>
                                         </thead>
                                         <tbody id="tbody-tabla-adopciones"></tbody>
                                     </table>
@@ -100,62 +100,212 @@
                     </h3>
                 </div>
                 <div class="col-12">
-                    <form action="/profile/adopt" method="post">
+                    <form action="/adoptar-mascota" onsubmit="concatObs()" method="post">
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="request_nombre" class="col-sm-4 col-form-label">Nombre completo</label>
-                                    <div class="col-sm-6">
-                                        <input id="request_nombre" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping">
+                                <input id="request_id" name="id" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping" hidden readonly>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_nombre" class="col-sm-4 col-form-label">Nombre completo</label>
+                                        <div class="col-sm-6">
+                                            <input id="request_nombre" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_correo" class="col-sm-4 col-form-label">Correo electrónico</label>
+                                        <div class="col-sm-6">
+                                            <input id="request_correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_telefono" class="col-sm-4 col-form-label">Teléfono</label>
+                                        <div class="col-sm-6">
+                                            <input id="request_telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_direccion" class="col-sm-4 col-form-label">Dirección</label>
+                                        <div class="col-sm-6">
+                                            <input id="request_direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label for="request_correo" class="col-sm-4 col-form-label">Correo electrónico</label>
+                                    <label for="request_nombre" class="col-sm-4 col-form-label">¿Razón de la adopción?</label>
                                     <div class="col-sm-6">
-                                        <input id="request_correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping">
+                                        <input id="request_vet" type="text" class="form-control" aria-describedby="addon-wrapping" hidden readonly>
+                                        <input id="request_oldobservacion" type="text" class="form-control" aria-describedby="addon-wrapping" hidden readonly>
+                                        <input id="request_observacion" name="observacion" type="text" class="form-control" placeholder="Me interesa porque..." aria-describedby="addon-wrapping">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="request_telefono" class="col-sm-4 col-form-label">Teléfono</label>
-                                    <div class="col-sm-6">
-                                        <input id="request_telefono" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" id="add-solicitud-button" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Solicitar Adopción
+                                    </button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="request_direccion" class="col-sm-4 col-form-label">Dirección</label>
-                                    <div class="col-sm-6">
-                                        <input id="request_direccion" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping">
+                                    <div class="col">
+                                        <a class="btn btn-primary" href="/#" role="button">Cancelar</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col">
-                                    <button type="submit" id="add-solicitud-button" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> Solicitar Adopción
-                                    </button>
+                    </form>
+
+                </div>
+                <div class="close2">+</div>
+            </div>
+        </div>
+    </div>
+    <!--VER MASCOTAS-->
+    <div class="bg-modal3" style="display:none">
+        <div class="modal-content2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        <div id="text-action-title-popup">Perfil Mascota</div>
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <form action="/ver-mascota-usuario" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre Mascota</span>
+                                    <input id="view_nombre" name="nombre" type="text" class="form-control" placeholder="Nombre Mascota" aria-label="nombre_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
-                                <div class="col">
-                                    <a class="btn btn-primary" href="/#" role="button">Cancelar</a>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Especie Mascota</span>
+                                    <input id="view_especie" name="especie" type="text" class="form-control" placeholder="Especie Mascota" aria-label="especie_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Sexo Mascota</span>
+                                    <input id="view_sexo" name="sexo" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Raza Mascota</span>
+                                    <input id="view_razacolor" name="raza" type="text" class="form-control" placeholder="Raza Mascota" aria-label="raza_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Nacimiento</span>
+                                    <input id="view_fechanacimiento" name="fechanacimiento" type="text" class="form-control" placeholder="Fecha de Naciemiento Mascota" aria-label="fnacimiento_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Está Chipeado?</span>
+                                    <input id="view_tienechip" name="tienechip" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Desparasitado?</span>
+                                    <input id="view_desparasitado" name="desparasitado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">¿Esterilizado?</span>
+                                    <input id="view_esterilizado" name="esterilizado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
+                                    <input id="view_descripcion" name="descripcion" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
+                                    <input id="view_estado" name="estado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="close2">+</div>
+            <div class="close3">+</div>
         </div>
     </div>
+    <div class="bg-modal4" style="display:none">
+        <div class="modal-content2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        <div id="text-action-title-popup">
+                            Estado Final de la Adopción
+                        </div>
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <form action="/estado-adopcion" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <input id="request_id" name="id" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping" hidden readonly>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_nombre" class="col-sm-4 col-form-label">ID de la adopción</label>
+                                        <div class="col-sm-6">
+                                            <input id="view_id" name="idid" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_correo" class="col-sm-4 col-form-label">Estado final</label>
+                                        <div class="col-sm-6">
+                                            <input id="view_estado" name="estadofinal" type="text" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_telefono" class="col-sm-4 col-form-label">Observación final</label>
+                                        <div class="col-sm-6">
+                                            <input id="view_observacion" name="obs" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="request_direccion" class="col-sm-4 col-form-label">Veterinario</label>
+                                        <div class="col-sm-6">
+                                            <input id="view_rutvet" name="rutvet" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="close4">+</div>
+        </div>
+    </div>
+
     <script>
         const adopciones = <%-JSON.stringify(adopciones)%>;
         const institInfo = <%-JSON.stringify(instit)%>;
+        const vetsInfo = <%-JSON.stringify(vets)%>;
         const usuario = <%-JSON.stringify(usuario)%>;
         console.log(adopciones)
         console.log(institInfo)
@@ -164,44 +314,97 @@
         function FillPageWithAdopts(adopciones) {
             let tBodyAdopciones = document.getElementById("tbody-tabla-adopciones"); //Obten la tabla
             for (let i = 0; i < adopciones.length; i++) {
-                const nombreMascota = adopciones[i].mascotum.nombre;
-                const especieMascota = adopciones[i].mascotum.especie;
-                const sexoMascota = adopciones[i].mascotum.sexo;
-                const fechaNacMascota = adopciones[i].mascotum.fechanacimiento;
-                const institMascota = adopciones[i].mascotum.rutusuario;
+                if (adopciones[i].estado == "En Adopcion") {
+                    const nombreMascota = adopciones[i].mascotum.nombre;
+                    const especieMascota = adopciones[i].mascotum.especie;
+                    const sexoMascota = adopciones[i].mascotum.sexo;
+                    const fechaNacMascota = adopciones[i].mascotum.fechanacimiento;
+                    const institMascota = nombreInstit(adopciones[i].mascotum.rutusuario);
 
-                let newAdoptRow = tBodyAdopciones.insertRow(-1);
-                let newNombreMascota = newAdoptRow.insertCell(-1);
-                let newEspecieColRef = newAdoptRow.insertCell(-1);
-                let newSexoColRef = newAdoptRow.insertCell(-1);
-                let newNacimientoColRef = newAdoptRow.insertCell(-1);
-                let newInstitColRef = newAdoptRow.insertCell(-1);
-                let newSolicitarColRef = newAdoptRow.insertCell(-1);
+                    let newAdoptRow = tBodyAdopciones.insertRow(-1);
+                    let newNombreMascota = newAdoptRow.insertCell(-1);
+                    let newEspecieColRef = newAdoptRow.insertCell(-1);
+                    let newSexoColRef = newAdoptRow.insertCell(-1);
+                    let newNacimientoColRef = newAdoptRow.insertCell(-1);
+                    let newInstitColRef = newAdoptRow.insertCell(-1);
+                    let newSolicitarColRef = newAdoptRow.insertCell(-1);
 
-                //Asigna los valores a cada columna
-                newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombreMascota + '</button>';
-                newEspecieColRef.textContent = especieMascota;
-                newSexoColRef.textContent = sexoMascota;
-                newNacimientoColRef.textContent = fechaNacMascota;
-                newInstitColRef.textContent = institMascota;
-                newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="requestAdoptsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Solicitar</button>';
+                    //Asigna los valores a cada columna
+                    newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombreMascota + '</button>';
+                    newEspecieColRef.textContent = especieMascota;
+                    newSexoColRef.textContent = sexoMascota;
+                    newNacimientoColRef.textContent = fechaNacMascota;
+                    newInstitColRef.textContent = institMascota;
+                    newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="requestAdoptsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Solicitar</button>';
+                } else {
+                    if (adopciones[i].rutusuario == usuario.rut) {
+                        const nombreMascota = adopciones[i].mascotum.nombre;
+                        const especieMascota = adopciones[i].mascotum.especie;
+                        const sexoMascota = adopciones[i].mascotum.sexo;
+                        const fechaNacMascota = adopciones[i].mascotum.fechanacimiento;
+                        const institMascota = usuario.rut;
+                        const estadoFicha = adopciones[i].estado;
+
+                        let newAdoptRow = tBodyAdopciones.insertRow(-1);
+                        let newNombreMascota = newAdoptRow.insertCell(-1);
+                        let newEspecieColRef = newAdoptRow.insertCell(-1);
+                        let newSexoColRef = newAdoptRow.insertCell(-1);
+                        let newNacimientoColRef = newAdoptRow.insertCell(-1);
+                        let newInstitColRef = newAdoptRow.insertCell(-1);
+                        let newSolicitarColRef = newAdoptRow.insertCell(-1);
+
+                        //Asigna los valores a cada columna
+                        newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombreMascota + '</button>';
+                        newEspecieColRef.textContent = especieMascota;
+                        newSexoColRef.textContent = sexoMascota;
+                        newNacimientoColRef.textContent = fechaNacMascota;
+                        newInstitColRef.textContent = institMascota;
+                        newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="estadoAdopcion(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + estadoFicha + '</button>';
+                    }
+                }
+
             }
         }
 
         FillPageWithAdopts(adopciones);
 
-        function requestAdoptsPopup(user1) { //Activar panel formulario de adopcion 
-            var user2 = user1.split("-")
-            document.getElementById('request_nombre').value = institInfo[(parseInt(user2[2]))].nombrecompleto;
-            document.getElementById('request_correo').value = institInfo[(parseInt(user2[2]))].correo;
-            document.getElementById('request_telefono').value = institInfo[(parseInt(user2[2]))].telefono;
-            document.getElementById('request_direccion').value = institInfo[(parseInt(user2[2]))].direccion;
+        function nombreInstit(rutinst) { //Institucion info?
+            for (let i = 0; i < institInfo.length; i++) {
+                if (institInfo[i].rut == rutinst) {
+                    return institInfo[i].nombrecompleto;
+                }
+            }
+        }
 
-            document.querySelector(".bg-modal").style.display = "flex";
+        function nombreVet(rutvet) { //Institucion info?
+            for (let i = 0; i < vetsInfo.length; i++) {
+                if (vetsInfo[i].rut == rutvet) {
+                    return vetsInfo[i].nombrecompleto;
+                }
+            }
+        }
+
+        function requestAdoptsPopup(user1) { // Solicitar Adopcion
+            var user2 = user1.split("-")
+            document.getElementById('request_id').value = adopciones[(parseInt(user2[2]))].id;
+            document.getElementById('request_nombre').value = usuario.nombrecompleto;
+            document.getElementById('request_correo').value = usuario.correo;
+            document.getElementById('request_telefono').value = usuario.telefono;
+            document.getElementById('request_direccion').value = usuario.direccion;
+            document.getElementById('request_oldobservacion').value = adopciones[(parseInt(user2[2]))].observacion;
+            document.getElementById('request_vet').value = adopciones[(parseInt(user2[2]))].rutvet;
+            document.querySelector(".bg-modal2").style.display = "flex";
+        }
+
+        function concatObs() {
+            var veterinario = nombreVet(document.getElementById('request_vet').value);
+            var obsAnterior = document.getElementById('request_oldobservacion').value
+            var obsNueva = document.getElementById('request_observacion').value
+            var nuevaObs = veterinario + "(Veterinario): " + obsAnterior + " | " + usuario.nombrecompleto + "(Dueño): " + obsNueva
+            document.getElementById('request_observacion').value = nuevaObs;
         }
 
         function verMascota(pet1) { //Activar panel de los datos de la mascota
-            document.querySelector(".bg-modal3").style.display = "flex";
             var pet2 = pet1.split("-");
             console.log(adopciones[(parseInt(pet2[2]))].mascotum);
             document.getElementById('view_nombre').value = adopciones[(parseInt(pet2[2]))].mascotum.nombre;
@@ -214,7 +417,19 @@
             document.getElementById('view_esterilizado').value = adopciones[(parseInt(pet2[2]))].mascotum.esterilizado;
             document.getElementById('view_desparasitado').value = adopciones[(parseInt(pet2[2]))].mascotum.desparasitado;
             document.getElementById('view_estado').value = adopciones[(parseInt(pet2[2]))].mascotum.estado;
+            document.querySelector(".bg-modal3").style.display = "flex";
         }
+
+        function estadoAdopcion(ad1) {
+            var ad2 = ad1.split("-");
+            console.log(adopciones[(parseInt(ad2[2]))].mascotum);
+            document.getElementById('view_id').value = adopciones[(parseInt(ad2[2]))].id;
+            document.getElementById('view_estado').value = adopciones[(parseInt(ad2[2]))].estado;
+            document.getElementById('view_observacion').value = adopciones[(parseInt(ad2[2]))].observacion;
+            document.getElementById('view_rutvet').value = adopciones[(parseInt(ad2[2]))].rutvet;
+            document.querySelector(".bg-modal4").style.display = "flex";
+        }
+
 
         document.querySelector(".close2").addEventListener("click",
             function() {
@@ -223,6 +438,18 @@
                 document.getElementById("request_correo").value = ""
                 document.getElementById("request_telefono").value = ""
                 document.getElementById("request_direccion").value = ""
+            });
+        document.querySelector(".close2").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal2').style.display = "none";
+            });
+        document.querySelector(".close3").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal3').style.display = "none";
+            });
+        document.querySelector(".close4").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal4').style.display = "none";
             });
     </script>
 </body>
