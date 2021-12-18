@@ -1,20 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const morgan = require("morgan");
 const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
 const sequelize = require("./app/config/sequelize.config").sequelize;
+const logger = require("./app/config/logging.config");
 require("./app/models/models_relations");
 
 const app = express();
-
-var corsOptions = {
-    origin: "http://localhost:8000"
-};
-
-app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,7 +37,7 @@ require('./app/config/passport.config');
 app.use(flash());
 
 sequelize.sync({ force: false }).then(function() {
-    console.log("DB Configurada");
+    logger.log("DB Configurada");
 });
 
 app.use(require('./app/routes/admin.routes'));
@@ -54,6 +48,6 @@ app.use(require('./app/routes/usuario.routes'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    console.log(app.get('appName'));
+    logger.log(app.get('appName'));
     console.log(`Servidor en http://localhost:${PORT}`);
 });

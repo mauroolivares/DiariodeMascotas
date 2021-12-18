@@ -1,0 +1,77 @@
+#Diccionario de la base de datos
+- La Base de Datos a utilizar, con el sistema de gestión Postgres, se encuentra alojada en nuestra aplicación en la plataforma nube de Heroku.
+- Las credenciales de nuestra BD se encuentran en "DiarioDeMascotas>app>config>db.config.js"
+Comando para realizar consultas en bruto de nuestra BD: `heroku pg:psql -a`
+
+#Diccionario de las tablas y sus atributos existentes.
+
+"usuario": Representa la base de la estructura de datos que cada usuario de nuestra aplicación debe poseer.
+-> rut (PK): Rol único tributario del usuario, necesario para iniciar sesión.
+-> correo: Correo electrónico del usuario, necesario para recuperar contraseña.
+-> password: Contraseña del usuario, necesario para iniciar sesión.
+-> nombrecompleto: Nombre Completo del usuario.
+-> descripcion: Pequeña descripción general del usuario.
+-> ubicacion: Región del país donde el usuario vive. 
+-> telefono: Número telefónico del usuario.
+-> dirección: Dirección donde el usuario vive.
+-> fechanacimiento: Fecha de Nacimiento del usuario, necesaria para comprobar su edad.
+
+"administrador": Representa los usuarios del tipo Administrador de nuestra aplicación, pueden agregar instituciones y supervisar cada usuario.
+-> rut(PK,FK): Rol único tributario del usuario, necesario para iniciar sesión.
+
+"institucion": Representa los usuarios del tipo Institución de nuestra aplicación, pueden agregar veterinarios a su institución y tener un registro de sus mascotas.
+-> rut(PK,FK): Rol único tributario del usuario, necesario para iniciar sesión.
+-> area: El área que la institucion se maneja (Fundación, Veterinaria, Perrera, Centro de Salud, etc).
+-> totalfunc: Cantidad total de funcionarios/trabajadores dentro de la institución.
+-> totalpuestos: Cantidad de vacantes disponibles en la institución, necesaria para que un veterinario pueda postular a un puesto.
+
+"veterinario": Representa los usuarios del tipo Veterinario de nuestra aplicación, controlan varias funciones de la institución que pertenecen (mascotas, controles, adopciones).
+-> rut(PK,FK): Rol único tributario del usuario, necesario para iniciar sesión.
+-> especialidad: El área que el veterinario considera su fuerte (Cirugía, Rehabilitación, Fisioterapia, etc).
+-> rutinstitución (FK): Rol único tributario de la institución a la que pertenece, puede ser nulo.
+
+"dueno": Representa los usuarios del tipo Dueno (Dueño de mascota) de nuestra aplicación, dueños de mascotas promedio que les interesa tener un sitio donde manejar varios controles y registro de sus mascotas y adoptar.
+-> rut(PK,FK): Rol único tributario del usuario, necesario para iniciar sesión.
+-> estado: Representa el estado activo o inactivo del usuario, si se encuentra inactivo es porque ha sido baneado del uso de la página por mal uso.
+
+"mascota": Representa la estructura de datos que cada mascota de nuestra aplicación debe poseer, sus datos son indicados por dueños o veterinarios.
+-> id (PK): Código identificador de la mascota.
+-> nombre: Nombre de la mascota.
+-> fechanacimiento: Fecha de nacimiento de la mascota.
+-> especie: Especie de la mascota (sea Perro, Gato, Hamster, etc).
+-> razacolor: Raza o Color de la mascota.
+-> sexo: Sexo biológico de la mascota.
+-> esterilizado: Indicador que determina si la mascota fue esterilizada o no.
+-> tienechip: Indicador que determina si la mascota posee un chip instalado o no.
+-> desparasitado: Indicador que determina si la mascota fue desparasitada o no.
+-> estado: Estado vigente de la mascota, si el dueño aún posee la mascota.
+-> descripción: Pequeña descripción u observaciones de la mascota.
+-> rutusuario (FK): Rol único tributario del Dueño o Institución a la que esta mascota pertenece.
+
+"controlmedico": Representa los datos que un formulario de control médico a una mascota debe poseer.
+-> id (PK): Código identificador del control médico.
+-> fecha: Fecha en la que el control médico fue realizado.
+-> peso: Peso actual de la mascota que fue al control.
+-> temperatura: Temperatura de la mascota durante el control.
+-> vacuna: Nombre de la vacuna suministrada a la mascota durante el control (Puede ser nulo si no hubo vacunación).
+-> estado: Estado de la mascota durante el control.
+-> observacion: Comentarios aparte por añadir sobre la mascota durante o después del control.
+-> rutvet (FK): Rol único tributario del Veterinario encargado del control (Puede ser nulo si el dueño no posee información sobre el veterinario).
+-> rutusuario (FK): Rol único tributario del Dueño o Institución a la que esta mascota pertenece.
+-> idmascota (FK): Código identificador de la mascota que tuvo el control.
+
+"fichaadopcion": Representa los datos que un formulario de adopción a una mascota debe poseer.
+-> id (PK): Código identificador de la ficha.
+-> fecha: Fecha en la que la ficha fue completada.
+-> observacion: Comentarios aparte realizados en la ficha:
+    ->Comentarios sobre la mascota en adopción
+    ->Comentarios sobre por qué el dueño quiere adoptar a esa mascota
+    ->Validación de Aceptación/Rechazo de la adopción.
+-> estado: Estado de la ficha ("En adopción", "Solicitada", "Aceptada", "Rechazada").
+    ->"En adopción": El veterinario de la institución pone en adopción a la mascota.
+    ->"Solicitada": Un dueño de mascota se encuentra interesado en adoptar la mascota.
+    ->"Aceptada": El veterinario acepta la adopción porque determina que el dueño cumple con ciertos requisitos, la mascota le pertenece al dueño de mascota ahora.
+    ->"Rechazada": El veterinario rechaza la adopción porque determina que el dueño no cumple con los requisitos necesarios para adoptar.
+-> rutvet (FK): Rol único tributario del Veterinario encargado de hacer la ficha.
+-> rutusuario (FK): Rol único tributario del dueño al que esta ficha interesa (Es nulo hasta que un dueño la selecciona).
+-> idmascota (FK): Código identificador de la mascota por adoptar.

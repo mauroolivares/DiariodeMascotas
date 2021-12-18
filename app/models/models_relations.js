@@ -18,12 +18,14 @@ Usuario.hasMany(Institucion, { foreignKey: "rut" });
 Usuario.hasMany(Administrador, { foreignKey: "rut" });
 Usuario.hasMany(Veterinario, { foreignKey: "rut" });
 Usuario.hasMany(Dueno, { foreignKey: "rut" });
+Usuario.hasMany(fichaAdopcion, { foreignKey: "rutusuario" });
 Veterinario.belongsTo(Institucion, { foreignKey: { name: "rutinstitucion", allowNull: true } });
 
 //Tipo de usuario en un formulario de adopción:
-fichaAdopcion.belongsTo(Veterinario, { foreignKey: "rutvet", allowNull: true });
-fichaAdopcion.belongsTo(Usuario, { foreignKey: "rutusuario" }); //Dueño o Institucion
+fichaAdopcion.belongsTo(Veterinario, { foreignKey: "rutvet" });
+fichaAdopcion.belongsTo(Usuario, { foreignKey: "rutusuario", allowNull: true }); //Dueño o Institucion
 fichaAdopcion.belongsTo(Mascota, { foreignKey: "idmascota" });
+
 
 //Tipo de usuario en un control médico:
 Control.belongsTo(Veterinario, { foreignKey: "rutvet", allowNull: true });

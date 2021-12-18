@@ -15,6 +15,7 @@ const Usuario = sequelize.define("usuario", {
     },
     nombrecompleto: {
         type: Sequelize.STRING,
+        defaultValue: "No"
     },
     descripcion: {
         type: Sequelize.STRING,
@@ -33,7 +34,8 @@ const Usuario = sequelize.define("usuario", {
         defaultValue: "Vacio"
     },
     fechanacimiento: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
     }
 });
 

@@ -107,15 +107,15 @@
                                     <label for="request_nombre" class="col-sm-4 col-form-label">Nombre completo</label>
                                     <div class="col-sm-6">
                                         <input id="request_nombre" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre completo" aria-describedby="addon-wrapping">
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label for= "request_correo" class="col-sm-4 col-form-label">Correo electrónico</label>
+                                    <label for="request_correo" class="col-sm-4 col-form-label">Correo electrónico</label>
                                     <div class="col-sm-6">
                                         <input id="request_correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" aria-describedby="addon-wrapping">
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -123,7 +123,7 @@
                                     <label for="request_telefono" class="col-sm-4 col-form-label">Teléfono</label>
                                     <div class="col-sm-6">
                                         <input id="request_telefono" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping">
-                                    </div>                                  
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -144,8 +144,8 @@
                                 </div>
                                 <div class="col">
                                     <a class="btn btn-primary" href="/#" role="button">Cancelar</a>
-                                </div>                                
-                            </div>                           
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -154,21 +154,23 @@
         </div>
     </div>
     <script>
-        const mascotas = <%-JSON.stringify(mascotas)%>;
         const adopciones = <%-JSON.stringify(adopciones)%>;
         const institInfo = <%-JSON.stringify(instit)%>;
-        const usuarios = <%-JSON.stringify(usuarios)%>;
+        const usuario = <%-JSON.stringify(usuario)%>;
+        console.log(adopciones)
+        console.log(institInfo)
+        console.log(usuario)
 
-        function FillPageWithAdopts(adopciones){
+        function FillPageWithAdopts(adopciones) {
             let tBodyAdopciones = document.getElementById("tbody-tabla-adopciones"); //Obten la tabla
-            for (let i = 0; i < adopciones.length; i++) {                
-                const nombreMascota = adopciones[i].mascotas.nombre;
-                const especieMascota = adopciones[i].mascotas.especie;
-                const sexoMascota = adopciones[i].mascotas.sexo;
-                const fechaNacMascota = adopciones[i].mascotas.fechanacimiento;
-                const institMascota = adopciones[i].usuarios.nombrecompleto;
+            for (let i = 0; i < adopciones.length; i++) {
+                const nombreMascota = adopciones[i].mascotum.nombre;
+                const especieMascota = adopciones[i].mascotum.especie;
+                const sexoMascota = adopciones[i].mascotum.sexo;
+                const fechaNacMascota = adopciones[i].mascotum.fechanacimiento;
+                const institMascota = adopciones[i].mascotum.rutusuario;
 
-                let newAdoptRow = tBodyAdopciones.insertRow(-1);                
+                let newAdoptRow = tBodyAdopciones.insertRow(-1);
                 let newNombreMascota = newAdoptRow.insertCell(-1);
                 let newEspecieColRef = newAdoptRow.insertCell(-1);
                 let newSexoColRef = newAdoptRow.insertCell(-1);
@@ -181,39 +183,39 @@
                 newEspecieColRef.textContent = especieMascota;
                 newSexoColRef.textContent = sexoMascota;
                 newNacimientoColRef.textContent = fechaNacMascota;
-                newInstitColRef.textContent = institMascota;               
+                newInstitColRef.textContent = institMascota;
                 newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="requestAdoptsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Solicitar</button>';
             }
         }
-        
+
         FillPageWithAdopts(adopciones);
-          
-        function requestAdoptsPopup(user1) {//Activar panel formulario de adopcion 
+
+        function requestAdoptsPopup(user1) { //Activar panel formulario de adopcion 
             var user2 = user1.split("-")
-            document.getElementById('request_nombre').value = usuarios[(parseInt(user2[2]))].nombrecompleto;
-            document.getElementById('request_correo').value = usuarios[(parseInt(user2[2]))].correo;
-            document.getElementById('request_telefono').value = usuarios[(parseInt(user2[2]))].telefono;
-            document.getElementById('request_direccion').value = usuarios[(parseInt(user2[2]))].direccion;
+            document.getElementById('request_nombre').value = institInfo[(parseInt(user2[2]))].nombrecompleto;
+            document.getElementById('request_correo').value = institInfo[(parseInt(user2[2]))].correo;
+            document.getElementById('request_telefono').value = institInfo[(parseInt(user2[2]))].telefono;
+            document.getElementById('request_direccion').value = institInfo[(parseInt(user2[2]))].direccion;
 
             document.querySelector(".bg-modal").style.display = "flex";
         }
-        
-        function verMascota(pet1) {//Activar panel de los datos de la mascota
+
+        function verMascota(pet1) { //Activar panel de los datos de la mascota
             document.querySelector(".bg-modal3").style.display = "flex";
             var pet2 = pet1.split("-");
-            console.log(adopciones[(parseInt(pet2[2]))].mascotas);
-            document.getElementById('view_nombre').value = adopciones[(parseInt(pet2[2]))].mascotas.nombre;
-            document.getElementById('view_especie').value = adopciones[(parseInt(pet2[2]))].mascotas.especie;
-            document.getElementById('view_sexo').value = adopciones[(parseInt(pet2[2]))].mascotas.sexo;
-            document.getElementById('view_razacolor').value = adopciones[(parseInt(pet2[2]))].mascotas.razacolor;
-            document.getElementById('view_fechanacimiento').value = adopciones[(parseInt(pet2[2]))].mascotas.fechanacimiento;
-            document.getElementById('view_descripcion').value = adopciones[(parseInt(pet2[2]))].mascotas.descripcion;
-            document.getElementById('view_tienechip').value = adopciones[(parseInt(pet2[2]))].mascotas.tienechip;
-            document.getElementById('view_esterilizado').value = adopciones[(parseInt(pet2[2]))].mascotas.esterilizado;
-            document.getElementById('view_desparasitado').value = adopciones[(parseInt(pet2[2]))].mascotas.desparasitado;
-            document.getElementById('view_estado').value = adopciones[(parseInt(pet2[2]))].mascotas.estado;
+            console.log(adopciones[(parseInt(pet2[2]))].mascotum);
+            document.getElementById('view_nombre').value = adopciones[(parseInt(pet2[2]))].mascotum.nombre;
+            document.getElementById('view_especie').value = adopciones[(parseInt(pet2[2]))].mascotum.especie;
+            document.getElementById('view_sexo').value = adopciones[(parseInt(pet2[2]))].mascotum.sexo;
+            document.getElementById('view_razacolor').value = adopciones[(parseInt(pet2[2]))].mascotum.razacolor;
+            document.getElementById('view_fechanacimiento').value = adopciones[(parseInt(pet2[2]))].mascotum.fechanacimiento;
+            document.getElementById('view_descripcion').value = adopciones[(parseInt(pet2[2]))].mascotum.descripcion;
+            document.getElementById('view_tienechip').value = adopciones[(parseInt(pet2[2]))].mascotum.tienechip;
+            document.getElementById('view_esterilizado').value = adopciones[(parseInt(pet2[2]))].mascotum.esterilizado;
+            document.getElementById('view_desparasitado').value = adopciones[(parseInt(pet2[2]))].mascotum.desparasitado;
+            document.getElementById('view_estado').value = adopciones[(parseInt(pet2[2]))].mascotum.estado;
         }
-        
+
         document.querySelector(".close2").addEventListener("click",
             function() {
                 document.querySelector('.bg-modal2').style.display = "none";

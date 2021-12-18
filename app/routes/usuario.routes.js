@@ -11,9 +11,7 @@ router.post("/loggedin", passport.authenticate('local', {
     failureRedirect: "/",
     successRedirect: "/loggedin"
 }));
-
-router.post("/signin", user.saveUser);
-
+router.post("/signin", user.comprobarAgregarUsuario);
 
 router.get('*', (req, res) => {
     res.render('rutaNoEncontrada');

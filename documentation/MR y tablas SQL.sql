@@ -85,8 +85,8 @@ create table fichaAdopcion(
 	fecha DATE not null,
 	observacion text not null,
 	estado text not null,
-	rutVet varchar(12) references veterinario(rut),
-	rutUsuario varchar(12) not null references usuario(rut),
+	rutVet varchar(12) not null references veterinario(rut),
+	rutUsuario varchar(12) references usuario(rut),
 	idMascota text not null references mascota(id)
 );
 

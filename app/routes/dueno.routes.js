@@ -1,9 +1,9 @@
-const dueno = require('../controllers/dueno.controller')
+const dueno = require('../controllers/perfildueno.controller')
 var router = require("express").Router();
 
 router.get("/profile", dueno.Menu);
-router.get("/profile/pets", dueno.MascotaMenu);
-router.get('/profile/controls', dueno.ControlesMenu);
+router.get("/profile/pets", dueno.verMascotas);
+router.get('/profile/controls', dueno.verControles);
 router.get('/profile/adopcion', dueno.verMascotasEnAdopcion);
 
 router.post("/profile/editUser", dueno.editarDatosDueno);

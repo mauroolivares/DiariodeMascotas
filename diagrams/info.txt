@@ -1,2 +1,0 @@
-Manejar BD
-heroku pg:psql -a
