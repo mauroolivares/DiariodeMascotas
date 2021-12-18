@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mi Perfil</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- CSS Sytlesheets -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="../styles.css">
+        <!--Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous">
+        </script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/d82979872c.js" crossorigin="anonymous"></script>
+
+        <!-- Font Google Lora -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <section id="title">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/#">Diario de Mascotas:</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/vet">Inicio</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Opciones
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/vet/">Mis Datos</a></li>
+                                    <li><a class="dropdown-item" href="/vet/pets">Mascotas de Institución</a></li>
+                                    <li><a class="dropdown-item" href="/vet/controls">Manejar Controles</a></li>
+                                    <li><a class="dropdown-item" href="/vet/adopcion">Dar en Adopción</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" active href="/#">Cerrar Sesion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <section id="content">
+            <div class="container-fluid">
+                <div class="row white-box-transparent">
+                    <div class="col-12">
+                        <!--Nombre usuario-->
+                        <div class="row name-viewer-home">
+                            <div id="nombreTitulo" class="col-6"></div>
+                            <h3>Adopciones</h3>
+                        </div>
+                        <!-- boton agregar adopcion-->
+                        <div class="col-12 text-right">
+                            <div class="top-user-info">
+                                <button id="agregar-adopcion-button" type="button" class="btn btn-primary">Agregar Adopción
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!--A el usuario le aparecera una tabla con las adopciones -->
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="tabla-controles" class="table table-lifht table-bordered table-hover table-striped">
+                                    <thead class="bg-dark text-white">
+                                        <th scope="row">ID</th>
+                                        <th scope="row">Mascota</th>
+                                        <th scope="row">Fecha</th>
+                                        <th scope="row">Observación</th>                      
+                                        <th scope="row">Estado</th>
+                                        <th scope="row">Observación</th>
+                                        <th scope="row">Solicitud</th>
+                                    </thead>
+                                    <tbody id="tBody-vet-adopciones"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+        </section>
+        <!--VENTANA OCULTA DE AGREGAR ADOPCIONES-->
+        <div class="bg-modal2">
+            <div class="modal-content2">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>
+                            <div id="text-action-title-popup">
+                                Dar en Adopción
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="col-12">
+                        <form action="/add-adoption-vet" id="post-addadoption" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for ="add_idmascota" class="col-sm-4 col-form-label">Seleccionar Mascota</label>
+                                        <div class="col-sm-8">
+                                            <select id="add_idmascota" name="idmascota" class="form-select" onclick="nombrePet();"></select>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for ="add_nombremascota" class="col-sm-4 col-form-label">Nombre Mascota</label>
+                                        <div class="col-sm-8">
+                                            <input id="add_nombremascota" name="nombremascota" type="text" class="form-control" placeholder="Nombre mascota" aria-describedby="addon-wrapping" readonly>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for ="add_fecha" class="col-sm-4 col-form-label">Fecha</label>
+                                        <div class="col-sm-8">
+                                            <input id="add_fecha" name="fecha" type="date" class="form-control" placeholder="Fecha" aria-describedby="addon-wrapping">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for ="add_observacion" class="col-sm-4 col-form-label">Observación</label>
+                                        <div class="col-sm-8">
+                                            <input id="" name="observacion" type="text" class="form-control" placeholder="Observación de la mascota" aria-describedby="addon-wrapping">
+                                        </div>        add_observacion
+                                    </div>
+                                </div>                    
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for ="add_estados" class="col-sm-4 col-form-label">Estado</label>
+                                        <div class="col-sm-8">
+                                            <input id="add_estados" name="estado" type="text" class="form-control" placeholder="" aria-describedby="addon-wrapping">
+                                        </div>                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" id="add-adoption-button" class="btn btn-primary">
+                                    <i class="fas fa-calendar-check"></i> Agregar Adopción
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="close2">+</div>
+            </div>
+        </div>
+        <!--VENTANA OCULTA DE REVISAR SOLICITUDES DE ADOPCION-->
+    <div class="bg-modal">
+        <div class="modal-content2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        <div id="text-action-title-popup">
+                            Solicitudes de Adopción
+                        </div>
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <form action="/request-adoption-vet" id="post-editRequest" method="post">
+                        <div class="row">
+                            <div class="col input-group flex-nowrap">
+                                <label for ="solicitante" class=" col-sm-4">Solicitante </label>
+                            </div>
+                            <div class="col input-group flex-nowrap">
+                                <input id="solicitante" name="nombre_solicitante" type='text' class="form-control col-sm-6" placeholder="" aria-describedby="addon-wrapping">
+                            </div>
+                            <div class="col input-group flex-nowrap">
+                                <select id="solicitante_respuesta"class="form-select form-select-sm col-sm-6" aria-label=".form-select-sm example">
+                                    <option selected>Respuesta Solicitud</option>
+                                    <option value="1">Aprobada</option>
+                                    <option value="2">Rechazada</option>                               
+                                </select>
+                            </div>   
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" id="request-adoption-button" class="btn btn-primary">
+                                        Guardad Cambios
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-primary" href="/vet/adopcion" role="button"> Atras </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="close">+</div>
+        </div>
+    </div>
+    <script>
+        const mascotas = <%-JSON.stringify(mascotas)%>;
+        const adopciones = <%-JSON.stringify(adopciones)%>;
+        const usuarios = <%-JSON.stringify(usuarios)%>;
+        console.log(mascotas)
+        console.log(adopciones)
+        console.log(usuarios)
+
+        function FillPageWithAdopts(adopciones) {
+            let tBodyAdopcion = document.getElementById("tBody-vet-adopciones"); //Obten la tabla
+            for (let i = 0; i < adopciones.length; i++) {
+                const idmascota = adopciones[i].id;
+                const nombremascota = [i].mascotum.nombre;
+                const fechamascota = adopciones[i].fecha;
+                const observacionmascota = adopciones[i].observacion;
+                const estadomascota = adopciones[i].estado;
+                
+                let newControlRow = tBodyAdopcion.insertRow(-1);
+                let newidColRef = newControlRow.insertCell(-1);
+                let newNombreMascota = newControlRow.insertCell(-1);
+                let newFechaColRef = newControlRow.insertCell(-1);
+                let newObservacionColRef = newControlRow.insertCell(-1);               
+                let newEstadoColRef = newControlRow.insertCell(-1);                
+                let newSolicitudColRef = newControlRow.insertCell(-1);
+
+                newidColRef.textContent = idmascota;
+                newNombreMascota.textContent = nombremascota;
+                newFechaColRef.textContent = fechamascota;
+                newObservacionColRef.textContent = observacionmascota;
+                newEstadoColRef.textContent = estadomascota;        
+                newSolicitudColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="answerRequestAdoptsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Editar</button>';
+            }
+        }
+        FillPageWithAdopts(adopciones);
+
+        function answerRequestAdoptsPopup(user1) {
+            var user2 = user1.split("-")
+            document.getElementById('solicitante').value = usuarios[(parseInt(user2[2]))].nombrecompleto;
+            document.getElementById('solicitante_respuesta').value = adopciones[(parseInt(user2[2]))].estado;
+
+            document.querySelector(".bg-modal").style.display = "flex";
+        }
+
+        function fillCodePet(mascotas) {
+            let selectidPet = document.getElementById('add_idmascota')
+            for (let i = 0; i < mascotas.length; i++) {
+                let optionpet = document.createElement('option')
+                optionpet.text = mascotas[i].id;
+                selectidPet.add(optionpet)
+            }
+        }
+        fillCodePet(mascotas);
+
+        function nombrePet() {
+            var petactual = document.getElementById('add_idmascota').selectedIndex;
+            document.getElementById('add_nombremascota').value = mascotas[petactual].nombre;
+            console.log(petactual)
+        }
+
+        document.getElementById('agregar-adopcion-button').addEventListener('click',
+            function() {
+                document.querySelector('.bg-modal2').style.display = "flex";
+                document.getElementById('add_idmascota').value = mascotas[0].nombre;
+            });
+        document.querySelector(".close2").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal2').style.display = "none";
+                document.getElementById("add_nombremascota").value = ""
+                document.getElementById("add_fecha").value = ""
+                document.getElementById("add_observacion").value = ""
+                document.getElementById("add_estados").value = ""
+            });
+        document.querySelector(".close").addEventListener("click",
+            function() {
+                document.querySelector('.bg-modal').style.display = "none";
+            });
+    </script>
+    </body>
+</html>
