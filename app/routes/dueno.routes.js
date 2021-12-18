@@ -11,5 +11,6 @@ router.post("/add-new-mascota-dueno", dueno.addMascota);
 router.post("/edit-mascota-dueno", dueno.editMascota);
 router.post("/addControl-dueno", dueno.addControl);
 router.post("/editControl-dueno", dueno.editControl);
+router.post("/adoptar-mascota", dueno.adoptarMascota);
 
 module.exports = router;
