@@ -25,7 +25,7 @@ Veterinario.belongsTo(Institucion, { foreignKey: { name: "rutinstitucion", allow
 fichaAdopcion.belongsTo(Veterinario, { foreignKey: "rutvet" });
 fichaAdopcion.belongsTo(Usuario, { foreignKey: "rutusuario", allowNull: true }); //Dueño o Institucion
 fichaAdopcion.belongsTo(Mascota, { foreignKey: "idmascota" });
-
+Mascota.hasMany(fichaAdopcion, { foreignKey: "idmascota" });
 
 //Tipo de usuario en un control médico:
 Control.belongsTo(Veterinario, { foreignKey: "rutvet", allowNull: true });

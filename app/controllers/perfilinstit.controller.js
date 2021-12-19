@@ -1,6 +1,3 @@
-const Institucion = require('../models/user_instit.model');
-const Veterinario = require('../models/user_vet.model');
-const Usuario = require('../models/user.model');
 const userctrl = require('./usuario.controller');
 
 exports.isAuthenticated = (req, res, next) => {
@@ -50,7 +47,7 @@ exports.editarDatosInstit = async(req, res) => {
 //Menu de Veterinarios de una Institucion:
 exports.instiVetsMenu = async(req, res) => {
     const vets = await userctrl.listaVeterinarios(req.user.rut);
-    res.render('listaVets', { vets: vets });
+    res.render('veterinariosInstitucion', { veterinarios: vets, usuario: req.user });
 }
 
 //Añadir veterinario a una institución

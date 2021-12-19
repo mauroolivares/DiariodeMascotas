@@ -62,9 +62,9 @@ exports.verControles = async(req, res) => {
 }
 
 exports.verFichasAdopcion = async(req, res) => {
-    const mascotas = await mascctrl.listaMascotas(req.user.rutinstitucion);
+    const mascotas = await mascctrl.listaMascotas(req.user);
     const adopcion = await adopctrl.listaFichasAdopcion();
-    res.render('adopcionInstitucion', { adopciones: adopcion, mascotas: mascotas, usuario: req.user });
+    res.render('adopcionVeterinario', { adopciones: adopcion, mascotas: mascotas, usuario: req.user });
 }
 
 exports.addMascota = async(req, res) => {
@@ -116,9 +116,6 @@ exports.addControl = async(req, res) => {
         observacion,
         idmascota
     } = req.body
-    control.id = funciones.generarID();
-    control.rutusuario = req.user.rutinstitucion;
-    control.rutvet = req.user.rut;
     Promise.all([contctrl.comprobarAgregarControl(control, req.user)]).then(data => {
         res.redirect('/vet/controls');
     });
@@ -142,13 +139,10 @@ exports.editControl = async(req, res) => {
 
 exports.ponerEnAdopcion = async(req, res) => {
     const fichaAdopcion = {
-        id,
         observacion,
-        fecha,
-        idmascota
+        idmascota,
     } = req.body;
-
-    Promise.all([adopctrl.comprobarAgregarFicha(fichaAdopcion)]).then(data => {
+    Promise.all([adopctrl.comprobarAgregarFicha(fichaAdopcion, req.user)]).then(data => {
         res.redirect('/vet/adopcion');
     });
 }
@@ -159,22 +153,25 @@ exports.responderSolicitud = async(req, res) => {
         id,
         observacion,
         estado,
-        fechaInicio,
-        rutvet,
-        rutusuario,
-        idmascota
+        idmascota,
+        rutusuario
     } = req.body;
-
+    console.log(fichaAdopcion)
     Promise.all([adopctrl.editarAdopcion(fichaAdopcion)]).then(data => {
-        if (fichaAdopcion.estado == "Aceptado") {
+        if (fichaAdopcion.estado == "Aprobada") {
             let mascota = {
                 id: fichaAdopcion.idmascota,
                 rutusuario: fichaAdopcion.rutusuario
             }
-            Promise.all([mascctrl.editarMascota(mascota)]).then(data2 => {
-                res.redirect('/vet/adopcion');
-            });
-        }
+            console.log(mascota);
 
-    });
+            Promise.all([mascctrl.editarMascota(mascota)]).then(data2 => {
+                Promise.all([contctrl.editarControlesMascotas(mascota.id, mascota.rutusuario)]).then(data3 => {
+                    res.redirect('/vet/adopcion');
+                });
+            });
+        } else {
+            res.redirect('/vet/adopcion');
+        }
+    })
 }

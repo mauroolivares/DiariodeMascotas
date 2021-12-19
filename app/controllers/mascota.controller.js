@@ -1,17 +1,24 @@
 const Mascota = require('../models/form_pet.model');
 const funciones = require('../controllers/functions.controller');
+const fichaAdopcion = require('../models/form_adoptform.model');
+const { Op } = require("sequelize");
+const Usuario = require('../models/user.model');
 
 exports.listaMascotas = async(usuario) => {
     return new Promise((resolve, reject) => {
         if (usuario.tipo == "Dueno") {
-            Mascota.findAll({ where: { rutusuario: usuario.rut } }).then(data => {
+            Mascota.findAll({
+                include: [{
+                    model: Usuario,
+                }],
+                where: { rutusuario: usuario.rut }
+            }).then(data => {
                 resolve(data)
             }).catch(err => {
                 reject(err.message || "Ha ocurrido un error intentando crear usuario.")
             })
         } else {
             Mascota.findAll({ where: { rutusuario: usuario.rutinstitucion } }).then(data => {
-                console.log(data);
                 resolve(data)
             }).catch(err => {
                 reject(err.message || "Ha ocurrido un error intentando crear usuario.")

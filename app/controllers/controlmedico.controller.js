@@ -44,6 +44,14 @@ exports.editarControl = async(control) => {
     });
 }
 
+exports.editarControlesMascotas = async(idmascota, rutusuario) => {
+    Control.update({ rutusuario: rutusuario }, { where: { idmascota: idmascota } }).then(data => {
+        console.log(data);
+    }).catch(err => {
+        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+    });
+}
+
 exports.comprobarAgregarControl = async(control, usuario) => {
     Control.findByPk(control.id).then(data => {
         if (data != undefined) {

@@ -44,11 +44,11 @@
                                 <li><a class="dropdown-item" href="/profile">Mis Datos</a></li>
                                 <li><a class="dropdown-item" href="/profile/pets">Mis Mascotas</a></li>
                                 <li><a class="dropdown-item" href="/profile/controls">Manejar Controles</a></li>
-                                <li><a class="dropdown-item" href="//profile/adopcion">Adoptar Mascota</a></li>
+                                <li><a class="dropdown-item" href="/profile/adopcion">Adoptar Mascota</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" active href="/">Cerrar Sesión</a>
+                            <a class="nav-link" href="/">Cerrar Sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -71,10 +71,11 @@
                                 <div class="table-responsive">
                                     <table id="tabla-adopciones" class="table table-light table-bordered table-hover table-striped">
                                         <thead class="bg-dark text-white">
-                                            <th scope="row">Nombre</th>
+                                            <th scope="row">Inf. Mascota</th>
                                             <th scope="row">Especie</th>
                                             <th scope="row">Sexo</th>
-                                            <th scope="row">Fecha de nacimiento</th>
+                                            <th scope="row">Fecha de la Ficha </th>
+                                            <th scope="row">Observación</th>
                                             <th scope="row">Pertenece a</th>
                                             <th scope="row">Estado / Adoptar</th>
                                         </thead>
@@ -143,7 +144,7 @@
                                     <div class="col-sm-6">
                                         <input id="request_vet" type="text" class="form-control" aria-describedby="addon-wrapping" hidden readonly>
                                         <input id="request_oldobservacion" type="text" class="form-control" aria-describedby="addon-wrapping" hidden readonly>
-                                        <input id="request_observacion" name="observacion" type="text" class="form-control" placeholder="Me interesa porque..." aria-describedby="addon-wrapping">
+                                        <textarea style="height: 130px" id="request_observacion" name="observacion" type="text" class="form-control" placeholder="Me interesa porque..." aria-describedby="addon-wrapping"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +237,7 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Estado</span>
-                                    <input id="view_estado" name="estado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
+                                    <input id="view_estadom" name="estado" type="text" class="form-control" placeholder="ID Mascota" aria-label="chip_mascota_add" aria-describedby="addon-wrapping" readonly>
                                 </div>
                             </div>
                         </div>
@@ -246,14 +247,12 @@
             <div class="close3">+</div>
         </div>
     </div>
-    <div class="bg-modal4" style="display:none">
+    <div class="bg-modal" style="display:none">
         <div class="modal-content2">
             <div class="row">
                 <div class="col-12">
                     <h3>
-                        <div id="text-action-title-popup">
-                            Estado Final de la Adopción
-                        </div>
+                        <div id="text-action-title-popup">Estado de la Adopción</div>
                     </h3>
                 </div>
                 <div class="col-12">
@@ -281,7 +280,7 @@
                                     <div class="form-group row">
                                         <label for="request_telefono" class="col-sm-4 col-form-label">Observación final</label>
                                         <div class="col-sm-6">
-                                            <input id="view_observacion" name="obs" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping" readonly>
+                                            <textarea style="height: 130px;" id="view_observacion" name="obs" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping" readonly> </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -298,14 +297,14 @@
                     </form>
                 </div>
             </div>
-            <div class="close4">+</div>
+            <div class="close">+</div>
         </div>
     </div>
+
 
     <script>
         const adopciones = <%-JSON.stringify(adopciones)%>;
         const institInfo = <%-JSON.stringify(instit)%>;
-        const vetsInfo = <%-JSON.stringify(vets)%>;
         const usuario = <%-JSON.stringify(usuario)%>;
         console.log(adopciones)
         console.log(institInfo)
@@ -314,52 +313,57 @@
         function FillPageWithAdopts(adopciones) {
             let tBodyAdopciones = document.getElementById("tbody-tabla-adopciones"); //Obten la tabla
             for (let i = 0; i < adopciones.length; i++) {
+                const nombreMascota = adopciones[i].mascotum.nombre;
+                const especieMascota = adopciones[i].mascotum.especie;
+                const sexoMascota = adopciones[i].mascotum.sexo;
+                const fechaNacMascota = adopciones[i].fecha;
+                var obsFicha = adopciones[i].observacion;
+                var institMascota = nombreInstit(adopciones[i].mascotum.rutusuario);
                 if (adopciones[i].estado == "En Adopcion") {
-                    const nombreMascota = adopciones[i].mascotum.nombre;
-                    const especieMascota = adopciones[i].mascotum.especie;
-                    const sexoMascota = adopciones[i].mascotum.sexo;
-                    const fechaNacMascota = adopciones[i].mascotum.fechanacimiento;
-                    const institMascota = nombreInstit(adopciones[i].mascotum.rutusuario);
-
                     let newAdoptRow = tBodyAdopciones.insertRow(-1);
                     let newNombreMascota = newAdoptRow.insertCell(-1);
                     let newEspecieColRef = newAdoptRow.insertCell(-1);
                     let newSexoColRef = newAdoptRow.insertCell(-1);
                     let newNacimientoColRef = newAdoptRow.insertCell(-1);
+                    let newObsColRef = newAdoptRow.insertCell(-1);
                     let newInstitColRef = newAdoptRow.insertCell(-1);
                     let newSolicitarColRef = newAdoptRow.insertCell(-1);
 
-                    //Asigna los valores a cada columna
                     newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombreMascota + '</button>';
                     newEspecieColRef.textContent = especieMascota;
                     newSexoColRef.textContent = sexoMascota;
                     newNacimientoColRef.textContent = fechaNacMascota;
                     newInstitColRef.textContent = institMascota;
+                    newObsColRef.textContent = obsFicha;
                     newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="requestAdoptsPopup(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Solicitar</button>';
                 } else {
                     if (adopciones[i].rutusuario == usuario.rut) {
-                        const nombreMascota = adopciones[i].mascotum.nombre;
-                        const especieMascota = adopciones[i].mascotum.especie;
-                        const sexoMascota = adopciones[i].mascotum.sexo;
-                        const fechaNacMascota = adopciones[i].mascotum.fechanacimiento;
-                        const institMascota = usuario.rut;
-                        const estadoFicha = adopciones[i].estado;
-
                         let newAdoptRow = tBodyAdopciones.insertRow(-1);
                         let newNombreMascota = newAdoptRow.insertCell(-1);
                         let newEspecieColRef = newAdoptRow.insertCell(-1);
                         let newSexoColRef = newAdoptRow.insertCell(-1);
                         let newNacimientoColRef = newAdoptRow.insertCell(-1);
+                        let newObsColRef = newAdoptRow.insertCell(-1);
                         let newInstitColRef = newAdoptRow.insertCell(-1);
                         let newSolicitarColRef = newAdoptRow.insertCell(-1);
+                        var obsplit = (adopciones[i].observacion).split("| ");
+                        obsFicha = obsplit[1];
+                        if (adopciones[i].estado == "Rechazada") {
+                            obsFicha = obsplit[0];
+                        }
 
-                        //Asigna los valores a cada columna
+                        if (adopciones[i].estado == "Aprobada") {
+                            institMascota = usuario.nombrecompleto;
+                            obsFicha = obsplit[0];
+                        }
+                        const estadoFicha = adopciones[i].estado;
                         newNombreMascota.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="verMascota(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + nombreMascota + '</button>';
                         newEspecieColRef.textContent = especieMascota;
                         newSexoColRef.textContent = sexoMascota;
                         newNacimientoColRef.textContent = fechaNacMascota;
                         newInstitColRef.textContent = institMascota;
-                        newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="estadoAdopcion(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i>' + estadoFicha + '</button>';
+                        newObsColRef.textContent = obsFicha;
+                        newSolicitarColRef.innerHTML = '<button type="button" id=button-edit-' + i + ' onClick="estadoAdopcion(this.id);" class="btn btn-primary pull-right"><i class="fas fa-edit"></i> Comprobar Estado</button>';
                     }
                 }
 
@@ -372,14 +376,6 @@
             for (let i = 0; i < institInfo.length; i++) {
                 if (institInfo[i].rut == rutinst) {
                     return institInfo[i].nombrecompleto;
-                }
-            }
-        }
-
-        function nombreVet(rutvet) { //Institucion info?
-            for (let i = 0; i < vetsInfo.length; i++) {
-                if (vetsInfo[i].rut == rutvet) {
-                    return vetsInfo[i].nombrecompleto;
                 }
             }
         }
@@ -397,12 +393,12 @@
         }
 
         function concatObs() {
-            var veterinario = nombreVet(document.getElementById('request_vet').value);
             var obsAnterior = document.getElementById('request_oldobservacion').value
             var obsNueva = document.getElementById('request_observacion').value
-            var nuevaObs = veterinario + "(Veterinario): " + obsAnterior + " | " + usuario.nombrecompleto + "(Dueño): " + obsNueva
+            var nuevaObs = obsAnterior + " | " + usuario.nombrecompleto + "(Dueño): " + obsNueva + "."
             document.getElementById('request_observacion').value = nuevaObs;
         }
+
 
         function verMascota(pet1) { //Activar panel de los datos de la mascota
             var pet2 = pet1.split("-");
@@ -416,18 +412,22 @@
             document.getElementById('view_tienechip').value = adopciones[(parseInt(pet2[2]))].mascotum.tienechip;
             document.getElementById('view_esterilizado').value = adopciones[(parseInt(pet2[2]))].mascotum.esterilizado;
             document.getElementById('view_desparasitado').value = adopciones[(parseInt(pet2[2]))].mascotum.desparasitado;
-            document.getElementById('view_estado').value = adopciones[(parseInt(pet2[2]))].mascotum.estado;
+            document.getElementById('view_estadom').value = adopciones[(parseInt(pet2[2]))].mascotum.estado;
             document.querySelector(".bg-modal3").style.display = "flex";
         }
 
         function estadoAdopcion(ad1) {
             var ad2 = ad1.split("-");
-            console.log(adopciones[(parseInt(ad2[2]))].mascotum);
+            var observacionspl = (adopciones[(parseInt(ad2[2]))].observacion).split("| ")
             document.getElementById('view_id').value = adopciones[(parseInt(ad2[2]))].id;
             document.getElementById('view_estado').value = adopciones[(parseInt(ad2[2]))].estado;
-            document.getElementById('view_observacion').value = adopciones[(parseInt(ad2[2]))].observacion;
+            if (observacionspl.length > 1) {
+                document.getElementById('view_observacion').value = observacionspl[0] + "\n\n" + observacionspl[1];
+            } else {
+                document.getElementById('view_observacion').value = observacionspl[0];
+            }
             document.getElementById('view_rutvet').value = adopciones[(parseInt(ad2[2]))].rutvet;
-            document.querySelector(".bg-modal4").style.display = "flex";
+            document.querySelector(".bg-modal").style.display = "flex";
         }
 
 
@@ -447,9 +447,9 @@
             function() {
                 document.querySelector('.bg-modal3').style.display = "none";
             });
-        document.querySelector(".close4").addEventListener("click",
+        document.querySelector(".close").addEventListener("click",
             function() {
-                document.querySelector('.bg-modal4').style.display = "none";
+                document.querySelector('.bg-modal').style.display = "none";
             });
     </script>
 </body>

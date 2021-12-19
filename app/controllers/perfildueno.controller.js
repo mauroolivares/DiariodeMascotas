@@ -63,8 +63,7 @@ exports.verControles = async(req, res) => {
 exports.verMascotasEnAdopcion = async(req, res) => {
     const adopciones = await adopctrl.listaFichasAdopcion();
     const institInfo = await userctrl.listaInstituciones();
-    const usuarios = await userctrl.listaUsuarios();
-    res.render('vistaAdoptar', { adopciones: adopciones, instit: institInfo, usuario: req.user, vets: usuarios })
+    res.render('vistaAdoptar', { adopciones: adopciones, instit: institInfo, usuario: req.user })
 }
 
 exports.addMascota = async(req, res) => {
@@ -144,11 +143,7 @@ exports.adoptarMascota = async(req, res) => {
     } = req.body;
     fichaAdopcion.estado = "Solicitada";
     fichaAdopcion.rutusuario = req.user.rut;
-    /*
     Promise.all([adopctrl.editarAdopcion(fichaAdopcion)]).then(data => {
         res.redirect('/profile/adopcion');
     });
-    */
-    console.log(fichaAdopcion);
-    res.redirect('/profile');
 }

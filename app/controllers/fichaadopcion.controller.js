@@ -1,6 +1,6 @@
 const Adopcion = require('../models/form_adoptform.model');
-const Usuario = require('../models/user.model');
 const Mascota = require('../models/form_pet.model');
+const funciones = require('../controllers/functions.controller');
 
 exports.listaFichasAdopcion = async() => {
     return new Promise((resolve, reject) => {
@@ -25,7 +25,7 @@ exports.editarAdopcion = async(ficha) => {
     })
 }
 
-exports.comprobarAgregarFicha = async(ficha) => {
+exports.comprobarAgregarFicha = async(ficha, usuario) => {
     Adopcion.findByPk(ficha.id).then(data => {
         if (data != undefined) {
             console.log("No se pudo crear el control porque ya existe uno con la ID: " + control.id + ".");
@@ -38,7 +38,8 @@ exports.comprobarAgregarFicha = async(ficha) => {
 }
 
 async function crearFicha(ficha, usuario) {
-    ficha.estado = "En Adopción";
+    ficha.id = funciones.generarID();
+    ficha.estado = "En Adopcion";
     ficha.rutusuario = null;
     ficha.rutvet = usuario.rut;
     ficha.fecha = new Date();
