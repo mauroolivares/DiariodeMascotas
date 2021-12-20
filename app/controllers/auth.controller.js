@@ -24,7 +24,7 @@ exports.loginpage = (req, res) => {
 
 //Sitio para registrar usuario fuera de sesión:
 exports.signpage = (req, res) => {
-    res.render('register');
+    res.render('registroUsuario');
 }
 
 //Función para cerrar sesion:

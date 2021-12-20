@@ -1,1 +1,2 @@
-Errores de la sesión: Sun Dec 19 2021 22:32:23 GMT-0300 (hora de verano de Chile)
+Errores de la sesión: Sun Dec 19 2021 22:45:56 GMT-0300 (hora de verano de Chile)
+< No has iniciado sesión correctamente >
