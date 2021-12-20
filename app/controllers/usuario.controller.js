@@ -4,47 +4,10 @@ const Administrador = require('../models/user_admin.model');
 const Veterinario = require('../models/user_vet.model');
 const Institucion = require('../models/user_instit.model');
 const Dueno = require('../models/user_dueno.model')
+const logger = require('../config/logging.config')
 const { Op } = require("sequelize");
 
-//Sitio para iniciar sesion:
-exports.loginpage = (req, res) => {
-    req.logout();
-    res.render('paginaPrincipal');
-}
-
-//Sitio para registrar usuario fuera de sesión:
-exports.signpage = (req, res) => {
-    res.render('register');
-}
-
-//Función para cerrar sesion:
-exports.logout = (req, res) => {
-    req.logout();
-    res.redirect("/");
-}
-
-//Funcion para redirigir inicio de sesión:
-exports.login = async(req, res) => {
-    switch (req.user.tipo) {
-        case "Administrador":
-            res.redirect("/admin")
-            break;
-
-        case "Institucion":
-            res.redirect("/instit")
-            break;
-
-        case "Veterinario":
-            res.redirect("/vet")
-            break;
-
-        case "Dueno":
-            res.redirect("/profile")
-            break;
-    }
-    res.end()
-}
-
+//Listar a todos los usuarios existentes:
 exports.listaUsuarios = async() => {
     return new Promise((resolve, reject) => {
         Usuario.findAll().then(data => {
@@ -55,6 +18,7 @@ exports.listaUsuarios = async() => {
     })
 }
 
+//Listar a todas las instituciones que tengan vacantes disponibles:
 exports.listaInstituciones = async() => {
     return new Promise((resolve, reject) => {
         Usuario.findAll({
@@ -74,6 +38,7 @@ exports.listaInstituciones = async() => {
     })
 }
 
+//Listar a todos los veterinarios de una institución asociada:
 exports.listaVeterinarios = async(rut) => {
     return new Promise((resolve, reject) => {
         Usuario.findAll({
@@ -90,58 +55,61 @@ exports.listaVeterinarios = async(rut) => {
         })
     })
 }
-
+//Hacer UPDATE al usuario seleccionado:
 exports.editarUsuario = (usuario) => {
     Usuario.update(usuario, { where: { rut: usuario.rut } }).then(data => {
-        console.log("Datos del usuario con rut: " + usuario.rut + ", se han actualizado.")
+        logger.log(`Datos del usuario con rut: "${usuario.rut}", se han actualizado.`)
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando editar al usuario.")
+        logger.error(err.message || "Ha ocurrido un error intentando editar al usuario.")
     });
 }
 
+//Hacer UPDATE a la institución seleccionada:
 exports.editarInstitucion = (usuario) => {
     Institucion.update(usuario, { where: { rut: usuario.rut } }).then(data => {
-        console.log("Datos del Institución con rut: " + usuario.rut + ", se han actualizado.")
+        logger.log(`Datos de la Institución con rut: "${usuario.rut}", se han actualizado.`)
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando editar la Institución.")
+        logger.error(err.message || "Ha ocurrido un error intentando editar la Institución.")
     });
 }
 
+//Hacer UPDATE al veterinario seleccionado:
 exports.editarVeterinario = (usuario) => {
     Veterinario.update(usuario, { where: { rut: usuario.rut } }).then(data => {
-        console.log("Datos del Veterinario con rut: " + usuario.rut + ", se han actualizado.")
+        logger.log(`Datos del Veterinario con rut: "${usuario.rut}", se han actualizado.`)
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando editar al Veterinario.")
+        logger.error(err.message || "Ha ocurrido un error intentando editar al Veterinario.")
     });
 }
 
+//Hacer UPDATE al dueño seleccionado:
 exports.editarDueno = (usuario) => {
     Dueno.update(usuario, { where: { rut: usuario.rut } }).then(data => {
-        console.log("Datos del Dueño con rut: " + usuario.rut + ", se han actualizado.")
+        logger.log(`Datos del Dueño con rut: "${usuario.rut}", se han actualizado.`)
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando editar al Dueño.")
+        logger.error(err.message || "Ha ocurrido un error intentando editar al Dueño.")
     });
 }
 
-//Comprueba si el usuario existe.
+//Comprueba si el usuario existe, sino avanza a la siguiente función "crearUsuario":
 exports.comprobarAgregarUsuario = async(usuario) => {
     Usuario.findByPk(usuario.rut).then(data => {
         if (data != undefined) {
-            console.log("No se pudo crear el usuario porque ya existe uno con el rut: " + usuario.rut + ".");
+            logger.log(`No se pudo crear el usuario porque ya existe uno con el rut: "${usuario.rut}".`);
         } else {
             crearUsuario(usuario);
         }
     }).catch(err => {
-        console.log(err.message);
+        logger.error(err.message);
     });
 }
 
-//Crea el Usuario y su tipo asociado.
+//Crea el Usuario y su tipo asociado:
 async function crearUsuario(usuario) {
-    console.log("Creando...")
+    logger.log("Creando...")
     usuario.password = await bcrypt.hash(usuario.password, 10);
     Usuario.create(usuario).then(data => {
-        console.log("Usuario con rut: " + usuario.rut + ", creado.");
+        logger.log(`Usuario con rut: "${usuario.rut}", creado.`)
         switch (usuario.tipo) {
             case "Administrador":
                 crearAdministrador(usuario);
@@ -160,41 +128,41 @@ async function crearUsuario(usuario) {
                 break;
         };
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
 }
 
-//Crear distintos tipos de usuario:
+//Crear distintos tipos de usuario (Administrador, Institución, Veterinario, Dueño):
 async function crearAdministrador(usuario) {
     Administrador.create(usuario).then(data => {
-        console.log(usuario.rut + ": Asignado como Administrador");
+        logger.log(`${usuario.rut}: Asignado como Administrador`);
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
 }
 
 async function crearInstitucion(usuario) {
     Institucion.create(usuario).then(data => {
-        console.log(usuario.rut + ": Asignado como Institución");
+        logger.log(`${usuario.rut} + ": Asignado como Institución`);
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
 }
 
 async function crearVeterinario(usuario) {
     usuario.rutinstitucion = null
     Veterinario.create(usuario).then(data => {
-        console.log(usuario.rut + ": Asignado como Veterinario");
+        logger.log(`${usuario.rut} + : Asignado como Veterinario`);
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
-    console.log(usuario);
+    logger.log(usuario);
 }
 
 async function crearDueño(usuario) {
     Dueno.create(usuario).then(data => {
-        console.log(usuario.rut + ": Asignado como Dueño de mascotas");
+        logger.log(`${usuario.rut} + ": Asignado como Dueño de mascotas`);
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear usuario.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
 }

@@ -1,7 +1,9 @@
 const Adopcion = require('../models/form_adoptform.model');
 const Mascota = require('../models/form_pet.model');
 const funciones = require('../controllers/functions.controller');
+const logger = require('../config/logging.config')
 
+//Hacer SELECT a todas las fichas de adopción existentes, junto a los datos de Mascota:
 exports.listaFichasAdopcion = async() => {
     return new Promise((resolve, reject) => {
         Adopcion.findAll({
@@ -17,36 +19,39 @@ exports.listaFichasAdopcion = async() => {
     })
 }
 
+//Hacer UPDATE a la ficha de adpción asociada:
 exports.editarAdopcion = async(ficha) => {
     Adopcion.update(ficha, { where: { id: ficha.id } }).then(data => {
-        console.log(data);
+        logger.log(`Ficha de Adopción con id: ${ficha.id} y mascota: ${ficha.idmascota} ha actualizado su estado a ${ficha.estado}.`);
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear ficha.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear ficha.")
     })
 }
 
+//Verifica si la ficha con la ID generada existe, para determinar si se redirige a "crearFicha"
 exports.comprobarAgregarFicha = async(ficha, usuario) => {
+    ficha.id = funciones.generarID();
     Adopcion.findByPk(ficha.id).then(data => {
         if (data != undefined) {
-            console.log("No se pudo crear el control porque ya existe uno con la ID: " + control.id + ".");
+            logger.log(`No se pudo crear la ficha porque ya existe una con la ID: ${ficha.id}.`);
         } else {
             crearFicha(ficha, usuario);
         }
     }).catch(err => {
-        console.log(err.message);
+        logger.error(err.message);
     });
 }
 
+//Hacer INSERT a una ficha de Adopción con sus datos especificados:
 async function crearFicha(ficha, usuario) {
-    ficha.id = funciones.generarID();
     ficha.estado = "En Adopcion";
     ficha.rutusuario = null;
     ficha.rutvet = usuario.rut;
     ficha.fecha = new Date();
 
     Adopcion.create(ficha).then(data => {
-        console.log("Nueva ficha just dropped");
+        logger.log(`Se ha creado la adopción con id: "${ficha.id}" para la mascota de codigo "${control.idmascota}"`);
     }).catch(err => {
-        console.log(err.message || "Ha ocurrido un error intentando crear Control.")
+        logger.error(err.message || "Ha ocurrido un error intentando crear Control.")
     });
 }

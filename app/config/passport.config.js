@@ -1,5 +1,6 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
+const logger = require('./logging.config')
 const LocalStrategy = require('passport-local').Strategy
 
 const Usuario = require('../models/user.model');
@@ -17,12 +18,15 @@ passport.use(
             const usuario = await Usuario.findByPk(rut);
 
             if (!usuario) {
+                logger.error(`>>Usuario con rut: "${rut}" no encontrado.`);
                 return done(null, false, { message: "RUT no encontrado" })
             }
             const isMatch = await bcrypt.compare(password, usuario.password)
             if (isMatch) {
+                logger.log(`>>Los datos de sesión coinciden.`);
                 return done(null, usuario)
             } else {
+                logger.error(`>>El rut "${rut}" y la contraseña no coinciden.`);
                 return done(null, false, { message: 'Contraseña incorrecta' })
             }
         } catch (err) {
@@ -31,7 +35,7 @@ passport.use(
     }));
 
 passport.serializeUser(function(user, done) {
-    console.log("serial")
+    logger.log("Iniciando Sesión...")
     done(null, user)
 });
 

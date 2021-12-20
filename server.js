@@ -37,17 +37,16 @@ require('./app/config/passport.config');
 app.use(flash());
 
 sequelize.sync({ force: false }).then(function() {
-    logger.log("DB Configurada");
+    console.log("> Base de datos sincronizada correctamente.");
 });
 
 app.use(require('./app/routes/admin.routes'));
 app.use(require('./app/routes/dueno.routes'));
 app.use(require('./app/routes/instit.routes'));
 app.use(require('./app/routes/vet.routes'));
-app.use(require('./app/routes/usuario.routes'));
+app.use(require('./app/routes/auth.routes'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    logger.log(app.get('appName'));
-    console.log(`Servidor en http://localhost:${PORT}`);
+    console.log(`\n> Bienvenido a Diario de Mascotas \n> Visita http://localhost:${PORT}`);
 });

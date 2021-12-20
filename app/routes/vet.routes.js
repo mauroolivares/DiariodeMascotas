@@ -1,10 +1,10 @@
 const vet = require('../controllers/perfilvet.controller')
 var router = require("express").Router();
 
-router.get("/vet", vet.isAuthenticated, vet.Menu);
-router.get("/vet/pets", vet.isAuthenticated, vet.verMascotas);
-router.get("/vet/controls", vet.isAuthenticated, vet.verControles);
-router.get("/vet/adopcion", vet.isAuthenticated, vet.verFichasAdopcion);
+router.get("/vet", vet.verificar, vet.Menu);
+router.get("/vet/pets", vet.verificar, vet.verMascotas);
+router.get("/vet/controls", vet.verificar, vet.verControles);
+router.get("/vet/adopcion", vet.verificar, vet.verFichasAdopcion);
 
 router.post("/vet/editUser", vet.editarDatosVet);
 router.post("/add-new-mascota-vet", vet.addMascota);

@@ -1,11 +1,12 @@
-const user = require("../controllers/usuario.controller.js");
+const auth = require("../controllers/auth.controller");
+const user = require("../controllers/usuario.controller");
 const passport = require('passport')
 var router = require("express").Router();
 
-router.get("/", user.loginpage);
-router.get("/loggedin", user.login);
-router.get("/signin", user.signpage);
-router.get("/logout", user.logout);
+router.get("/", auth.loginpage);
+router.get("/loggedin", auth.login);
+router.get("/signin", auth.signpage);
+router.get("/logout", auth.logout);
 
 router.post("/loggedin", passport.authenticate('local', {
     failureRedirect: "/",

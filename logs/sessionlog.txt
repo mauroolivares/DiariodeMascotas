@@ -1,2 +1,10 @@
-Diario de Mascotas
-DB Configurada
+Datos de la sesión: Sun Dec 19 2021 22:32:23 GMT-0300 (hora de verano de Chile)
+Cierre abrupto de sesión.
+
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 555 y el tipo Institucion, bienvenido.
+Cierre abrupto de sesión.
+
+

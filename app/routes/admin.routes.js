@@ -1,10 +1,10 @@
 const admin = require('../controllers/perfiladmin.controller')
 var router = require("express").Router();
 
-//añadir "admin.isAuthenticated" para pruebas sin necesidad de iniciar sesion
+//añadir "admin.verificar" para pruebas iniciando sesion correctamente
 
-router.get("/admin", admin.isAuthenticated, admin.Menu);
-router.post("/admin/saveUser", admin.isAuthenticated, admin.AgregarUsuario);
-router.post("/admin/editUser", admin.isAuthenticated, admin.EditarUsuario);
+router.get("/admin", admin.verificar, admin.Menu);
+router.post("/admin/saveUser", admin.verificar, admin.AgregarUsuario);
+router.post("/admin/editUser", admin.verificar, admin.EditarUsuario);
 
 module.exports = router;
