@@ -10,29 +10,17 @@ const Institucion = require('../models/user_instit.model');
 const Dueno = require('../models/user_dueno.model')
 
 passport.use(
-    new LocalStrategy({
-        usernameField: "rut",
-        passwordField: "password"
-    }, async(rut, password, done) => {
+    new LocalStrategy({ usernameField: "rut", passwordField: "password"}, async(rut, password, done) => {
         try {
             const usuario = await Usuario.findByPk(rut);
 
-            if (!usuario) {
-                logger.error(`>>Usuario con rut: "${rut}" no encontrado.`);
-                return done(null, false, { message: "RUT no encontrado" })
-            }
+            if (!usuario) { logger.error(`>>Usuario con rut: "${rut}" no encontrado.`); return done(null, false, { message: "RUT no encontrado" }) }
             const isMatch = await bcrypt.compare(password, usuario.password)
-            if (isMatch) {
-                logger.log(`>>Los datos de sesión coinciden.`);
-                return done(null, usuario)
-            } else {
-                logger.error(`>>El rut "${rut}" y la contraseña no coinciden.`);
-                return done(null, false, { message: 'Contraseña incorrecta' })
-            }
-        } catch (err) {
-            done(err);
-        }
-    }));
+            if (isMatch) { logger.log(`>>Los datos de sesión coinciden.`); return done(null, usuario); } 
+            else { logger.error(`>>El rut "${rut}" y la contraseña no coinciden.`); return done(null, false, { message: 'Contraseña incorrecta' }) }
+        } catch (err) { done(err); }
+    })
+);
 
 passport.serializeUser(function(user, done) {
     logger.log("Iniciando Sesión...")
