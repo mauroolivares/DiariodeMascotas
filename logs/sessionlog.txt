@@ -1,27 +1,7 @@
-Datos de la sesión: Sun Dec 19 2021 22:45:56 GMT-0300 (hora de verano de Chile)
-Cierre abrupto de sesión.
-
-
-Cierre abrupto de sesión.
-
-
-Creando...
-Usuario con rut: "19769880", creado.
-19769880 + ": Asignado como Dueño de mascotas
+Datos de la sesión: Mon Dec 20 2021 22:11:24 GMT-0300 (hora de verano de Chile)
 Cierre abrupto de sesión.
 
 
 >>Los datos de sesión coinciden.
 Iniciando Sesión...
--> Has ingresado con el rut 19769880 y el tipo Dueno, bienvenido.
-Datos del usuario con rut: "19769880", se han actualizado.
-Datos del Dueño con rut: "19769880", se han actualizado.
-Has cerrado sesión, adiós .
-
-
-Cierre abrupto de sesión.
-
-
->>Los datos de sesión coinciden.
-Iniciando Sesión...
--> Has ingresado con el rut 666 y el tipo Dueno, bienvenido.
+-> Has ingresado con el rut 111 y el tipo Administrador, bienvenido.
