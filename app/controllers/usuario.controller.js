@@ -156,7 +156,6 @@ async function crearVeterinario(usuario) {
     }).catch(err => {
         logger.error(err.message || "Ha ocurrido un error intentando crear usuario.")
     });
-    logger.log(usuario);
 }
 
 async function crearDueño(usuario) {

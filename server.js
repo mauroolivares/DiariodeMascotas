@@ -5,7 +5,6 @@ const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
 const sequelize = require("./app/config/sequelize.config").sequelize;
-const logger = require("./app/config/logging.config");
 require("./app/models/models_relations");
 
 const app = express();

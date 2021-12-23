@@ -45,7 +45,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Cerrar Sesión</a>
+                            <a class="nav-link active" href="/logout">Cerrar Sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -110,57 +110,57 @@
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Rut</span>
-                                    <input required id="add_rut_admin" name="rut" type="text" class="form-control" placeholder="Rut Usuario" aria-describedby="addon-wrapping">
+                                    <input required id="add_rut_admin" name="rut" type="text" class="form-control" placeholder="Rut Usuario" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Contraseña</span>
-                                    <input required id="add_password_admin" name="password" type="password" class="form-control" placeholder="Contraseña Usuario" aria-describedby="addon-wrapping">
+                                    <input required id="add_password_admin" name="password" type="password" class="form-control" placeholder="Contraseña Usuario" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre</span>
-                                    <input id="add_nombre_admin" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre Completo" aria-describedby="addon-wrapping">
+                                    <input id="add_nombre_admin" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre Completo" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Correo Electrónico</span>
-                                    <input id="add_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo Electrónico" aria-describedby="addon-wrapping">
+                                    <input id="add_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo Electrónico" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Nacimiento</span>
-                                    <input id="add_fechanacimiento_admin" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" aria-describedby="addon-wrapping">
+                                    <input id="add_fechanacimiento_admin" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Teléfono</span>
-                                    <input id="add_telefono_admin" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping">
+                                    <input id="add_telefono_admin" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Dirección</span>
-                                    <input id="add_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping">
+                                    <input id="add_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <!--que diferencia tiene ubicacion con direccion-->
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Región</span>
-                                    <input id="add_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Región" aria-describedby="addon-wrapping">
+                                    <input id="add_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Región" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
-                                    <input id="add_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Descripción" aria-describedby="addon-wrapping">
+                                    <input id="add_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Descripción" aria-describedby="addon-wrapping" required>
                                 </div>
                             </div>
                         </div>
@@ -243,44 +243,44 @@
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Nombre</span>
-                                        <input id="edit_nombre_admin" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre Completo" aria-describedby="addon-wrapping">
+                                        <input id="edit_nombre_admin" name="nombrecompleto" type="text" class="form-control" placeholder="Nombre Completo" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Correo Electrónico</span>
-                                        <input id="edit_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo Electrónico" aria-describedby="addon-wrapping">
+                                        <input id="edit_correo_admin" name="correo" type="email" class="form-control" placeholder="Correo Electrónico" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Fecha de Naciemiento</span>
-                                        <input id="edit_fechanacimiento_admin" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" aria-describedby="addon-wrapping">
+                                        <input id="edit_fechanacimiento_admin" name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Teléfono</span>
-                                        <input id="edit_telefono_admin" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping">
+                                        <input id="edit_telefono_admin" name="telefono" type="text" class="form-control" placeholder="9XXXXXXXX" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Dirección</span>
-                                        <input id="edit_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping">
+                                        <input id="edit_direccion_admin" name="direccion" type="text" class="form-control" placeholder="Dirección" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <!--que diferencia tiene ubicacion con direccion-->
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Región</span>
-                                        <input id="edit_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Región" aria-describedby="addon-wrapping">
+                                        <input id="edit_ubicacion_admin" name="ubicacion" type="text" class="form-control" placeholder="Región" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text placeholder col-3" id="addon-wrapping">Descripción</span>
-                                        <input id="edit_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Descripción" aria-describedby="addon-wrapping">
+                                        <input id="edit_descripcion_admin" name="descripcion" type="text" class="form-control" placeholder="Descripción" aria-describedby="addon-wrapping" required>
                                     </div>
                                 </div>
                             </div>

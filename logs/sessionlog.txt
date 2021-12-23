@@ -1,7 +1,95 @@
-Datos de la sesión: Mon Dec 20 2021 22:11:24 GMT-0300 (hora de verano de Chile)
-Cierre abrupto de sesión.
-
+Datos de la sesión: Thu Dec 23 2021 12:48:43 GMT-0300 (hora de verano de Chile)
+Página principal.
 
 >>Los datos de sesión coinciden.
 Iniciando Sesión...
--> Has ingresado con el rut 111 y el tipo Administrador, bienvenido.
+-> Has ingresado con el rut 197698802 y el tipo Administrador, bienvenido.
+No se pudo crear el usuario porque ya existe uno con el rut: "19769880".
+Creando...
+Usuario con rut: "19769890", creado.
+19769890 + ": Asignado como Institución
+Has cerrado sesión, adiós Mauro Olivares.
+
+
+Página principal.
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 19769890 y el tipo Institucion, bienvenido.
+Has cerrado sesión, adiós aaaa.
+
+
+Página principal.
+
+Página principal.
+
+Creando...
+Usuario con rut: "92613054", creado.
+92613054 + : Asignado como Veterinario
+Página principal.
+
+Creando...
+Usuario con rut: "79272701", creado.
+79272701 + ": Asignado como Dueño de mascotas
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 92613054 y el tipo Veterinario, bienvenido.
+Datos del usuario con rut: "92613054", se han actualizado.
+Datos del Veterinario con rut: "92613054", se han actualizado.
+Has cerrado sesión, adiós Ejemplo Vet.
+
+
+Página principal.
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 92613054 y el tipo Veterinario, bienvenido.
+Se ha añadido la mascota con id: "51363" y el dueño "19769890" a la plataforma
+Se ha añadido la mascota con id: "44024" y el dueño "19769890" a la plataforma
+Mascota con id: 51363 y propietario: undefined actualizada.
+Se ha añadido el control con id: "63679" a la mascota de codigo "51363"
+Se ha añadido el control con id: "14550" a la mascota de codigo "44024"
+Página principal.
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 666 y el tipo Dueno, bienvenido.
+Has cerrado sesión, adiós Dueño de pruebas.
+
+
+Página principal.
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 79272701 y el tipo Dueno, bienvenido.
+Se ha añadido la mascota con id: "46107" y el dueño "79272701" a la plataforma
+Se ha añadido el control con id: "27394" a la mascota de codigo "46107"
+Ficha de Adopción con id: 20288 y mascota: undefined ha actualizado su estado a Solicitada.
+Ficha de Adopción con id: 18713 y mascota: undefined ha actualizado su estado a Solicitada.
+Has cerrado sesión, adiós Dueño Ejemplo.
+
+
+Página principal.
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 92613054 y el tipo Veterinario, bienvenido.
+Ficha de Adopción con id: 20288 y mascota: 51363 ha actualizado su estado a Rechazada.
+Ficha de Adopción con id: 18713 y mascota: 44024 ha actualizado su estado a Aprobada.
+Mascota con id: 44024 y propietario: 79272701 actualizada.
+Controles de mascota: 44024 se han actualizado, ahora pertenecen a 79272701.
+Has cerrado sesión, adiós Ejemplo Vet.
+
+
+Página principal.
+
+>>Los datos de sesión coinciden.
+Iniciando Sesión...
+-> Has ingresado con el rut 79272701 y el tipo Dueno, bienvenido.
+Has cerrado sesión, adiós Dueño Ejemplo.
+
+
+Página principal.
+
+Página principal.
+

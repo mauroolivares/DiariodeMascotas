@@ -17,7 +17,7 @@ exports.isAuthenticated = (usuario, tipo) => {
 
 //Sitio para iniciar sesion:
 exports.loginpage = (req, res) => {
-    logger.log(`Cierre abrupto de sesión.\n\n`)
+    logger.log(`Página principal.\n`)
     req.logout();
     res.render('paginaPrincipal');
 }

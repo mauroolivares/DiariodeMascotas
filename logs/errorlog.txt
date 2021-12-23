@@ -1,1 +1,5 @@
-Errores de la sesión: Mon Dec 20 2021 22:11:24 GMT-0300 (hora de verano de Chile)
+Errores de la sesión: Thu Dec 23 2021 12:48:43 GMT-0300 (hora de verano de Chile)
+< No has iniciado sesión correctamente >
+< No has iniciado sesión correctamente >
+control is not defined
+control is not defined

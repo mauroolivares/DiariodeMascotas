@@ -120,7 +120,7 @@
                         <div class="col-12">
                             <div class="form-group row">
                                 <label for="request_telefono" class="col-sm-4 col-form-label">Respuesta</label>
-                                <select id="solicitante_respuesta" name="estado" class="form-select form-select-sm col-sm-6" placerholder="Respuesta" aria-label=".form-select-sm example">
+                                <select id="solicitante_respuesta" name="estado" class="form-select form-select-sm col-sm-6" placerholder="Respuesta" aria-label=".form-select-sm example" required>
                                     <option>Aprobada</option>
                                     <option>Rechazada</option>                               
                                 </select>
@@ -139,7 +139,7 @@
                             <div class="form-group row">
                                 <label for="request_telefono" class="col-sm-4 col-form-label">Razón de la respuesta</label>
                                 <div class="col-sm-6">
-                                    <textarea id="observacionfinal" name="observacion" type="text" style="height: 130px;" class="form-control" aria-describedby="addon-wrapping"></textarea>
+                                    <textarea id="observacionfinal" name="observacion" type="text" style="height: 130px;" class="form-control" aria-describedby="addon-wrapping" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                                 <div class="form-group row">
                                     <label for="add_nombremascota" class="col-sm-4 col-form-label">Nombre Mascota</label>
                                     <div class="col-sm-8">
-                                        <input id="add_nombremascota" name="nombremascota" type="text" class="form-control" placeholder="Nombre mascota" aria-describedby="addon-wrapping" readonly>
+                                        <input id="add_nombremascota" name="nombremascota" type="text" class="form-control" placeholder="Nombre mascota" aria-describedby="addon-wrapping" required readonly>
                                     </div>
 
                                 </div>
@@ -197,7 +197,7 @@
                                 <div class="form-group row">
                                     <label for="add_observacion" class="col-sm-4 col-form-label">Observación</label>
                                     <div class="col-sm-8">
-                                        <textarea id="add_observacion" name="observacion" type="text" class="form-control" style="height: 130px;" placeholder="Observación de la mascota" aria-describedby="addon-wrapping"> </textarea>
+                                        <textarea id="add_observacion" name="observacion" type="text" class="form-control" style="height: 130px;" placeholder="Observación de la mascota" aria-describedby="addon-wrapping" required> </textarea>
                                     </div>
                                 </div>
                             </div>
